@@ -172,17 +172,53 @@
     </div>
 
     <script>
-        function openLightbox(imageSrc, metadata) {
-            document.getElementById('lightbox-image').src = imageSrc;
-            document.getElementById('lightbox-title').textContent = metadata?.title || 'Untitled Image';
-            document.getElementById('lightbox-bio').textContent = metadata?.bio || '';
-            document.getElementById('lightbox-details').textContent = metadata?.details || '';
-            document.getElementById('lightbox').classList.add('active');
+        const repoOwner = 'BriskartStudio';
+        const repoName = 'VividLovely';
+        const folderPath = 'gallery';
+        const metadataFile = 'gallery/metadata.json';
+
+        async function fetchMetadata() {
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${metadataFile}`);
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching metadata:', error);
+                return {};
+            }
         }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
+        async function fetchImages() {
+            try {
+                const metadata = await fetchMetadata();
+                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
+                const data = await response.json();
+                const gallery = document.getElementById('gallery');
+
+                data.forEach(file => {
+                    if (file.type === 'file') {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.classList.add('gallery-item');
+                        galleryItem.onclick = () => openLightbox(file.download_url, metadata[file.name]);
+                        
+                        const img = document.createElement('img');
+                        img.src = file.download_url;
+                        img.alt = file.name;
+                        
+                        const title = document.createElement('div');
+                        title.classList.add('image-title');
+                        title.textContent = metadata[file.name]?.title || 'Untitled Image';
+                        
+                        galleryItem.appendChild(img);
+                        galleryItem.appendChild(title);
+                        gallery.appendChild(galleryItem);
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
         }
+
+        fetchImages();
     </script>
 </body>
 </html>
