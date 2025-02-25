@@ -71,7 +71,18 @@ body.no-scroll {
    overflow: hidden; /* Prevents scrolling while overlay is active */
 }
 </style>
-
+<script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        var elem = document.querySelector('.gallery');
+        var msnry = new Masonry(elem, {
+            itemSelector: '.gallery img', // Image elements as items
+            columnWidth: '.gallery',       // Define the column width
+            gutter: 0,                     // No gap between items
+            fitWidth: true                 // Fit the grid to container width
+        });
+    });
+</script>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
    // Check if the user has already confirmed
