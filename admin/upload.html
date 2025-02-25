@@ -80,7 +80,7 @@
         }
 
         async function updateMetadata(filename, name, bio, details, token) {
-            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+            const metadataUrl = `https://api.github.com/repos/${repo}/${metadataPath}`;
             const response = await fetch(metadataUrl, {
                 headers: { 'Authorization': `token ${token}` }
             });
@@ -96,7 +96,7 @@
         }
 
         async function commitFile(path, content, token, message) {
-            const url = `https://api.github.com/repos/${repo}/contents/${path}`;
+            const url = `https://api.github.com/repos/${repo}/${path}`;
             const response = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
             const data = await response.json();
             
