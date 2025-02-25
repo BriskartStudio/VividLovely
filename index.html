@@ -18,7 +18,14 @@
                     width: 90vw;
                     max-width: 1200px;
                 }
-        .gallery img { width: 100%; height: auto; display: block; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0; /* Remove any margins */
+    padding: 0; /* Remove any padding */
+}
         .gallery img:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
     </style>
     <style>
