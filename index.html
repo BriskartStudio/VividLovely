@@ -170,6 +170,19 @@
             </div>
         </div>
     </div>
+        <script>
+        function openLightbox(imageUrl, metadata) {
+            document.getElementById('lightbox-image').src = imageUrl;
+            document.getElementById('lightbox-title').textContent = metadata?.title || 'Untitled Image';
+            document.getElementById('lightbox-bio').textContent = metadata?.bio || 'No bio available.';
+            document.getElementById('lightbox-details').textContent = metadata?.details || 'No details available.';
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
 
     <script>
         const repoOwner = 'BriskartStudio';
