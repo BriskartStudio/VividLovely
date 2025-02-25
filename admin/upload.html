@@ -12,6 +12,10 @@
 <body>
     <h2>Add Image to Gallery</h2>
     <form id="uploadForm">
+        <label for="token">GitHub Token:</label>
+        <input type="password" id="token" placeholder="Enter GitHub Token">
+        <button type="button" onclick="saveToken()">Save Token</button>
+
         <label for="imageFile">Upload Image:</label>
         <input type="file" id="imageFile" accept="image/*">
         
@@ -24,31 +28,98 @@
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
         
-        <button type="button" onclick="updateMetadata()">Generate Metadata</button>
+        <button type="button" onclick="uploadImage()">Upload & Update Metadata</button>
     </form>
     
     <pre id="output"></pre>
     
     <script>
-        function updateMetadata() {
-            const imageName = document.getElementById('imageName').value.trim();
-            const imageBio = document.getElementById('imageBio').value.trim();
-            const imageDetails = document.getElementById('imageDetails').value.trim();
-            const imageFile = document.getElementById('imageFile').files[0];
-            
-            if (!imageName || !imageFile) {
-                alert('Please provide an image and a name.');
+        const repo = "your-github-username/vivid-lovely";
+        const metadataPath = "metadata.json";
+        const galleryPath = "gallery/";
+
+        function saveToken() {
+            const token = document.getElementById('token').value.trim();
+            if (token) {
+                localStorage.setItem('githubToken', token);
+                alert("Token saved locally!");
+            }
+        }
+
+        async function uploadImage() {
+            const token = localStorage.getItem('githubToken');
+            if (!token) {
+                alert("Please enter and save your GitHub token first.");
                 return;
             }
             
-            const metadata = {
-                "name": imageName,
-                "bio": imageBio,
-                "details": imageDetails,
-                "filename": imageFile.name
+            const imageFile = document.getElementById('imageFile').files[0];
+            if (!imageFile) {
+                alert("Please select an image.");
+                return;
+            }
+            
+            const imageName = document.getElementById('imageName').value.trim();
+            const imageBio = document.getElementById('imageBio').value.trim();
+            const imageDetails = document.getElementById('imageDetails').value.trim();
+            
+            if (!imageName) {
+                alert("Please provide an image name.");
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = async function () {
+                const base64Image = reader.result.split(',')[1];
+                const imagePath = `${galleryPath}${imageFile.name}`;
+                
+                await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`);
+                await updateMetadata(imageFile.name, imageName, imageBio, imageDetails, token);
+            };
+            reader.readAsDataURL(imageFile);
+        }
+
+        async function updateMetadata(filename, name, bio, details, token) {
+            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+            const response = await fetch(metadataUrl, {
+                headers: { 'Authorization': `token ${token}` }
+            });
+            const data = await response.json();
+            const content = atob(data.content);
+            const metadata = JSON.parse(content);
+            
+            metadata.push({ "name": name, "bio": bio, "details": details, "filename": filename });
+            
+            const updatedContent = btoa(JSON.stringify(metadata, null, 4));
+            
+            await commitFile(metadataPath, updatedContent, token, `Updated metadata.json with ${name}`);
+        }
+
+        async function commitFile(path, content, token, message) {
+            const url = `https://api.github.com/repos/${repo}/contents/${path}`;
+            const response = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+            const data = await response.json();
+            
+            const commitData = {
+                message: message,
+                content: content,
+                branch: "main"
             };
             
-            document.getElementById('output').textContent = JSON.stringify(metadata, null, 4);
+            if (data.sha) {
+                commitData.sha = data.sha;
+            }
+            
+            await fetch(url, {
+                method: "PUT",
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(commitData)
+            });
+            
+            alert("Upload successful!");
         }
     </script>
 </body>
