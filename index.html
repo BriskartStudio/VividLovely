@@ -7,103 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
     <style>
         /* Add your styling here */
-        body { font-family: 'Work Sans', sans-serif; background-color: #1a1a1a; color: #f5f5f5; display: flex; flex-direction: column; align-items: center; }
-        header { text-align: center; margin: 3rem 0; }
-        h1 { font-size: 3rem; margin: 0; color: #f5f5f5; font-family: 'Lato', sans-serif; }
-        h2 { font-size: 1.2rem; font-weight: 300; color: #888; margin-top: 0.5rem; font-family: 'Work Sans', sans-serif; }
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #f5f5f5;
+            font-family: 'Lato', sans-serif;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #888;
+            margin-top: 0.5rem;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        /* Gallery styling */
         .gallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 0px; /* Spacing between images */
             justify-content: center;
-            max-width: 1200px;
+            gap: 10px; /* Optional: space between images */
             width: 90vw;
+            max-width: 1200px;
         }
+
         .gallery img {
-            width: 16.66%; /* 100% / 6 images = 16.66% for 6 images per row */
+            width: 200px; /* Fixed width for images */
             height: auto;
             display: block;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .gallery img:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
-    </style>
-    <style>
-        /* The overlay style */
-        #ageOverlay {
-           position: fixed;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background: rgba(0, 0, 0, 0.95); /* Dark overlay */
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           z-index: 9999; /* Ensures the overlay is on top */
-           color: white;
-           font-size: 24px;
-           text-align: center;
-           backdrop-filter: blur(20px); /* Blurs the background */
-        }
 
-        /* Button style */
-        #confirmButton {
-           padding: 10px 20px;
-           background-color: #4CAF50;
-           color: white;
-           border: none;
-           font-size: 18px;
-           cursor: pointer;
-           margin-top: 20px;
-        }
-
-        #confirmButton:hover {
-           background-color: #45a049;
-        }
-
-        /* Ensure the body doesn't show before confirmation */
-        body.no-scroll {
-           overflow: hidden; /* Prevents scrolling while overlay is active */
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
     </style>
-    <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-    <script>
-        window.addEventListener('load', function() {
-            var elem = document.querySelector('.gallery');
-            var msnry = new Masonry(elem, {
-                itemSelector: '.gallery img',  // Images are the grid items
-                gutter: 10,                    // Adds a small gap between images
-                fitWidth: true                 // Ensures the layout is centered based on the container
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            // Check if the user has already confirmed
-            if (!localStorage.getItem("ageConfirmed")) {
-                // Disable scrolling
-                document.body.classList.add("no-scroll");
-
-                // Create the overlay
-                var overlay = document.createElement("div");
-                overlay.id = "ageOverlay";
-                overlay.innerHTML = `
-                    <div>
-                        <p>You must be 18+ to access this site.</p>
-                        <button id="confirmButton">Yes, I am over 18</button>
-                    </div>
-                `;
-                document.body.appendChild(overlay);
-
-                // Handle the confirmation
-                document.getElementById("confirmButton").addEventListener("click", function() {
-                    localStorage.setItem("ageConfirmed", "true");
-                    document.body.classList.remove("no-scroll");
-                    overlay.remove(); // Remove overlay after confirmation
-                });
-            }
-        });
-    </script>
 </head>
 <body>
     <header>
@@ -115,32 +69,4 @@
 
     <script>
         const repoOwner = 'BriskartStudio';  // Your GitHub username or organization
-        const repoName = 'VividLovely';  // Your GitHub repo name
-        const folderPath = 'Gallery';  // Path to the folder containing images in your repo
-
-        // Fetch the list of files in the GitHub repository
-        async function fetchImages() {
-            try {
-                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
-                const data = await response.json();
-                const gallery = document.getElementById('gallery');
-
-                // Loop through the files and add images to the gallery
-                data.forEach(file => {
-                    if (file.type === 'file' && (file.name.endsWith('.jpg') || file.name.endsWith('.png') || file.name.endsWith('.jpeg'))) {
-                        const img = document.createElement('img');
-                        img.src = file.download_url;
-                        img.alt = file.name;
-                        gallery.appendChild(img);
-                    }
-                });
-            } catch (error) {
-                console.error('Error fetching images:', error);
-            }
-        }
-
-        // Call the function to fetch and display images
-        fetchImages();
-    </script>
-</body>
-</html>
+        const rep
