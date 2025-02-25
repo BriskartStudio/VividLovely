@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivid Lovely - Add Image</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        label, input, textarea, button { display: block; width: 100%; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Add Image to Gallery</h2>
+    <form id="uploadForm">
+        <label for="imageFile">Upload Image:</label>
+        <input type="file" id="imageFile" accept="image/*">
+        
+        <label for="imageName">Image Name:</label>
+        <input type="text" id="imageName" required>
+        
+        <label for="imageBio">Bio:</label>
+        <textarea id="imageBio" rows="4" required></textarea>
+        
+        <label for="imageDetails">Additional Info:</label>
+        <textarea id="imageDetails" rows="2"></textarea>
+        
+        <button type="button" onclick="updateMetadata()">Generate Metadata</button>
+    </form>
+    
+    <pre id="output"></pre>
+    
+    <script>
+        function updateMetadata() {
+            const imageName = document.getElementById('imageName').value.trim();
+            const imageBio = document.getElementById('imageBio').value.trim();
+            const imageDetails = document.getElementById('imageDetails').value.trim();
+            const imageFile = document.getElementById('imageFile').files[0];
+            
+            if (!imageName || !imageFile) {
+                alert('Please provide an image and a name.');
+                return;
+            }
+            
+            const metadata = {
+                "name": imageName,
+                "bio": imageBio,
+                "details": imageDetails,
+                "filename": imageFile.name
+            };
+            
+            document.getElementById('output').textContent = JSON.stringify(metadata, null, 4);
+        }
+    </script>
+</body>
+</html>
