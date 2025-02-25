@@ -69,4 +69,32 @@
 
     <script>
         const repoOwner = 'BriskartStudio';  // Your GitHub username or organization
-        const rep
+        const repoName = 'VividLovely';  // Your GitHub repo name
+        const folderPath = 'assets/images';  // Path to the folder containing images in your repo
+
+        // Fetch the list of files in the GitHub repository
+        async function fetchImages() {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
+                const data = await response.json();
+                const gallery = document.getElementById('gallery');
+
+                // Loop through the files and add images to the gallery
+                data.forEach(file => {
+                    if (file.type === 'file' && (file.name.endsWith('.jpg') || file.name.endsWith('.png') || file.name.endsWith('.jpeg'))) {
+                        const img = document.createElement('img');
+                        img.src = file.download_url;
+                        img.alt = file.name;
+                        gallery.appendChild(img);
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        // Call the function to fetch and display images
+        fetchImages();
+    </script>
+</body>
+</html>
