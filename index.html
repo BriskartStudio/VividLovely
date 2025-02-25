@@ -6,7 +6,6 @@
     <title>Vivid Lovely</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
     <style>
-        /* Add your styling here */
         body {
             font-family: 'Work Sans', sans-serif;
             background-color: #1a1a1a;
@@ -41,21 +40,18 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px; /* Optional: space between images */
-            width: 90vw;
-            max-width: 1200px;
+            width: 100vw;
+            max-width: 100%;
         }
 
         .gallery img {
-            width: 200px; /* Fixed width for images */
+            width: 200px; /* Adjust as needed */
             height: auto;
+            margin: 0;
+            padding: 0;
             display: block;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+            aspect-ratio: auto;
         }
     </style>
 </head>
@@ -68,18 +64,16 @@
     <div class="gallery" id="gallery"></div>
 
     <script>
-        const repoOwner = 'BriskartStudio';  // Your GitHub username or organization
-        const repoName = 'VividLovely';  // Your GitHub repo name
-        const folderPath = 'gallery';  // Path to the folder containing images in your repo
+        const repoOwner = 'BriskartStudio';
+        const repoName = 'VividLovely';
+        const folderPath = 'gallery';
 
-        // Fetch the list of files in the GitHub repository
         async function fetchImages() {
             try {
                 const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
                 const data = await response.json();
                 const gallery = document.getElementById('gallery');
 
-                // Loop through the files and add images to the gallery
                 data.forEach(file => {
                     if (file.type === 'file' && (file.name.endsWith('.jpg') || file.name.endsWith('.png') || file.name.endsWith('.jpeg'))) {
                         const img = document.createElement('img');
@@ -93,7 +87,6 @@
             }
         }
 
-        // Call the function to fetch and display images
         fetchImages();
     </script>
 </body>
