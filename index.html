@@ -17,13 +17,11 @@
             max-width: 1200px;
             }
         .gallery img {
-            width: 100%;
+            width: 16.66%; /* 100% / 6 images = 16.66% for 6 images per row */
             height: auto;
             display: block;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box; /* Ensures no space is added by padding or borders */
+            margin-bottom: 10px; /* Optional: for spacing between images */
         }
         .gallery img:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
     </style>
@@ -71,10 +69,9 @@ body.no-scroll {
     window.addEventListener('load', function() {
         var elem = document.querySelector('.gallery');
         var msnry = new Masonry(elem, {
-            itemSelector: '.gallery img', // Image elements as items
-            columnWidth: '.gallery',       // Define the column width
-            gutter: 0,                     // No gap between items
-            fitWidth: true                 // Fit the grid to container width
+            itemSelector: '.gallery img',  // Images are the grid items
+            gutter: 0,                     // No gutter between images
+            fitWidth: true                 // Ensures the layout is centered based on the container
         });
     });
 </script>
