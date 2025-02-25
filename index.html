@@ -13,6 +13,8 @@
         h2 { font-size: 1.2rem; font-weight: 300; color: #888; margin-top: 0.5rem; font-family: 'Work Sans', sans-serif; }
         .gallery {
             display: grid;
+            column-count: 6; /* Number of columns */
+            column-gap: 0; /* No gap between columns */
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Increased the min width */
             grid-auto-rows: auto; /* Makes each row adjust to the image height */
             gap: 0;
