@@ -32,7 +32,7 @@
         // Fetch the list of files in the GitHub repository
         async function fetchImages() {
             try {
-                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
+                const response = await fetch(`https://api.github.com/repos/BriskartStudio/VividLovely/contents/Gallery`);
                 const data = await response.json();
                 const gallery = document.getElementById('gallery');
 
