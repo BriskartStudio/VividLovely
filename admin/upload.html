@@ -82,7 +82,7 @@
                 const base64Image = reader.result.split(',')[1];
                 const imagePath = `${galleryPath}${imageFile.name}`;
                 
-                await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`);
+                await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`, false);
                 await updateMetadata(imageFile.name, imageName, imageBio, imageDetails, token);
             };
             reader.readAsDataURL(imageFile);
@@ -90,24 +90,33 @@
 
         async function updateMetadata(filename, name, bio, details, token) {
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-            const response = await fetch(metadataUrl, {
-                headers: { 'Authorization': `token ${token}` }
-            });
-            const data = await response.json();
-            const content = atob(data.content);
-            const metadata = JSON.parse(content);
+            let metadata = [];
+            let sha = null;
+            
+            try {
+                const response = await fetch(metadataUrl, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    sha = data.sha;
+                    const content = atob(data.content || "");
+                    metadata = JSON.parse(content || "[]");
+                }
+            } catch (error) {
+                console.warn("metadata.json not found. Creating a new one.");
+            }
             
             metadata.push({ "name": name, "bio": bio, "details": details, "filename": filename });
             
             const updatedContent = btoa(JSON.stringify(metadata, null, 4));
             
-            await commitFile(metadataPath, updatedContent, token, `Updated metadata.json with ${name}`);
+            await commitFile(metadataPath, updatedContent, token, `Updated metadata.json with ${name}`, sha);
         }
 
-        async function commitFile(path, content, token, message) {
+        async function commitFile(path, content, token, message, sha = null) {
             const url = `https://api.github.com/repos/${repo}/contents/${path}`;
-            const response = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
-            const data = await response.json();
             
             const commitData = {
                 message: message,
@@ -115,11 +124,11 @@
                 branch: "main"
             };
             
-            if (data.sha) {
-                commitData.sha = data.sha;
+            if (sha) {
+                commitData.sha = sha;
             }
             
-            await fetch(url, {
+            const response = await fetch(url, {
                 method: "PUT",
                 headers: {
                     'Authorization': `token ${token}`,
@@ -128,7 +137,12 @@
                 body: JSON.stringify(commitData)
             });
             
-            alert("Upload successful!");
+            if (response.ok) {
+                alert("Upload successful!");
+            } else {
+                alert("Upload failed. Check console for details.");
+                console.error(await response.json());
+            }
         }
     </script>
 </body>
