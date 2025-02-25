@@ -215,37 +215,41 @@
         }
 
         async function fetchImages() {
-            try {
-                const metadata = await fetchMetadata();
-                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
-                const data = await response.json();
-                const gallery = document.getElementById('gallery');
+    try {
+        const metadata = await fetchMetadata();
+        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
+        const data = await response.json();
+        const gallery = document.getElementById('gallery');
 
-                data.forEach(file => {
-                    if (file.type === 'file') {
-                        const galleryItem = document.createElement('div');
-                        galleryItem.classList.add('gallery-item');
-                        galleryItem.onclick = () => openLightbox(file.download_url, metadata[file.name]);
-                        
-                        const img = document.createElement('img');
-                        img.src = file.download_url;
-                        img.alt = file.name;
-                        
-                        const title = document.createElement('div');
-                        title.classList.add('image-title');
-                        title.textContent = metadata[file.name]?.title || 'Untitled Image';
-                        
-                        galleryItem.appendChild(img);
-                        galleryItem.appendChild(title);
-                        gallery.appendChild(galleryItem);
-                    }
-                });
-            } catch (error) {
-                console.error('Error fetching images:', error);
+        // Sort by filename (assuming filenames are in ascending order based on upload time)
+        data.sort((a, b) => b.name.localeCompare(a.name));
+
+        gallery.innerHTML = ""; // Clear gallery before inserting new sorted items
+
+        data.forEach(file => {
+            if (file.type === 'file' && file.download_url) {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+                galleryItem.onclick = () => openLightbox(file.download_url, metadata[file.name]);
+                
+                const img = document.createElement('img');
+                img.src = file.download_url;
+                img.alt = file.name;
+                
+                const title = document.createElement('div');
+                title.classList.add('image-title');
+                title.textContent = metadata[file.name]?.title || 'Untitled Image';
+                
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(title);
+                gallery.prepend(galleryItem); // Insert at the top to maintain order
             }
-        }
+        });
+    } catch (error) {
+        console.error('Error fetching images:', error);
+    }
+}
 
-        fetchImages();
     </script>
 </body>
 </html>
