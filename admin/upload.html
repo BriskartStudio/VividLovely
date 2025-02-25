@@ -37,6 +37,7 @@
         const repo = "briskartstudio/vivid-lovely";
         const metadataPath = "metadata.json";
         const galleryPath = "gallery/";
+        const branch = "main";
 
         function saveToken() {
             const token = document.getElementById('token').value.trim();
@@ -54,6 +55,14 @@
         }
         
         window.onload = loadToken;
+
+        function utf8_to_b64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(atob(str)));
+        }
 
         async function uploadImage() {
             const token = localStorage.getItem('githubToken');
@@ -101,7 +110,7 @@
                 if (response.ok) {
                     const data = await response.json();
                     sha = data.sha;
-                    const content = atob(data.content || "");
+                    const content = b64_to_utf8(data.content || "");
                     metadata = JSON.parse(content || "[]");
                 }
             } catch (error) {
@@ -110,7 +119,7 @@
             
             metadata.push({ "name": name, "bio": bio, "details": details, "filename": filename });
             
-            const updatedContent = btoa(JSON.stringify(metadata, null, 4));
+            const updatedContent = utf8_to_b64(JSON.stringify(metadata, null, 4));
             
             await commitFile(metadataPath, updatedContent, token, `Updated metadata.json with ${name}`, sha);
         }
@@ -121,7 +130,7 @@
             const commitData = {
                 message: message,
                 content: content,
-                branch: "main"
+                branch: branch
             };
             
             if (sha) {
