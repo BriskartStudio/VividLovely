@@ -4,5 +4,11 @@
         "bio": "Test",
         "details": "TestI",
         "filename": "Hoodie-Enhanced-FINAL.png"
+    },
+    {
+        "name": "Test",
+        "bio": "Test",
+        "details": "Test",
+        "filename": "Hoodie2.1.png"
     }
 ]
