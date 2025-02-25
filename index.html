@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivid Lovely</title>
@@ -111,6 +112,7 @@
             display: flex;
             align-items: flex-start;
             gap: 20px;
+            position: relative;
         }
 
         .lightbox-image {
@@ -129,6 +131,7 @@
             backdrop-filter: blur(10px);
             opacity: 0.9;
             max-width: 40%;
+            align-self: flex-start;
         }
 
         .lightbox-info h3 {
@@ -141,14 +144,25 @@
             line-height: 1.5;
         }
 
-        .close-lightbox {
+        .lightbox-nav {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 2rem;
-            color: #ffe2d7;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
+            color: #ffe2d7;
+            font-size: 2rem;
+            user-select: none;
         }
+
+        .lightbox-prev { left: -60px; }
+        .lightbox-next { right: -60px; }
     </style>
 </head>
 <body>
