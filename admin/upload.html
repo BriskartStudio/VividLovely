@@ -46,6 +46,15 @@
             }
         }
 
+        function loadToken() {
+            const token = localStorage.getItem('githubToken');
+            if (token) {
+                document.getElementById('token').value = token;
+            }
+        }
+        
+        window.onload = loadToken;
+
         async function uploadImage() {
             const token = localStorage.getItem('githubToken');
             if (!token) {
@@ -80,7 +89,7 @@
         }
 
         async function updateMetadata(filename, name, bio, details, token) {
-            const metadataUrl = `https://api.github.com/repos/${repo}/${metadataPath}`;
+            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
             const response = await fetch(metadataUrl, {
                 headers: { 'Authorization': `token ${token}` }
             });
@@ -96,7 +105,7 @@
         }
 
         async function commitFile(path, content, token, message) {
-            const url = `https://api.github.com/repos/${repo}/${path}`;
+            const url = `https://api.github.com/repos/${repo}/contents/${path}`;
             const response = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
             const data = await response.json();
             
