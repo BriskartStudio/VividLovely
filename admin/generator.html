@@ -46,8 +46,8 @@
 
         function compileCharacter() {
             let compiledText = `A ${document.getElementById('Theme').value} ${document.getElementById('Species').value} ` +
-                `with a ${document.getElementById('BodyType').value} and ${document.getElementById('BodyFeatures').value}, ` +
-                `working as a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
+                `with a ${document.getElementById('BodyType').value} body, and ${document.getElementById('BodyFeatures').value}, ` +
+                `who is a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
                 `and are posed in a ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
             
             document.getElementById("compiledOutput").innerText = compiledText;
