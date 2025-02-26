@@ -32,7 +32,7 @@
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
         
-        <button type="button" onclick="uploadImage()">Upload & Update Metadata</button>
+        <button type="button" onclick="updateMetadata()">Update Metadata</button>
     </form>
     
     <h2>Gallery</h2>
@@ -41,6 +41,7 @@
             <tr>
                 <th>Thumbnail</th>
                 <th>Name</th>
+                <th>Order</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -55,6 +56,7 @@
         const galleryPath = "gallery/";
         const branch = "main";
         let metadata = {};
+        let editingFilename = null;
 
         function saveToken() {
             const token = document.getElementById('token').value.trim();
@@ -97,28 +99,71 @@
                     const table = document.getElementById('galleryTable');
                     table.innerHTML = "";
                     
-                    Object.entries(metadata).forEach(([filename, item]) => {
-                        const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
-                        const row = `<tr>
-                            <td><img src='${imageUrl}' alt='${item.title}'></td>
-                            <td>${item.title}</td>
-                            <td class="actions">
-                                <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}')">Edit</button>
-                                <button onclick="deleteImage('${filename}')">Delete</button>
-                            </td>
-                        </tr>`;
-                        table.innerHTML += row;
-                    });
+                    Object.entries(metadata)
+                        .sort((a, b) => b[1].order - a[1].order)
+                        .forEach(([filename, item]) => {
+                            const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
+                            const row = `<tr>
+                                <td><img src='${imageUrl}' alt='${item.title}'></td>
+                                <td>${item.title}</td>
+                                <td>${item.order}</td>
+                                <td class="actions">
+                                    <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}', ${item.order})">Edit</button>
+                                    <button onclick="deleteImage('${filename}')">Delete</button>
+                                </td>
+                            </tr>`;
+                            table.innerHTML += row;
+                        });
                 }
             } catch (error) {
                 console.warn("Failed to load gallery.", error);
             }
         }
 
-        function editImage(filename, name, bio, details) {
+        function editImage(filename, name, bio, details, order) {
             document.getElementById('imageName').value = name;
             document.getElementById('imageBio').value = bio;
             document.getElementById('imageDetails').value = details;
+            editingFilename = filename;
+        }
+
+        async function updateMetadata() {
+            if (!editingFilename) {
+                alert("No image selected for editing.");
+                return;
+            }
+            
+            const token = localStorage.getItem('githubToken');
+            metadata[editingFilename].title = document.getElementById('imageName').value;
+            metadata[editingFilename].bio = document.getElementById('imageBio').value;
+            metadata[editingFilename].details = document.getElementById('imageDetails').value;
+            
+            const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
+            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+            
+            try {
+                const response = await fetch(metadataUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "Update metadata",
+                        content: updatedMetadata,
+                        branch: branch,
+                        sha: metadata.sha
+                    })
+                });
+                if (response.ok) {
+                    alert("Metadata updated successfully!");
+                    loadGallery();
+                } else {
+                    alert("Failed to update metadata.");
+                }
+            } catch (error) {
+                console.warn("Error updating metadata:", error);
+            }
         }
     </script>
 </body>
