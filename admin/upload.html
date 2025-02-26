@@ -92,9 +92,9 @@
         }
 
         async function loadGallery() {
-            const token = localStorage.getItem('githubToken');
-            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-               
+    const token = localStorage.getItem('githubToken');
+    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+    
     try {
         const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
         if (response.ok) {
@@ -110,11 +110,13 @@
                 .forEach(([filename, item]) => {
                     const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
 
-                    // Ensure all fields exist and escape quotes properly
-                    const title = item.title ? item.title.replace(/'/g, "\\'") : "";
-                    const bio = item.bio ? item.bio.replace(/'/g, "\\'") : "";
-                    const quote = item.quote ? item.quote.replace(/'/g, "\\'") : "";
-                    const details = item.details ? item.details.replace(/'/g, "\\'") : "";
+                    // Escape special characters properly
+                    const escapeString = (str) => str ? str.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, " ") : "";
+
+                    const title = escapeString(item.title);
+                    const bio = escapeString(item.bio);
+                    const quote = escapeString(item.quote);
+                    const details = escapeString(item.details);
                     const order = item.order || 0;
 
                     const row = `<tr>
@@ -133,6 +135,7 @@
         console.warn("Failed to load gallery.", error);
     }
 }
+
 
                 function editImage(filename, name, bio, details, quote, order) {
             document.getElementById('imageName').value = name || "";
