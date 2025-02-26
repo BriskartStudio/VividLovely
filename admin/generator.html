@@ -1,160 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Generator</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .attribute-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .attribute { display: flex; flex-direction: column; align-items: center; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .attribute-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 20px; }
+    .attribute { display: flex; flex-direction: column; align-items: center; }
+  </style>
 </head>
 <body>
-    <h1>Character Generator</h1>
-    <div class="attribute-container" id="attributes">
-        <!-- Attributes will be populated here -->
-    </div>
-    <button onclick="rollAll()">Roll All</button>
-    <button onclick="compileCharacter()">Compile</button>
-    <p id="compiledOutput"></p>
+  <h1>Character Generator</h1>
+  <div class="attribute-container" id="attributes">
+    <!-- Attributes will be populated here -->
+  </div>
+  <button onclick="rollAll()">Roll All</button>
+  <button onclick="compileCharacter()">Compile</button>
+  <!-- New button for sending to ChatGPT -->
+  <button onclick="sendToChatGPT()">Generate Bio</button>
+  <p id="compiledOutput"></p>
 
-    <script>
-        let attributes = {};
+  <script>
+    let attributes = {};
 
-        async function loadAttributes() {
-            try {
-                const response = await fetch('parameters.json');
-                attributes = await response.json();
-                setupAttributes();
-            } catch (error) {
-                console.error("Error loading parameters.json", error);
-            }
+    async function loadAttributes() {
+      try {
+        const response = await fetch('parameters.json');
+        attributes = await response.json();
+        setupAttributes();
+      } catch (error) {
+        console.error("Error loading parameters.json", error);
+      }
+    }
+
+    // Uniform random selection
+    function getRandomOption(options) {
+      return options[Math.floor(Math.random() * options.length)];
+    }
+
+    // Weighted random selection function
+    function weightedRandomChoice(options, weights) {
+      let totalWeight = weights.reduce((sum, w) => sum + w, 0);
+      let random = Math.random() * totalWeight;
+      for (let i = 0; i < options.length; i++) {
+        if (random < weights[i]) {
+          return options[i];
         }
+        random -= weights[i];
+      }
+      return options[options.length - 1];
+    }
 
-        // Uniform random selection
-        function getRandomOption(options) {
-            return options[Math.floor(Math.random() * options.length)];
+    // Roll Species with weighting
+    function rollSpecies() {
+      const currentTheme = document.getElementById("Theme").value;
+      let speciesOptions = attributes["Species"];
+      let weights = [];
+      const nonHumanCount = speciesOptions.length - 1; // all except Human
+
+      speciesOptions.forEach(species => {
+        if (species === "Human") {
+          weights.push(75);
+        } else {
+          let baseWeight = 25 / nonHumanCount; // evenly distribute remaining 25%
+          let factor = 1;
+          // Dependency: Werewolf is favored in certain themes
+          let favoredThemesForWerewolf = ["Steampunk", "Gothic", "Medieval Europe", "Viking Saga", "Wild West", "Roman Empire"];
+          if (species === "Werewolf" && favoredThemesForWerewolf.includes(currentTheme)) {
+            factor = 2;
+          }
+          // Dependency: Alien is less favored in certain themes
+          let disfavoredThemesForAlien = ["Steampunk", "Medieval Europe", "Wild West", "Viking Saga", "Roman Empire"];
+          if (species === "Alien" && disfavoredThemesForAlien.includes(currentTheme)) {
+            factor = 0.5;
+          }
+          weights.push(baseWeight * factor);
         }
+      });
+      let chosen = weightedRandomChoice(speciesOptions, weights);
+      document.getElementById("Species").value = chosen;
+    }
 
-        // Weighted random selection function
-        function weightedRandomChoice(options, weights) {
-            let totalWeight = weights.reduce((sum, w) => sum + w, 0);
-            let random = Math.random() * totalWeight;
-            for (let i = 0; i < options.length; i++) {
-                if (random < weights[i]) {
-                    return options[i];
-                }
-                random -= weights[i];
-            }
-            return options[options.length - 1];
+    // Roll Occupation with weighting
+    function rollOccupation() {
+      const currentTheme = document.getElementById("Theme").value;
+      let occupationOptions = attributes["Occupation"];
+      let weights = [];
+      occupationOptions.forEach(occupation => {
+        let baseWeight = 1;
+        // For Detective and Espionage Agent in Noir, Cyberpunk, Steampunk
+        let favoredForDetective = ["Noir", "Cyberpunk", "Steampunk"];
+        if ((occupation === "Detective" || occupation === "Espionage Agent") && favoredForDetective.includes(currentTheme)) {
+          baseWeight = 3;
         }
-
-        // Roll Species with weighting
-        function rollSpecies() {
-            const currentTheme = document.getElementById("Theme").value;
-            let speciesOptions = attributes["Species"];
-            let weights = [];
-            const nonHumanCount = speciesOptions.length - 1; // all except Human
-
-            speciesOptions.forEach(species => {
-                if (species === "Human") {
-                    weights.push(75);
-                } else {
-                    let baseWeight = 25 / nonHumanCount; // evenly distribute remaining 25%
-                    let factor = 1;
-                    // Dependency: Werewolf is favored in certain themes
-                    let favoredThemesForWerewolf = ["Steampunk", "Gothic", "Medieval Europe", "Viking Saga", "Wild West", "Roman Empire"];
-                    if (species === "Werewolf" && favoredThemesForWerewolf.includes(currentTheme)) {
-                        factor = 2;
-                    }
-                    // Dependency: Alien is less favored in certain themes
-                    let disfavoredThemesForAlien = ["Steampunk", "Medieval Europe", "Wild West", "Viking Saga", "Roman Empire"];
-                    if (species === "Alien" && disfavoredThemesForAlien.includes(currentTheme)) {
-                        factor = 0.5;
-                    }
-                    weights.push(baseWeight * factor);
-                }
-            });
-            let chosen = weightedRandomChoice(speciesOptions, weights);
-            document.getElementById("Species").value = chosen;
+        // For Pirate, Merchant, Explorer in Space Opera, Wild West, Arabian Nights, Ancient Egypt
+        let favoredForPirate = ["Space Opera", "Wild West", "Arabian Nights", "Ancient Egypt"];
+        if ((occupation === "Pirate" || occupation === "Merchant" || occupation === "Explorer") && favoredForPirate.includes(currentTheme)) {
+          baseWeight = 3;
         }
-
-        // Roll Occupation with weighting
-        function rollOccupation() {
-            const currentTheme = document.getElementById("Theme").value;
-            let occupationOptions = attributes["Occupation"];
-            let weights = [];
-            occupationOptions.forEach(occupation => {
-                let baseWeight = 1;
-                // For Detective and Espionage Agent in Noir, Cyberpunk, Steampunk
-                let favoredForDetective = ["Noir", "Cyberpunk", "Steampunk"];
-                if ((occupation === "Detective" || occupation === "Espionage Agent") && favoredForDetective.includes(currentTheme)) {
-                    baseWeight = 3;
-                }
-                // For Pirate, Merchant, Explorer in Space Opera, Wild West, Arabian Nights, Ancient Egypt
-                let favoredForPirate = ["Space Opera", "Wild West", "Arabian Nights", "Ancient Egypt"];
-                if ((occupation === "Pirate" || occupation === "Merchant" || occupation === "Explorer") && favoredForPirate.includes(currentTheme)) {
-                    baseWeight = 3;
-                }
-                // For Alchemist, Shaman, Priestess, Fortune Teller in Fantasy, Gothic, Ancient Egypt, Medieval Europe
-                let favoredForMystic = ["Fantasy", "Gothic", "Ancient Egypt", "Medieval Europe"];
-                if ((occupation === "Alchemist" || occupation === "Shaman" || occupation === "Priestess" || occupation === "Fortune Teller") && favoredForMystic.includes(currentTheme)) {
-                    baseWeight = 3;
-                }
-                // For Knight, Gladiator, Assassin in Medieval Europe, Roman Empire, Samurai Era, Viking Saga
-                let favoredForKnight = ["Medieval Europe", "Roman Empire", "Samurai Era", "Viking Saga"];
-                if ((occupation === "Knight" || occupation === "Gladiator" || occupation === "Assassin") && favoredForKnight.includes(currentTheme)) {
-                    baseWeight = 3;
-                }
-                weights.push(baseWeight);
-            });
-            let chosen = weightedRandomChoice(occupationOptions, weights);
-            document.getElementById("Occupation").value = chosen;
+        // For Alchemist, Shaman, Priestess, Fortune Teller in Fantasy, Gothic, Ancient Egypt, Medieval Europe
+        let favoredForMystic = ["Fantasy", "Gothic", "Ancient Egypt", "Medieval Europe"];
+        if ((occupation === "Alchemist" || occupation === "Shaman" || occupation === "Priestess" || occupation === "Fortune Teller") && favoredForMystic.includes(currentTheme)) {
+          baseWeight = 3;
         }
-
-        // For other attributes, we use uniform selection for now.
-        function rollAttribute(attr) {
-            if (attr === "Species") {
-                rollSpecies();
-            } else if (attr === "Occupation") {
-                rollOccupation();
-            } else {
-                document.getElementById(attr).value = getRandomOption(attributes[attr]);
-            }
+        // For Knight, Gladiator, Assassin in Medieval Europe, Roman Empire, Samurai Era, Viking Saga
+        let favoredForKnight = ["Medieval Europe", "Roman Empire", "Samurai Era", "Viking Saga"];
+        if ((occupation === "Knight" || occupation === "Gladiator" || occupation === "Assassin") && favoredForKnight.includes(currentTheme)) {
+          baseWeight = 3;
         }
+        weights.push(baseWeight);
+      });
+      let chosen = weightedRandomChoice(occupationOptions, weights);
+      document.getElementById("Occupation").value = chosen;
+    }
 
-        function rollAll() {
-            Object.keys(attributes).forEach(attr => rollAttribute(attr));
+    // For other attributes, we use uniform selection for now.
+    function rollAttribute(attr) {
+      if (attr === "Species") {
+        rollSpecies();
+      } else if (attr === "Occupation") {
+        rollOccupation();
+      } else {
+        document.getElementById(attr).value = getRandomOption(attributes[attr]);
+      }
+    }
+
+    function rollAll() {
+      Object.keys(attributes).forEach(attr => rollAttribute(attr));
+    }
+
+    function compileCharacter() {
+      let compiledText = `A ${document.getElementById('Theme').value} ${document.getElementById('Species').value} ` +
+        `with a ${document.getElementById('BodyType').value} and ${document.getElementById('BodyFeatures').value}, ` +
+        `working as a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
+        `and are posed in a ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
+      document.getElementById("compiledOutput").innerText = compiledText;
+    }
+
+    // New function: Send the compiled output along with a framing prompt to ChatGPT via OpenAI API
+    function sendToChatGPT() {
+      const compiled = document.getElementById("compiledOutput").innerText;
+      // Framing prompt for ChatGPT
+      const framingPrompt = `Please generate a creative and vivid character description, including an apt name, for a sexy female character with this desciption. :\n\n${compiled}`;
+      
+      // Replace 'YOUR_API_KEY' with your actual OpenAI API key. In production, consider moving this call to a backend for security.
+      fetch("https://api.openai.com/v1/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer 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
+        },
+        body: JSON.stringify({
+          model: "text-davinci-003",
+          prompt: framingPrompt,
+          max_tokens: 200,
+          temperature: 0.8
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.choices && data.choices.length > 0) {
+          // Update the output with the generated bio from ChatGPT
+          document.getElementById("compiledOutput").innerText = data.choices[0].text;
         }
+      })
+      .catch(error => console.error("Error:", error));
+    }
 
-        function compileCharacter() {
-            let compiledText = `A ${document.getElementById('Theme').value} ${document.getElementById('Species').value} ` +
-                `with a ${document.getElementById('BodyType').value} and ${document.getElementById('BodyFeatures').value}, ` +
-                `working as a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
-                `and are posed in a ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
-            document.getElementById("compiledOutput").innerText = compiledText;
-        }
+    function setupAttributes() {
+      const container = document.getElementById("attributes");
+      container.innerHTML = "";
+      Object.keys(attributes).forEach(attr => {
+        let div = document.createElement("div");
+        div.classList.add("attribute");
+        div.innerHTML = `
+          <label for="${attr}">${attr}</label>
+          <select id="${attr}">
+            ${attributes[attr].map(option => `<option value="${option}">${option}</option>`).join("")}
+          </select>
+          <button type="button" onclick="rollAttribute('${attr}')">Reroll</button>
+        `;
+        container.appendChild(div);
+      });
+      rollAll(); // Initial roll
+    }
 
-        function setupAttributes() {
-            const container = document.getElementById("attributes");
-            container.innerHTML = "";
-            Object.keys(attributes).forEach(attr => {
-                let div = document.createElement("div");
-                div.classList.add("attribute");
-                div.innerHTML = `
-                    <label for="${attr}">${attr}</label>
-                    <select id="${attr}">
-                        ${attributes[attr].map(option => `<option value="${option}">${option}</option>`).join("")}
-                    </select>
-                    <button type="button" onclick="rollAttribute('${attr}')">Reroll</button>
-                `;
-                container.appendChild(div);
-            });
-            rollAll(); // Initial roll
-        }
-
-        document.addEventListener("DOMContentLoaded", loadAttributes);
-    </script>
+    document.addEventListener("DOMContentLoaded", loadAttributes);
+  </script>
 </body>
 </html>
