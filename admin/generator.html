@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .attribute-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        .attribute { display: flex; flex-direction: column; align-items: center; }
+    </style>
+</head>
+<body>
+    <h1>Character Generator</h1>
+    <div class="attribute-container" id="attributes">
+        <!-- Attributes will be populated here -->
+    </div>
+    <button onclick="rollAll()">Roll All</button>
+    <button onclick="compileCharacter()">Compile</button>
+    <p id="compiledOutput"></p>
+
+    <script>
+        let attributes = {};
+
+        async function loadAttributes() {
+            try {
+                const response = await fetch('parameters.json');
+                attributes = await response.json();
+                setupAttributes();
+            } catch (error) {
+                console.error("Error loading parameters.json", error);
+            }
+        }
+
+        function getRandomOption(options) {
+            return options[Math.floor(Math.random() * options.length)];
+        }
+
+        function rollAttribute(attr) {
+            document.getElementById(attr).value = getRandomOption(attributes[attr]);
+        }
+
+        function rollAll() {
+            Object.keys(attributes).forEach(attr => rollAttribute(attr));
+        }
+
+        function compileCharacter() {
+            let compiledText = `A ${document.getElementById('Theme').value} ${document.getElementById('Species').value} ` +
+                `with a ${document.getElementById('BodyType').value} and ${document.getElementById('BodyFeatures').value}, ` +
+                `working as a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
+                `and are posed in a ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
+            
+            document.getElementById("compiledOutput").innerText = compiledText;
+        }
+
+        function setupAttributes() {
+            const container = document.getElementById("attributes");
+            container.innerHTML = "";
+            Object.keys(attributes).forEach(attr => {
+                let div = document.createElement("div");
+                div.classList.add("attribute");
+                div.innerHTML = `
+                    <label for="${attr}">${attr}</label>
+                    <select id="${attr}">
+                        ${attributes[attr].map(option => `<option value="${option}">${option}</option>`).join("")}
+                    </select>
+                    <button type="button" onclick="rollAttribute('${attr}')">Reroll</button>
+                `;
+                container.appendChild(div);
+            });
+            rollAll(); // Initial roll
+        }
+
+        document.addEventListener("DOMContentLoaded", loadAttributes);
+    </script>
+</body>
+</html>
