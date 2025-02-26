@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivid Lovely</title>
@@ -36,7 +35,6 @@
             font-family: 'Work Sans', sans-serif;
         }
 
-        /* Gallery styling */
         .gallery {
             display: flex;
             flex-wrap: wrap;
@@ -53,11 +51,13 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             border-radius: 10px;
+            z-index: 1;
         }
 
         .gallery-item:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(255, 226, 215, 0.5);
+            z-index: 10;
         }
 
         .gallery img {
@@ -85,84 +85,6 @@
         .gallery-item:hover .image-title {
             opacity: 1;
         }
-
-        /* Lightbox styles */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            padding-top: 5vh;
-        }
-
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .lightbox-content {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            position: relative;
-        }
-
-        .lightbox-image {
-            max-width: 50%;
-            max-height: 90vh;
-            object-fit: contain;
-            margin-left: 5%;
-            border-radius: 10px;
-        }
-
-        .lightbox-info {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            color: #ffe2d7;
-            backdrop-filter: blur(10px);
-            opacity: 0.9;
-            max-width: 40%;
-            align-self: flex-start;
-        }
-
-        .lightbox-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .lightbox-info p {
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            color: #ffe2d7;
-            font-size: 2rem;
-            user-select: none;
-        }
-
-        .lightbox-prev { left: -60px; }
-        .lightbox-next { right: -60px; }
     </style>
 </head>
 <body>
@@ -173,84 +95,65 @@
 
     <div class="gallery" id="gallery"></div>
 
-    <div class="lightbox" id="lightbox">
-        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
-        <div class="lightbox-content">
-            <img id="lightbox-image" class="lightbox-image" src="" alt="">
-            <div class="lightbox-info">
-                <h3 id="lightbox-title"></h3>
-                <p id="lightbox-bio"></p>
-                <p id="lightbox-details"></p>
-            </div>
-        </div>
-    </div>
-        <script>
+    <script>
+        const repoOwner = 'BriskartStudio';
+        const repoName = 'VividLovely';
+        const folderPath = 'gallery';
+        const metadataFile = 'gallery/metadata.json';
+
+        async function fetchMetadata() {
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${metadataFile}`);
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching metadata:', error);
+                return {};
+            }
+        }
+
+        async function fetchImages() {
+            try {
+                const metadata = await fetchMetadata();
+                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
+                const data = await response.json();
+                const gallery = document.getElementById('gallery');
+
+                let images = data.filter(file => file.type === 'file');
+
+                images.sort((a, b) => {
+                    const orderA = metadata[a.name]?.order ?? Number.MAX_SAFE_INTEGER;
+                    const orderB = metadata[b.name]?.order ?? Number.MAX_SAFE_INTEGER;
+                    return orderA - orderB;
+                });
+
+                gallery.innerHTML = '';
+                images.forEach(file => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('gallery-item');
+                    galleryItem.onclick = () => openLightbox(file.download_url, metadata[file.name]);
+
+                    const img = document.createElement('img');
+                    img.src = file.download_url;
+                    img.alt = file.name;
+
+                    const title = document.createElement('div');
+                    title.classList.add('image-title');
+                    title.textContent = metadata[file.name]?.title || 'Untitled Image';
+
+                    galleryItem.appendChild(img);
+                    galleryItem.appendChild(title);
+                    gallery.appendChild(galleryItem);
+                });
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
         function openLightbox(imageUrl, metadata) {
-            document.getElementById('lightbox-image').src = imageUrl;
-            document.getElementById('lightbox-title').textContent = metadata?.title || 'Untitled Image';
-            document.getElementById('lightbox-bio').textContent = metadata?.bio || 'No bio available.';
-            document.getElementById('lightbox-details').textContent = metadata?.details || 'No details available.';
-            document.getElementById('lightbox').classList.add('active');
+            alert(`Image: ${imageUrl}\nTitle: ${metadata?.title || 'Untitled'}\nBio: ${metadata?.bio || 'No bio available.'}`);
         }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
+        fetchImages();
     </script>
-
-<script>
-    const repoOwner = 'BriskartStudio';
-    const repoName = 'VividLovely';
-    const folderPath = 'gallery';
-    const metadataFile = 'gallery/metadata.json';
-
-    async function fetchMetadata() {
-        try {
-            const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${metadataFile}`);
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching metadata:', error);
-            return {};
-        }
-    }
-
-    async function fetchImages() {
-        try {
-            const metadata = await fetchMetadata();
-            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
-            const data = await response.json();
-            const gallery = document.getElementById('gallery');
-
-            // Sort by latest uploaded (descending order)
-            const sortedData = data.filter(file => file.type === 'file')
-                                   .sort((a, b) => new Date(b.git_commit.timestamp) - new Date(a.git_commit.timestamp));
-
-            gallery.innerHTML = ""; // Clear previous images
-
-            sortedData.forEach(file => {
-                const galleryItem = document.createElement('div');
-                galleryItem.classList.add('gallery-item');
-                galleryItem.onclick = () => openLightbox(file.download_url, metadata[file.name]);
-
-                const img = document.createElement('img');
-                img.src = file.download_url;
-                img.alt = file.name;
-
-                const title = document.createElement('div');
-                title.classList.add('image-title');
-                title.textContent = metadata[file.name]?.title || 'Untitled Image';
-
-                galleryItem.appendChild(img);
-                galleryItem.appendChild(title);
-                gallery.prepend(galleryItem); // Prepend so newest shows first
-            });
-        } catch (error) {
-            console.error('Error fetching images:', error);
-        }
-    }
-
-    fetchImages();
-</script>
-
 </body>
 </html>
