@@ -56,6 +56,7 @@
         const galleryPath = "gallery/";
         const branch = "main";
         let metadata = {};
+        let metadataSha = "";
         let editingFilename = null;
 
         function saveToken() {
@@ -95,6 +96,7 @@
                 if (response.ok) {
                     const data = await response.json();
                     metadata = JSON.parse(b64_to_utf8(data.content));
+                    metadataSha = data.sha;
                     
                     const table = document.getElementById('galleryTable');
                     table.innerHTML = "";
@@ -152,7 +154,7 @@
                         message: "Update metadata",
                         content: updatedMetadata,
                         branch: branch,
-                        sha: metadata.sha
+                        sha: metadataSha
                     })
                 });
                 if (response.ok) {
