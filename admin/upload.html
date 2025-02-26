@@ -94,11 +94,7 @@
         async function loadGallery() {
             const token = localStorage.getItem('githubToken');
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-            
-async function loadGallery() {
-    const token = localStorage.getItem('githubToken');
-    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-    
+               
     try {
         const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
         if (response.ok) {
@@ -138,13 +134,14 @@ async function loadGallery() {
     }
 }
 
-        function editImage(filename, name, bio, details, quote, order) {
-            document.getElementById('imageName').value = name;
-            document.getElementById('imageBio').value = bio;
-            document.getElementById('imageQuote').value = quote;  // Ensure this is present
-            document.getElementById('imageDetails').value = details;
+                function editImage(filename, name, bio, details, quote, order) {
+            document.getElementById('imageName').value = name || "";
+            document.getElementById('imageBio').value = bio || "";
+            document.getElementById('imageQuote').value = quote || "";  // Prevent undefined
+            document.getElementById('imageDetails').value = details || "";
             editingFilename = filename;
         }
+
 
         async function updateMetadata() {
             if (!editingFilename) {
