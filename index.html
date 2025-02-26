@@ -106,18 +106,21 @@
         .lightbox-content {
             display: flex;
             align-items: flex-start;
-            gap: 2%;
+            justify-content: center;
+            gap: 5%;
+            max-width: 90vw;
         }
 
         .lightbox img {
-            max-height: 95vh;
-            max-width: 60%;
-            border-radius: 10px;
+            max-height: 90vh;
+            max-width: 55%;
+            flex-grow: 1;
             transform: translateX(-10%);
         }
 
         .lightbox-panel {
-            width: 25%;
+            width: 35%;
+            max-width: 400px; /* Prevent it from taking too much space */
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(10px);
             padding: 20px;
