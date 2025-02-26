@@ -1,4 +1,11 @@
 {
+  "YNQ58GQRNMX1FHX1Q0NVQVV7H0.jpeg": {
+    "title": "Ingrid",
+    "order": 28,
+    "bio": "Bio for Ingrid",
+    "quote": "quote",
+    "details": "Details for Ingrid"
+  },
   "11643641.jpeg": {
     "title": "Neferet",
     "order": 27,
@@ -180,12 +187,5 @@
     "bio": "Power looks different on everyone. On Tabitha Rae, it looks like a cascade of red hair, a crown perched just so, and the effortless confidence of someone who has never been told no. She drifts through the palace halls like she owns the place—because one day, she will.\n\nDraped in gold and little else, she doesn’t need an army. One glance, one tilt of her head, and people fall in line. Some call it arrogance. Others call it destiny. Tabitha? She just calls it the natural order of things.",
     "quote": "Bow if you like. I won’t stop you. – Tabitha Rae",
     "details": "Generated with Stable Diffusion in Civit.ai"
-  },
-  "YNQ58GQRNMX1FHX1Q0NVQVV7H0.jpeg": {
-    "title": "Ingrid",
-    "order": 28,
-    "bio": "Bio for Ingrid",
-    "quote": "quote",
-    "details": "Details for Ingrid"
   }
 }
