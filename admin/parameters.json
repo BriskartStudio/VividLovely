@@ -1,10 +1,38 @@
 {
-    "Theme": ["Cyberpunk", "Fantasy", "Retro Futurism", "Noir", "Steampunk", "Gothic", "Space Opera", "Supernatural"],
-    "Species": ["Human", "Elf", "Android", "Demon", "Alien", "Vampire", "Werewolf", "Mermaid"],
-    "BodyType": ["Slim", "Athletic", "Curvy", "Muscular", "Petite", "Tall", "Stocky", "Lanky"],
-    "BodyFeatures": ["Tattoos", "Scars", "Freckles", "Piercings", "Glowing Eyes", "Cybernetic Limbs", "Wings", "Horns"],
-    "Occupation": ["Detective", "Bounty Hunter", "Singer", "Scientist", "Thief", "Pirate", "Scholar", "Dancer"],
-    "Disposition": ["Cheerful", "Mysterious", "Sassy", "Stoic", "Brooding", "Charming", "Eccentric", "Cold"],
-    "Pose": ["Leaning against a wall", "Sitting on a stool", "Mid-dance", "Holding a weapon", "Crossed arms", "Kneeling", "Dramatic stance", "Relaxed lounge"],
-    "Accessories": ["Cigarette Holder", "Ray Gun", "Feather Boa", "Sunglasses", "Top Hat", "Mechanical Arm", "Magic Amulet", "Pocket Watch"]
+    "Theme": [
+        "Cyberpunk", "Fantasy", "Retro Futurism", "Noir", "Steampunk", "Gothic", "Space Opera", "Supernatural", 
+        "Ancient Egypt", "Greek Mythology", "Roman Empire", "Medieval Europe", "Viking Saga", "Samurai Era", "Wild West", 
+        "Roaring Twenties", "Modern Day", "Dystopian Future", "Utopian Future", "Fairy Tale", "Arabian Nights", "Aztec Mythology", 
+        "Chinese Wuxia", "Hindu Epics", "Slavic Folklore", "African Legends", "Polynesian Myths", "Celtic Mysticism"
+    ],
+    "Species": [
+        "Human", "Elf", "Android", "Demon", "Alien", "Vampire", "Werewolf", "Mermaid", "Centaur", "Minotaur", "Djinn", 
+        "Fairy", "Goblin", "Orc", "Selkie", "Kraken", "Sphinx", "Golem", "Ghost", "Naga", "Kitsune", "Yokai"
+    ],
+    "BodyType": [
+        "Slim", "Athletic", "Curvy", "Muscular", "Petite", "Tall", "Stocky", "Lanky", "Burly", "Delicate", "Voluptuous"
+    ],
+    "BodyFeatures": [
+        "Tattoos", "Scars", "Freckles", "Piercings", "Glowing Eyes", "Cybernetic Limbs", "Wings", "Horns", "Third Eye", 
+        "Bioluminescent Skin", "Forked Tongue", "Gills", "Feline Ears", "Mechanical Tail", "Crystal Embedded Skin", "Extra Arms"
+    ],
+    "Occupation": [
+        "Detective", "Bounty Hunter", "Singer", "Scientist", "Thief", "Pirate", "Scholar", "Dancer", "Shaman", "Priestess", 
+        "Alchemist", "Assassin", "Knight", "Gladiator", "Explorer", "Merchant", "Stage Magician", "Espionage Agent", "Blacksmith", 
+        "Barmaid", "Nurse", "Teacher", "Fortune Teller", "Librarian", "Seamstress", "Actress", "Bartender", "Maid", "Governess"
+    ],
+    "Disposition": [
+        "Cheerful", "Mysterious", "Sassy", "Stoic", "Brooding", "Charming", "Eccentric", "Cold", "Hot-headed", "Sarcastic", 
+        "Playful", "Wise", "Serene", "Rebellious", "Cunning", "Melancholic"
+    ],
+    "Pose": [
+        "Leaning against a wall", "Sitting on a stool", "Mid-dance", "Holding a weapon", "Crossed arms", "Kneeling", "Dramatic stance", 
+        "Relaxed lounge", "One hand on hip", "Perched on a ledge", "Reclining luxuriously", "Running forward", "Casting a spell", 
+        "Pointing accusingly", "Floating in mid-air"
+    ],
+    "Accessories": [
+        "Cigarette Holder", "Ray Gun", "Feather Boa", "Sunglasses", "Top Hat", "Mechanical Arm", "Magic Amulet", "Pocket Watch", 
+        "Spellbook", "Dragon Companion", "Enchanted Ring", "Mystical Staff", "Golden Bracelets", "Pirate Hat", "Battle Axe", 
+        "Sacrificial Dagger", "Glowing Orb", "Serpentine Necklace"
+    ]
 }
