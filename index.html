@@ -161,7 +161,7 @@
                 const data = await response.json();
                 const gallery = document.getElementById('gallery');
 
-                let images = data.filter(file => file.type === 'file');
+                 let images = data.filter(file => file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|gif)$/i));
 
                 images.sort((a, b) => {
                     const orderA = metadata[a.name]?.order ?? Number.MAX_SAFE_INTEGER;
