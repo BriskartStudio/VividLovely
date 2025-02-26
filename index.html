@@ -6,6 +6,73 @@
     <title>Vivid Lovely</title>
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
     <style>
+/* The overlay style */
+#ageOverlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.95); /* Dark overlay */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 9999; /* Ensures the overlay is on top */
+   color: white;
+   font-size: 24px;
+   text-align: center;
+   backdrop-filter: blur(20px); /* Blurs the background */
+}
+
+/* Button style */
+#confirmButton {
+   padding: 10px 20px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   font-size: 18px;
+   cursor: pointer;
+   margin-top: 20px;
+}
+
+#confirmButton:hover {
+   background-color: #45a049;
+}
+
+/* Ensure the body doesn't show before confirmation */
+body.no-scroll {
+   overflow: hidden; /* Prevents scrolling while overlay is active */
+}
+</style>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+   // Check if the user has already confirmed
+   if (!localStorage.getItem("ageConfirmed")) {
+      // Disable scrolling
+      document.body.classList.add("no-scroll");
+
+      // Create the overlay
+      var overlay = document.createElement("div");
+      overlay.id = "ageOverlay";
+      overlay.innerHTML = `
+         <div>
+            <p>You must be 18+ to access this site.</p>
+            <button id="confirmButton">Yes, I am over 18</button>
+         </div>
+      `;
+      document.body.appendChild(overlay);
+
+      // Handle the confirmation
+      document.getElementById("confirmButton").addEventListener("click", function() {
+         localStorage.setItem("ageConfirmed", "true");
+         document.body.classList.remove("no-scroll");
+         overlay.remove(); // Remove overlay after confirmation
+      });
+   }
+});
+</script>
+    <style>
         body {
             font-family: 'Work Sans', sans-serif;
             background-color: #1a1a1a;
