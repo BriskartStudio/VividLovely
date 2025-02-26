@@ -207,7 +207,7 @@
             .split(/\n\n+/)  // Split on double newlines for paragraphs
             .map(paragraph => `<p>${paragraph.trim()}</p>`)
             .join('');
-            const quoteText = metadata?.quote ? `<blockquote style="margin-top: 10px; font-style: italic; color: #ddd;">"${metadata.quote}"</blockquote>: '';
+            const quoteText = metadata?.quote ? `<blockquote style="margin-top: 10px; font-style: italic; color: #ddd;">"${metadata.quote}"</blockquote>` : '';
     
         // Format the details with styling
         const detailsText = metadata?.details ? `<div style="margin-top: 10px; font-size: 0.9em; color: #bbb;">${metadata.details}</div>` : '';
