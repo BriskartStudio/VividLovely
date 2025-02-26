@@ -28,12 +28,13 @@
         
         <label for="imageBio">Bio:</label>
         <textarea id="imageBio" rows="4" required></textarea>
+
+        <label for="imageQuote">Character Quote:</label>
+        <textarea id="imageQuote" rows="2"></textarea>
         
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
         
-        <label for="imageQuote">Character Quote:</label>
-        <textarea id="imageQuote" rows="2"></textarea>
         
         <button type="button" onclick="updateMetadata()">Update Metadata</button>
     </form>
@@ -104,22 +105,21 @@
                     const table = document.getElementById('galleryTable');
                     table.innerHTML = "";
                     
-                   Object.entries(metadata)
-                    .sort((a, b) => (b[1].order ?? Number.MAX_SAFE_INTEGER) - (a[1].order ?? Number.MAX_SAFE_INTEGER))
-                    .forEach(([filename, item]) => { 
-                        const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
-                        const row = `<tr>
-                            <td><img src='${imageUrl}' alt='${item.title}'></td>
-                            <td>${item.title}</td>
-                            <td>${item.order ?? 'N/A'}</td>
-                            <td class="actions">
-                                <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}', ${item.order ?? 0})">Edit</button>
-                                <button onclick="deleteImage('${filename}')">Delete</button>
-                            </td>
-                        </tr>`;
-                        document.getElementById('galleryTable').innerHTML += row;
-                    });
-
+                    Object.entries(metadata)
+                        .sort((a, b) => b[1].order - a[1].order)
+                        .forEach(([filename, item]) => {
+                            const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
+                            const row = `<tr>
+                                <td><img src='${imageUrl}' alt='${item.title}'></td>
+                                <td>${item.title}</td>
+                                <td>${item.order}</td>
+                                <td class="actions">
+                                    <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}', '${item.quote}', ${item.order})">Edit</button>
+                                    <button onclick="deleteImage('${filename}')">Delete</button>
+                                </td>
+                            </tr>`;
+                            table.innerHTML += row;
+                        });
                 }
             } catch (error) {
                 console.warn("Failed to load gallery.", error);
@@ -129,8 +129,8 @@
         function editImage(filename, name, bio, details, quote, order) {
             document.getElementById('imageName').value = name;
             document.getElementById('imageBio').value = bio;
+            document.getElementById('imageQuote').value = quote;  // Ensure this is present
             document.getElementById('imageDetails').value = details;
-            document.getElementById('imageQuote').value = quote;
             editingFilename = filename;
         }
 
