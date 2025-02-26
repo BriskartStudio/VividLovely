@@ -32,13 +32,14 @@
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
         
-        <button type="button" onclick="uploadOrUpdateImage()">Upload & Update Metadata</button>
+        <button type="button" onclick="uploadImage()">Upload & Update Metadata</button>
     </form>
     
     <h2>Gallery</h2>
     <table>
         <thead>
             <tr>
+                <th>Thumbnail</th>
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -53,7 +54,6 @@
         const metadataPath = "gallery/metadata.json";
         const galleryPath = "gallery/";
         const branch = "main";
-        let editingFilename = null;
 
         function saveToken() {
             const token = document.getElementById('token').value.trim();
@@ -83,7 +83,7 @@
             return decodeURIComponent(escape(atob(str)));
         }
 
-        async function uploadOrUpdateImage() {
+        async function uploadImage() {
             const token = localStorage.getItem('githubToken');
             if (!token) {
                 alert("Please enter and save your GitHub token first.");
@@ -91,6 +91,11 @@
             }
             
             const imageFile = document.getElementById('imageFile').files[0];
+            if (!imageFile) {
+                alert("Please select an image.");
+                return;
+            }
+            
             const imageName = document.getElementById('imageName').value.trim();
             const imageBio = document.getElementById('imageBio').value.trim();
             const imageDetails = document.getElementById('imageDetails').value.trim();
@@ -100,25 +105,16 @@
                 return;
             }
             
-            if (editingFilename) {
-                await updateMetadata(editingFilename, imageName, imageBio, imageDetails, token);
-                editingFilename = null;
-            } else {
-                if (!imageFile) {
-                    alert("Please select an image.");
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = async function () {
-                    const base64Image = reader.result.split(',')[1];
-                    const imagePath = `${galleryPath}${imageFile.name}`;
-                    
-                    await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`, false);
-                    await updateMetadata(imageFile.name, imageName, imageBio, imageDetails, token);
-                };
-                reader.readAsDataURL(imageFile);
-            }
-            loadGallery();
+            const reader = new FileReader();
+            reader.onload = async function () {
+                const base64Image = reader.result.split(',')[1];
+                const imagePath = `${galleryPath}${imageFile.name}`;
+                
+                await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`, false);
+                await updateMetadata(imageFile.name, imageName, imageBio, imageDetails, token);
+                loadGallery();
+            };
+            reader.readAsDataURL(imageFile);
         }
 
         async function loadGallery() {
@@ -154,7 +150,6 @@
             document.getElementById('imageName').value = name;
             document.getElementById('imageBio').value = bio;
             document.getElementById('imageDetails').value = details;
-            editingFilename = filename;
         }
 
         async function deleteImage(filename) {
