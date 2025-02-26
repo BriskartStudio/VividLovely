@@ -1,0 +1,10 @@
+{
+    "Theme": ["Cyberpunk", "Fantasy", "Retro Futurism", "Noir", "Steampunk", "Gothic", "Space Opera", "Supernatural"],
+    "Species": ["Human", "Elf", "Android", "Demon", "Alien", "Vampire", "Werewolf", "Mermaid"],
+    "BodyType": ["Slim", "Athletic", "Curvy", "Muscular", "Petite", "Tall", "Stocky", "Lanky"],
+    "BodyFeatures": ["Tattoos", "Scars", "Freckles", "Piercings", "Glowing Eyes", "Cybernetic Limbs", "Wings", "Horns"],
+    "Occupation": ["Detective", "Bounty Hunter", "Singer", "Scientist", "Thief", "Pirate", "Scholar", "Dancer"],
+    "Disposition": ["Cheerful", "Mysterious", "Sassy", "Stoic", "Brooding", "Charming", "Eccentric", "Cold"],
+    "Pose": ["Leaning against a wall", "Sitting on a stool", "Mid-dance", "Holding a weapon", "Crossed arms", "Kneeling", "Dramatic stance", "Relaxed lounge"],
+    "Accessories": ["Cigarette Holder", "Ray Gun", "Feather Boa", "Sunglasses", "Top Hat", "Mechanical Arm", "Magic Amulet", "Pocket Watch"]
+}
