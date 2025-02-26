@@ -7,6 +7,10 @@
     <style>
         body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
         label, input, textarea, button { display: block; width: 100%; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        img { width: 50px; height: auto; }
+        .actions button { margin-right: 5px; }
     </style>
 </head>
 <body>
@@ -31,6 +35,18 @@
         <button type="button" onclick="uploadImage()">Upload & Update Metadata</button>
     </form>
     
+    <h2>Gallery</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Thumbnail</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="galleryTable"></tbody>
+    </table>
+    
     <pre id="output"></pre>
     
     <script>
@@ -54,7 +70,10 @@
             }
         }
         
-        window.onload = loadToken;
+        window.onload = function() {
+            loadToken();
+            loadGallery();
+        };
 
         function utf8_to_b64(str) {
             return btoa(unescape(encodeURIComponent(str)));
@@ -93,65 +112,48 @@
                 
                 await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`, false);
                 await updateMetadata(imageFile.name, imageName, imageBio, imageDetails, token);
+                loadGallery();
             };
             reader.readAsDataURL(imageFile);
         }
 
-        async function updateMetadata(filename, name, bio, details, token) {
+        async function loadGallery() {
+            const token = localStorage.getItem('githubToken');
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-            let metadata = [];
-            let sha = null;
             
             try {
-                const response = await fetch(metadataUrl, {
-                    headers: { 'Authorization': `token ${token}` }
-                });
-                
+                const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
                 if (response.ok) {
                     const data = await response.json();
-                    sha = data.sha;
-                    const content = b64_to_utf8(data.content || "");
-                    metadata = JSON.parse(content || "[]");
+                    const metadata = JSON.parse(b64_to_utf8(data.content));
+                    
+                    const table = document.getElementById('galleryTable');
+                    table.innerHTML = "";
+                    metadata.forEach(item => {
+                        const row = `<tr>
+                            <td><img src="gallery/${item.filename}" alt="${item.name}"></td>
+                            <td>${item.name}</td>
+                            <td class="actions">
+                                <button onclick="editImage('${item.filename}', '${item.name}', '${item.bio}', '${item.details}')">Edit</button>
+                                <button onclick="deleteImage('${item.filename}')">Delete</button>
+                            </td>
+                        </tr>`;
+                        table.innerHTML += row;
+                    });
                 }
             } catch (error) {
-                console.warn("metadata.json not found. Creating a new one.");
+                console.warn("Failed to load gallery.", error);
             }
-            
-            metadata.push({ "name": name, "bio": bio, "details": details, "filename": filename });
-            
-            const updatedContent = utf8_to_b64(JSON.stringify(metadata, null, 4));
-            
-            await commitFile(metadataPath, updatedContent, token, `Updated metadata.json with ${name}`, sha);
         }
 
-        async function commitFile(path, content, token, message, sha = null) {
-            const url = `https://api.github.com/repos/${repo}/contents/${path}`;
-            
-            const commitData = {
-                message: message,
-                content: content,
-                branch: branch
-            };
-            
-            if (sha) {
-                commitData.sha = sha;
-            }
-            
-            const response = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(commitData)
-            });
-            
-            if (response.ok) {
-                alert("Upload successful!");
-            } else {
-                alert("Upload failed. Check console for details.");
-                console.error(await response.json());
-            }
+        function editImage(filename, name, bio, details) {
+            document.getElementById('imageName').value = name;
+            document.getElementById('imageBio').value = bio;
+            document.getElementById('imageDetails').value = details;
+        }
+
+        async function deleteImage(filename) {
+            alert(`Deleting ${filename} (Feature coming soon)`);
         }
     </script>
 </body>
