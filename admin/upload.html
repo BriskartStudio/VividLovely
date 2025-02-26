@@ -84,45 +84,6 @@
             return decodeURIComponent(escape(atob(str)));
         }
 
-        async function uploadImage() {
-            const token = localStorage.getItem('githubToken');
-            if (!token) {
-                alert("Please enter and save your GitHub token first.");
-                return;
-            }
-            
-            const imageFile = document.getElementById('imageFile').files[0];
-            const imageName = document.getElementById('imageName').value.trim();
-            const imageBio = document.getElementById('imageBio').value.trim();
-            const imageDetails = document.getElementById('imageDetails').value.trim();
-            
-            if (!imageName) {
-                alert("Please provide an image name.");
-                return;
-            }
-            
-            let imagePath;
-            if (imageFile) {
-                imagePath = `${galleryPath}${imageFile.name}`;
-                const reader = new FileReader();
-                reader.onload = async function () {
-                    const base64Image = reader.result.split(',')[1];
-                    await commitFile(imagePath, base64Image, token, `Added ${imageFile.name} to gallery`, false);
-                    await updateMetadata(imageFile.name, imageName, imageBio, imageDetails, token);
-                    loadGallery();
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                const existingFilename = Object.keys(metadata).find(key => metadata[key].title === imageName);
-                if (existingFilename) {
-                    await updateMetadata(existingFilename, imageName, imageBio, imageDetails, token);
-                    loadGallery();
-                } else {
-                    alert("No image uploaded and no existing image found for editing.");
-                }
-            }
-        }
-
         async function loadGallery() {
             const token = localStorage.getItem('githubToken');
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
@@ -137,8 +98,9 @@
                     table.innerHTML = "";
                     
                     Object.entries(metadata).forEach(([filename, item]) => {
+                        const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
                         const row = `<tr>
-                            <td><img src='${galleryPath}${filename}' alt='${item.title}'></td>
+                            <td><img src='${imageUrl}' alt='${item.title}'></td>
                             <td>${item.title}</td>
                             <td class="actions">
                                 <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}')">Edit</button>
