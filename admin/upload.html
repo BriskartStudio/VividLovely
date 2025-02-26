@@ -35,7 +35,7 @@
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
         
-        <button type="button" onclick="uploadImage()">Upload Image</button>
+        <button type="button" onclick="uploadNewEntry()">Upload New Entry</button>
 
         <button type="button" onclick="updateMetadata()">Update Metadata</button>
     </form>
@@ -186,26 +186,38 @@
 }
 
 
-        async function uploadImage() {
+        async function uploadNewEntry() {
     const token = localStorage.getItem('githubToken');
     const fileInput = document.getElementById('imageFile');
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Please select an image to upload.");
+        alert("Please select an image.");
         return;
     }
 
+    const title = document.getElementById('imageName').value.trim();
+    const bio = document.getElementById('imageBio').value.trim();
+    const quote = document.getElementById('imageQuote').value.trim();
+    const details = document.getElementById('imageDetails').value.trim();
+
+    if (!title || !bio) {
+        alert("Please fill in the title and bio.");
+        return;
+    }
+
+    // Read file and encode as Base64
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function () {
-        const base64Data = reader.result.split(',')[1];  // Remove data URL prefix
-        const filename = file.name.replace(/\s+/g, "_"); // Ensure no spaces in filename
+        const base64Data = reader.result.split(',')[1];
+        const filename = file.name.replace(/\s+/g, "_");
         const filePath = `${galleryPath}${filename}`;
         const uploadUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 
         try {
-            const response = await fetch(uploadUrl, {
+            // Upload image to GitHub
+            const uploadResponse = await fetch(uploadUrl, {
                 method: "PUT",
                 headers: {
                     "Authorization": `token ${token}`,
@@ -218,17 +230,55 @@
                 })
             });
 
-            if (response.ok) {
-                alert("Image uploaded successfully!");
-                document.getElementById('imageName').value = filename; // Auto-fill filename
-            } else {
-                alert("Failed to upload image.");
+            if (!uploadResponse.ok) {
+                alert("Image upload failed.");
+                return;
             }
+
+            // Determine the next order number
+            const orderNumbers = Object.values(metadata).map(entry => entry.order || 0);
+            const newOrder = orderNumbers.length > 0 ? Math.max(...orderNumbers) + 1 : 1;
+
+            // Add new metadata entry
+            metadata[filename] = {
+                title: title,
+                bio: bio,
+                quote: quote,
+                details: details,
+                order: newOrder
+            };
+
+            // Update metadata.json
+            const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
+            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+
+            const metadataResponse = await fetch(metadataUrl, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: "Added new entry",
+                    content: updatedMetadata,
+                    branch: branch,
+                    sha: metadataSha
+                })
+            });
+
+            if (metadataResponse.ok) {
+                alert("New entry uploaded successfully!");
+                loadGallery(); // Refresh the gallery
+            } else {
+                alert("Metadata update failed.");
+            }
+
         } catch (error) {
-            console.warn("Error uploading image:", error);
+            console.error("Error uploading new entry:", error);
         }
     };
 }
+
 
 
         function editImage(filename, name, bio, details, quote, order) {
