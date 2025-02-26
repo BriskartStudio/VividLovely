@@ -32,6 +32,9 @@
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
         
+        <label for="imageQuote">Character Quote:</label>
+        <textarea id="imageQuote" rows="2"></textarea>
+        
         <button type="button" onclick="updateMetadata()">Update Metadata</button>
     </form>
     
@@ -110,7 +113,7 @@
                                 <td>${item.title}</td>
                                 <td>${item.order}</td>
                                 <td class="actions">
-                                    <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}', ${item.order})">Edit</button>
+                                    <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}', '${item.quote}', ${item.order})">Edit</button>
                                     <button onclick="deleteImage('${filename}')">Delete</button>
                                 </td>
                             </tr>`;
@@ -122,10 +125,11 @@
             }
         }
 
-        function editImage(filename, name, bio, details, order) {
+        function editImage(filename, name, bio, details, quote, order) {
             document.getElementById('imageName').value = name;
             document.getElementById('imageBio').value = bio;
             document.getElementById('imageDetails').value = details;
+            document.getElementById('imageQuote').value = quote;
             editingFilename = filename;
         }
 
@@ -139,6 +143,7 @@
             metadata[editingFilename].title = document.getElementById('imageName').value;
             metadata[editingFilename].bio = document.getElementById('imageBio').value;
             metadata[editingFilename].details = document.getElementById('imageDetails').value;
+            metadata[editingFilename].quote = document.getElementById('imageQuote').value;
             
             const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
@@ -166,11 +171,6 @@
             } catch (error) {
                 console.warn("Error updating metadata:", error);
             }
-        }
-
-        async function deleteImage(filename) {
-            delete metadata[filename];
-            await updateMetadata();
         }
     </script>
 </body>
