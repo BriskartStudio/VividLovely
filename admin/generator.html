@@ -32,12 +32,96 @@
             }
         }
 
+        // Uniform random selection
         function getRandomOption(options) {
             return options[Math.floor(Math.random() * options.length)];
         }
 
+        // Weighted random selection function
+        function weightedRandomChoice(options, weights) {
+            let totalWeight = weights.reduce((sum, w) => sum + w, 0);
+            let random = Math.random() * totalWeight;
+            for (let i = 0; i < options.length; i++) {
+                if (random < weights[i]) {
+                    return options[i];
+                }
+                random -= weights[i];
+            }
+            return options[options.length - 1];
+        }
+
+        // Roll Species with weighting
+        function rollSpecies() {
+            const currentTheme = document.getElementById("Theme").value;
+            let speciesOptions = attributes["Species"];
+            let weights = [];
+            const nonHumanCount = speciesOptions.length - 1; // all except Human
+
+            speciesOptions.forEach(species => {
+                if (species === "Human") {
+                    weights.push(75);
+                } else {
+                    let baseWeight = 25 / nonHumanCount; // evenly distribute remaining 25%
+                    let factor = 1;
+                    // Dependency: Werewolf is favored in certain themes
+                    let favoredThemesForWerewolf = ["Steampunk", "Gothic", "Medieval Europe", "Viking Saga", "Wild West", "Roman Empire"];
+                    if (species === "Werewolf" && favoredThemesForWerewolf.includes(currentTheme)) {
+                        factor = 2;
+                    }
+                    // Dependency: Alien is less favored in certain themes
+                    let disfavoredThemesForAlien = ["Steampunk", "Medieval Europe", "Wild West", "Viking Saga", "Roman Empire"];
+                    if (species === "Alien" && disfavoredThemesForAlien.includes(currentTheme)) {
+                        factor = 0.5;
+                    }
+                    weights.push(baseWeight * factor);
+                }
+            });
+            let chosen = weightedRandomChoice(speciesOptions, weights);
+            document.getElementById("Species").value = chosen;
+        }
+
+        // Roll Occupation with weighting
+        function rollOccupation() {
+            const currentTheme = document.getElementById("Theme").value;
+            let occupationOptions = attributes["Occupation"];
+            let weights = [];
+            occupationOptions.forEach(occupation => {
+                let baseWeight = 1;
+                // For Detective and Espionage Agent in Noir, Cyberpunk, Steampunk
+                let favoredForDetective = ["Noir", "Cyberpunk", "Steampunk"];
+                if ((occupation === "Detective" || occupation === "Espionage Agent") && favoredForDetective.includes(currentTheme)) {
+                    baseWeight = 3;
+                }
+                // For Pirate, Merchant, Explorer in Space Opera, Wild West, Arabian Nights, Ancient Egypt
+                let favoredForPirate = ["Space Opera", "Wild West", "Arabian Nights", "Ancient Egypt"];
+                if ((occupation === "Pirate" || occupation === "Merchant" || occupation === "Explorer") && favoredForPirate.includes(currentTheme)) {
+                    baseWeight = 3;
+                }
+                // For Alchemist, Shaman, Priestess, Fortune Teller in Fantasy, Gothic, Ancient Egypt, Medieval Europe
+                let favoredForMystic = ["Fantasy", "Gothic", "Ancient Egypt", "Medieval Europe"];
+                if ((occupation === "Alchemist" || occupation === "Shaman" || occupation === "Priestess" || occupation === "Fortune Teller") && favoredForMystic.includes(currentTheme)) {
+                    baseWeight = 3;
+                }
+                // For Knight, Gladiator, Assassin in Medieval Europe, Roman Empire, Samurai Era, Viking Saga
+                let favoredForKnight = ["Medieval Europe", "Roman Empire", "Samurai Era", "Viking Saga"];
+                if ((occupation === "Knight" || occupation === "Gladiator" || occupation === "Assassin") && favoredForKnight.includes(currentTheme)) {
+                    baseWeight = 3;
+                }
+                weights.push(baseWeight);
+            });
+            let chosen = weightedRandomChoice(occupationOptions, weights);
+            document.getElementById("Occupation").value = chosen;
+        }
+
+        // For other attributes, we use uniform selection for now.
         function rollAttribute(attr) {
-            document.getElementById(attr).value = getRandomOption(attributes[attr]);
+            if (attr === "Species") {
+                rollSpecies();
+            } else if (attr === "Occupation") {
+                rollOccupation();
+            } else {
+                document.getElementById(attr).value = getRandomOption(attributes[attr]);
+            }
         }
 
         function rollAll() {
@@ -46,10 +130,9 @@
 
         function compileCharacter() {
             let compiledText = `A ${document.getElementById('Theme').value} ${document.getElementById('Species').value} ` +
-                `with a ${document.getElementById('BodyType').value} body, and ${document.getElementById('BodyFeatures').value}, ` +
-                `who is a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
-                `and are ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
-            
+                `with a ${document.getElementById('BodyType').value} and ${document.getElementById('BodyFeatures').value}, ` +
+                `working as a ${document.getElementById('Occupation').value}. They are ${document.getElementById('Disposition').value} ` +
+                `and are posed in a ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
             document.getElementById("compiledOutput").innerText = compiledText;
         }
 
