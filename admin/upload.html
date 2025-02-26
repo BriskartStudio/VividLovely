@@ -95,36 +95,48 @@
             const token = localStorage.getItem('githubToken');
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
             
-            try {
-                const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
-                if (response.ok) {
-                    const data = await response.json();
-                    metadata = JSON.parse(b64_to_utf8(data.content));
-                    metadataSha = data.sha;
-                    
-                    const table = document.getElementById('galleryTable');
-                    table.innerHTML = "";
-                    
-                    Object.entries(metadata)
-                        .sort((a, b) => b[1].order - a[1].order)
-                        .forEach(([filename, item]) => {
-                            const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
-                            const row = `<tr>
-                                <td><img src='${imageUrl}' alt='${item.title}'></td>
-                                <td>${item.title}</td>
-                                <td>${item.order}</td>
-                                <td class="actions">
-                                    <button onclick="editImage('${filename}', '${item.title}', '${item.bio}', '${item.details}', '${item.quote}', ${item.order})">Edit</button>
-                                    <button onclick="deleteImage('${filename}')">Delete</button>
-                                </td>
-                            </tr>`;
-                            table.innerHTML += row;
-                        });
-                }
-            } catch (error) {
-                console.warn("Failed to load gallery.", error);
-            }
+async function loadGallery() {
+    const token = localStorage.getItem('githubToken');
+    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+    
+    try {
+        const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
+        if (response.ok) {
+            const data = await response.json();
+            metadata = JSON.parse(b64_to_utf8(data.content));
+            metadataSha = data.sha;
+            
+            const table = document.getElementById('galleryTable');
+            table.innerHTML = "";
+            
+            Object.entries(metadata)
+                .sort((a, b) => b[1].order - a[1].order)
+                .forEach(([filename, item]) => {
+                    const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
+
+                    // Ensure all fields exist and escape quotes properly
+                    const title = item.title ? item.title.replace(/'/g, "\\'") : "";
+                    const bio = item.bio ? item.bio.replace(/'/g, "\\'") : "";
+                    const quote = item.quote ? item.quote.replace(/'/g, "\\'") : "";
+                    const details = item.details ? item.details.replace(/'/g, "\\'") : "";
+                    const order = item.order || 0;
+
+                    const row = `<tr>
+                        <td><img src='${imageUrl}' alt='${title}'></td>
+                        <td>${title}</td>
+                        <td>${order}</td>
+                        <td class="actions">
+                            <button onclick="editImage('${filename}', '${title}', '${bio}', '${details}', '${quote}', ${order})">Edit</button>
+                            <button onclick="deleteImage('${filename}')">Delete</button>
+                        </td>
+                    </tr>`;
+                    table.innerHTML += row;
+                });
         }
+    } catch (error) {
+        console.warn("Failed to load gallery.", error);
+    }
+}
 
         function editImage(filename, name, bio, details, quote, order) {
             document.getElementById('imageName').value = name;
