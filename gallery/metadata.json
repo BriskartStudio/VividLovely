@@ -3,156 +3,112 @@
     "title": "Scarlett Bibb",
     "order": 27,
     "bio": "Bio for Scarlett ass",
-    "details": "Details for Scarlett"
+    "details": "Details for Scarlett",
+    "quote": ""
   },
   "2025-02-13 14-01-15_00000.png": {
     "title": "Isla",
     "order": 26,
     "bio": "Bio for Isla",
-    "details": "Details for Isla"
+    "details": "Details for Isla",
+    "quote": ""
   },
   "21B27C364DC1AAC0F3B2B421DD475C3AC5C6DB8879335D8A41C7B92621A13457.jpg": {
     "title": "Luna",
     "order": 25,
     "bio": "Bio for Luna",
-    "details": "Details for Luna"
+    "details": "Details for Luna",
+    "quote": ""
   },
   "2B25F867C63BAE62F870DB97F452C62D5A509CE586C13CECFABE203118838542.jpg": {
     "title": "Jasmine",
     "order": 24,
     "bio": "Bio for Jasmine",
-    "details": "Details for Jasmine"
+    "details": "Details for Jasmine",
+    "quote": ""
   },
   "3F5C80D46DAE8C2B480764CA0E8F3EAB5C210A07E75312D0DB5E09D77FDC018D.jpg": {
     "title": "Eve",
     "order": 23,
     "bio": "Bio for Eve",
-    "details": "Details for Eve"
+    "details": "Details for Eve",
+    "quote": ""
   },
   "5DA33219D8767929C7E8AC130D6C296A0D07202E2F536A0B1C0A7F926098D991.jpg": {
     "title": "Celeste",
     "order": 22,
     "bio": "Bio for Celeste",
-    "details": "Details for Celeste"
+    "details": "Details for Celeste",
+    "quote": ""
   },
   "5GPRSB21TSEZREGA40SH460CZ0.jpeg": {
     "title": "Aurora",
     "order": 21,
     "bio": "Bio for Aurora",
-    "details": "Details for Aurora"
+    "details": "Details for Aurora",
+    "quote": ""
   },
   "710FYCSXSJY8350VJZK6ZXEGK0.jpeg": {
     "title": "Roxie",
     "order": 20,
     "bio": "Bio for Roxie",
-    "details": "Details for Roxie"
+    "details": "Details for Roxie",
+    "quote": ""
   },
   "A16F898F8C26C18AE0091F5BF05070A49A6D2957ED8C93A61C96437CAC3CB3CB.jpeg": {
     "title": "Sienna",
     "order": 19,
     "bio": "Bio for Sienna",
-    "details": "Details for Sienna"
+    "details": "Details for Sienna",
+    "quote": ""
   },
   "ABD16C83E1CBDD9DD790CA32719FF86B6DAACE898ABDBE5B673D41DCAE76DE47.jpeg": {
     "title": "Freya",
     "order": 18,
     "bio": "Bio for Freya",
-    "details": "Details for Freya"
+    "details": "Details for Freya",
+    "quote": ""
   },
   "B1VBAQC6KPQ60TWSHJ0BVNCDB0.jpeg": {
     "title": "Delilah",
     "order": 17,
     "bio": "Bio for Delilah",
-    "details": "Details for Delilah"
+    "details": "Details for Delilah",
+    "quote": ""
   },
   "B908CB71BD4C16AC0F2B43A34B31BDAE030EFCD7CCEDF1C5E59A8E60D6FA438E.jpg": {
     "title": "Savannah",
     "order": 16,
     "bio": "Bio for Savannah",
-    "details": "Details for Savannah"
+    "details": "Details for Savannah",
+    "quote": ""
   },
   "C2DE463AAF18CF1356803F6711B4591CB6CFE4FD3AC91E4FF65E89EEB2F63F2E.jpeg": {
     "title": "Violet",
     "order": 15,
     "bio": "Bio for Violet",
-    "details": "Details for Violet"
+    "details": "Details for Violet",
+    "quote": ""
   },
   "D2601D6A5CF42888FC9684BF31956296C9323D8036BEC2986017701AED263890.jpg": {
     "title": "Seraphina",
     "order": 14,
     "bio": "Bio for Seraphina",
-    "details": "Details for Seraphina"
+    "details": "Details for Seraphina",
+    "quote": ""
   },
   "D382ABE4ADFED51B495B8E8E0816F83C938FAC56207D813FC50C7D9419458B78.jpg": {
     "title": "Aria",
     "order": 13,
     "bio": "Bio for Aria",
-    "details": "Details for Aria"
+    "details": "Details for Aria",
+    "quote": ""
   },
   "DCXF9R0T75EPW381D27DGBK1E0.jpeg": {
     "title": "Lily",
     "order": 12,
     "bio": "Bio for Lily",
-    "details": "Details for Lily"
-  },
-  "DF39682D1286EFC06A0019BD29D627708DE9930F2D9A32521A053E0C1C757263.jpeg": {
-    "title": "Amara",
-    "order": 11,
-    "bio": "Bio for Amara",
-    "details": "Details for Amara"
-  },
-  "F15EBD07BD8654FF7EEDB5E6C4565C00D957B3AD08FC156E529B602E995C23CB.jpg": {
-    "title": "Zara",
-    "order": 10,
-    "bio": "Bio for Zara",
-    "details": "Details for Zara"
-  },
-  "F4DDDEB1916D97848B97D84D7CC9CF14FC21AA508622A13D7015F758663F8914.jpg": {
-    "title": "Elena",
-    "order": 9,
-    "bio": "Bio for Elena",
-    "details": "Details for Elena"
-  },
-  "F9B15649232F2C76CC15195B26FE66F9F1DB55DD1C9C8E7AC923F5397F3EBFEF.jpeg": {
-    "title": "Nova",
-    "order": 8,
-    "bio": "Bio for Nova",
-    "details": "Details for Nova"
-  },
-  "KQX7FCCEWEPEJ970KHK8RAHD30.jpeg": {
-    "title": "Valeria",
-    "order": 7,
-    "bio": "Bio for Valeria",
-    "details": "Details for Valeria"
-  },
-  "M011WH9EM0CX079KYAD05PZ620.jpeg": {
-    "title": "Marina",
-    "order": 6,
-    "bio": "Bio for Marina",
-    "details": "Details for Marina"
-  },
-  "N52AP3681GFC214VTW8J42AZD0.jpeg": {
-    "title": "Anastasia Wren",
-    "order": 5,
-    "bio": "Ah, Anastasia. Always draped in moonlight like she personally requested the full moon just to set the mood. She claims it’s just a coincidence, but I have my doubts—celestial bodies seem to orbit her on principle. That hair? Flows like a gothic novel just hit its dramatic climax.\n\nShe says she’s “just thinking” when she stares off like that, but I’m fairly certain she’s communing with something beyond my pay grade. You’re welcome to interrupt her moment, but don’t be surprised if she looks straight through you and into the void.\n\n(If she starts floating, pretend you didn’t see it.)\n\n\"The night understands me better than the day ever could.\" – Anastasia",
-    "details": "Shamelessly ripped from Civit AI"
-  },
-  "Q6WF1XVK2JZ4D0W49A4EH7GCW0.jpeg": {
-    "title": "Monroe",
-    "order": 4,
-    "bio": "Bio for Monroe",
-    "details": "Details for Monroe"
-  },
-  "Seraphine 2M.jpeg": {
-    "title": "Seraphine",
-    "order": 3,
-    "bio": "Bio for Seraphine",
-    "details": "Details for Seraphine"
-  },
-  "WMNAE4NP5H2QER0DPQ9KGV4NN0.jpeg": {
-    "title": "Colette",
-    "order": 2,
-    "bio": "Bio for Colette",
-    "details": "Details for Colette"
+    "details": "Details for Lily",
+    "quote": ""
   }
 }
