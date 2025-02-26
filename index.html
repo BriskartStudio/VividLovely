@@ -198,56 +198,59 @@
         }
     </script>
 
-    <script>
-        const repoOwner = 'BriskartStudio';
-        const repoName = 'VividLovely';
-        const folderPath = 'gallery';
-        const metadataFile = 'gallery/metadata.json';
+<script>
+    const repoOwner = 'BriskartStudio';
+    const repoName = 'VividLovely';
+    const folderPath = 'gallery';
+    const metadataFile = 'gallery/metadata.json';
 
-        async function fetchMetadata() {
-            try {
-                const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${metadataFile}`);
-                return await response.json();
-            } catch (error) {
-                console.error('Error fetching metadata:', error);
-                return {};
-            }
+    async function fetchMetadata() {
+        try {
+            const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${metadataFile}`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching metadata:', error);
+            return {};
         }
-
-async function fetchImages() {
-    try {
-        const metadata = await fetchMetadata();
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = ""; // Clear existing images
-
-        // Iterate over metadata keys (image names)
-        Object.keys(metadata).reverse().forEach(imageName => { // Reverse for newest-first order
-            const imageUrl = `https://raw.githubusercontent.com/BriskartStudio/VividLovely/main/gallery/${imageName}`;
-            
-            const galleryItem = document.createElement('div');
-            galleryItem.classList.add('gallery-item');
-            galleryItem.onclick = () => openLightbox(imageUrl, metadata[imageName]);
-
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.alt = metadata[imageName]?.title || 'Untitled Image';
-
-            const title = document.createElement('div');
-            title.classList.add('image-title');
-            title.textContent = metadata[imageName]?.title || 'Untitled Image';
-
-            galleryItem.appendChild(img);
-            galleryItem.appendChild(title);
-            gallery.prepend(galleryItem); // Newest first
-        });
-
-        console.log("Gallery loaded without API!");
-
-    } catch (error) {
-        console.error('Error loading images:', error);
     }
-}
 
-    </script>
+    async function fetchImages() {
+        try {
+            const metadata = await fetchMetadata();
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
+            const data = await response.json();
+            const gallery = document.getElementById('gallery');
+
+            // Sort by latest uploaded (descending order)
+            const sortedData = data.filter(file => file.type === 'file')
+                                   .sort((a, b) => new Date(b.git_commit.timestamp) - new Date(a.git_commit.timestamp));
+
+            gallery.innerHTML = ""; // Clear previous images
+
+            sortedData.forEach(file => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+                galleryItem.onclick = () => openLightbox(file.download_url, metadata[file.name]);
+
+                const img = document.createElement('img');
+                img.src = file.download_url;
+                img.alt = file.name;
+
+                const title = document.createElement('div');
+                title.classList.add('image-title');
+                title.textContent = metadata[file.name]?.title || 'Untitled Image';
+
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(title);
+                gallery.prepend(galleryItem); // Prepend so newest shows first
+            });
+        } catch (error) {
+            console.error('Error fetching images:', error);
+        }
+    }
+
+    fetchImages();
+</script>
+
 </body>
 </html>
