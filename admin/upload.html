@@ -132,6 +132,63 @@
                 console.warn("Failed to load gallery.", error);
             }
         }
+async function deleteImage(filename) {
+    const token = localStorage.getItem('githubToken');
+    const imageUrl = `https://api.github.com/repos/${repo}/contents/${galleryPath}${filename}`;
+
+    if (!confirm(`Are you sure you want to delete ${filename}? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        // Attempt to fetch the file SHA
+        const response = await fetch(imageUrl, {
+            headers: { "Authorization": `token ${token}` }
+        });
+
+        let imageSha = null;
+
+        if (response.ok) {
+            const imageData = await response.json();
+            imageSha = imageData.sha;
+        } else if (response.status === 404) {
+            console.warn("Image file not found in repository, proceeding with metadata deletion.");
+        } else {
+            throw new Error("Failed to fetch image data.");
+        }
+
+        // If the file exists, delete it
+        if (imageSha) {
+            const deleteResponse = await fetch(imageUrl, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `token ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: `Delete image ${filename}`,
+                    sha: imageSha,
+                    branch: branch
+                })
+            });
+
+            if (!deleteResponse.ok) {
+                throw new Error("Failed to delete image.");
+            }
+        }
+
+        // Remove the entry from metadata, even if the file is missing
+        if (metadata[filename]) {
+            delete metadata[filename];
+            await updateMetadataFile();
+        }
+
+        alert("Image and metadata deleted successfully!");
+        loadGallery();
+    } catch (error) {
+        console.error("Error deleting
+
+      
 async function updateMetadataFile() {
     const token = localStorage.getItem('githubToken');
     const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
