@@ -132,7 +132,7 @@
                 console.warn("Failed to load gallery.", error);
             }
         }
-      async function updateMetadataFile() {
+async function updateMetadataFile() {
     const token = localStorage.getItem('githubToken');
     const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
 
@@ -165,7 +165,15 @@
         });
 
         if (!updateResponse.ok) {
-            throw new 
+            throw new Error("Failed to update metadata.");
+        }
+
+        console.log("Metadata updated successfully!");
+    } catch (error) {
+        console.error("Error updating metadata:", error);
+    }
+}
+
 
 
 async function replaceImage(oldFilename) {
