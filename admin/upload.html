@@ -132,6 +132,41 @@
                 console.warn("Failed to load gallery.", error);
             }
         }
+      async function updateMetadataFile() {
+    const token = localStorage.getItem('githubToken');
+    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+
+    try {
+        const response = await fetch(metadataUrl, {
+            headers: { "Authorization": `token ${token}` }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch metadata.");
+        }
+
+        const data = await response.json();
+        metadataSha = data.sha;
+
+        const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
+
+        const updateResponse = await fetch(metadataUrl, {
+            method: "PUT",
+            headers: {
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Update metadata after image replacement",
+                content: updatedMetadata,
+                sha: metadataSha,
+                branch: branch
+            })
+        });
+
+        if (!updateResponse.ok) {
+            throw new 
+
 
 async function replaceImage(oldFilename) {
     const input = document.createElement('input');
