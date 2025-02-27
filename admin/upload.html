@@ -34,6 +34,8 @@
         
         <label for="imageDetails">Additional Info:</label>
         <textarea id="imageDetails" rows="2"></textarea>
+
+        <button type="button" onclick="uploadNewEntry()">Upload New Entry</button>
         
         <button type="button" onclick="updateMetadata()">Update Metadata</button>
     </form>
@@ -132,6 +134,148 @@
                 console.warn("Failed to load gallery.", error);
             }
         }
+       async function updateMetadata() {
+    if (!editingFilename) {
+        alert("No image selected for editing.");
+        return;
+    }
+
+    const token = localStorage.getItem('githubToken');
+    const newTitle = document.getElementById('imageName').value;
+    const newBio = document.getElementById('imageBio').value;
+    const newQuote = document.getElementById('imageQuote').value;
+    const newDetails = document.getElementById('imageDetails').value;
+
+    metadata[editingFilename] = {
+        ...metadata[editingFilename],  // Keep existing metadata
+        title: newTitle,
+        bio: newBio,
+        quote: newQuote,
+        details: newDetails
+    };
+
+    const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
+    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+
+    try {
+        const response = await fetch(metadataUrl, {
+            method: "PUT",
+            headers: {
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Update metadata",
+                content: updatedMetadata,
+                branch: branch,
+                sha: metadataSha
+            })
+        });
+
+        if (response.ok) {
+            alert("Metadata updated successfully!");
+            loadGallery();
+        } else {
+            alert("Failed to update metadata.");
+        }
+    } catch (error) {
+        console.warn("Error updating metadata:", error);
+    }
+}
+      
+async function uploadNewEntry() {
+    const token = localStorage.getItem('githubToken');
+    const fileInput = document.getElementById('imageFile');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select an image.");
+        return;
+    }
+
+    const title = document.getElementById('imageName').value.trim();
+    const bio = document.getElementById('imageBio').value.trim();
+    const quote = document.getElementById('imageQuote').value.trim();
+    const details = document.getElementById('imageDetails').value.trim();
+
+    if (!title || !bio) {
+        alert("Please fill in the title and bio.");
+        return;
+    }
+
+    // Read file and encode as Base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async function () {
+        const base64Data = reader.result.split(',')[1];
+        const filename = file.name.replace(/\s+/g, "_");
+        const filePath = `${galleryPath}${filename}`;
+        const uploadUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+
+        try {
+            // Upload image to GitHub
+            const uploadResponse = await fetch(uploadUrl, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: `Uploaded ${filename}`,
+                    content: base64Data,
+                    branch: branch
+                })
+            });
+
+            if (!uploadResponse.ok) {
+                alert("Image upload failed.");
+                return;
+            }
+
+            // Determine the next order number
+            const orderNumbers = Object.values(metadata).map(entry => entry.order || 0);
+            const newOrder = orderNumbers.length > 0 ? Math.max(...orderNumbers) + 1 : 1;
+
+            // Add new metadata entry
+            metadata[filename] = {
+                title: title,
+                bio: bio,
+                quote: quote,
+                details: details,
+                order: newOrder
+            };
+
+            // Update metadata.json
+            const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
+            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+
+            const metadataResponse = await fetch(metadataUrl, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: "Added new entry",
+                    content: updatedMetadata,
+                    branch: branch,
+                    sha: metadataSha
+                })
+            });
+
+            if (metadataResponse.ok) {
+                alert("New entry uploaded successfully!");
+                loadGallery(); // Refresh the gallery
+            } else {
+                alert("Metadata update failed.");
+            }
+
+        } catch (error) {
+            console.error("Error uploading new entry:", error);
+        }
+    };
+}
+    
 async function deleteImage(filename) {
     const token = localStorage.getItem('githubToken');
     const imageUrl = `https://api.github.com/repos/${repo}/contents/${galleryPath}${filename}`;
@@ -234,6 +378,13 @@ async function updateMetadataFile() {
     }
 }
 
+      function editImage(filename, name, bio, details, quote, order) {
+            document.getElementById('imageName').value = name || "";
+            document.getElementById('imageBio').value = bio || "";
+            document.getElementById('imageQuote').value = quote || "";  // Prevent undefined
+            document.getElementById('imageDetails').value = details || "";
+            editingFilename = filename;
+        }
 
 
 async function replaceImage(oldFilename) {
