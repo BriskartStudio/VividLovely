@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         /* Lightbox styles */
         .lightbox {
+            display: none;
             position: fixed;
             height: 100vh; /* Make sure it takes full screen height */
             top: 0;
@@ -164,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function() {
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(10px); /* Add blur effect */
-            display: fixed;
             align-items: center;
             justify-content: center;
             padding: 5%;
@@ -182,9 +182,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         .lightbox img {
-            max-height: 80vh; /* Keep it from being too large */
-            max-width: 50vw; /* Maintain proper proportions */
-            object-fit: contain; /* Ensures it resizes without distortion */
+            max-height: 90vh;
+            max-width: 55%;
+            flex-grow: 1;
+            object-fit: contain;
+            border-radius: 20px; /* Adjust for a softer or sharper curve */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Optional: adds depth */
         }
         
         .lightbox-panel {
