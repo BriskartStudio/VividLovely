@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
         /* Lightbox styles */
         .lightbox {
             display: none;
-            position: fixed;
+            position: absolute;
             height: 100vh; /* Make sure it takes full screen height */
             top: 0;
             left: 0;
@@ -184,8 +184,12 @@ document.addEventListener("DOMContentLoaded", function() {
         .lightbox img {
             max-height: 90vh;
             max-width: 55%;
+            width: 100%; /* Ensure it stretches to the container */
+            height: 100%; /* Ensure it fills the height */
+            object-fit: cover; /* Prevents gaps by cropping if necessary */
+            border-radius: 20px; /* Maintain rounded corners */
+            display: block; /* Removes any extra inline spacing */
             flex-grow: 1;
-            object-fit: contain;
             border-radius: 20px; /* Adjust for a softer or sharper curve */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Optional: adds depth */
         }
