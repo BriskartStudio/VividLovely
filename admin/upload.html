@@ -207,7 +207,16 @@ async function replaceImage(oldFilename) {
 
                 alert("Image replaced successfully!");
                 loadGallery();
-            } catch (error
+            } catch (error) {
+                console.error("Error replacing image:", error);
+                alert("An error occurred while replacing the image.");
+            }
+        };
+
+        reader.readAsDataURL(file);
+    };
+    input.click();
+}
 
     </script>
 </body>
