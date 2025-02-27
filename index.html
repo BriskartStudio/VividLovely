@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
         /* Lightbox styles */
         .lightbox {
             display: none;
-            position: absolute;
+            position: fixed;
             height: 100vh; /* Make sure it takes full screen height */
             top: 0;
             left: 0;
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ${detailsText}
         `;
     
-        document.getElementById('lightbox').style.display = 'flex';
+        document.getElementById('lightbox').style.display = 'fixed';
     }
 
         function closeLightbox() {
