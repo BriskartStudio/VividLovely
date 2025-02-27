@@ -208,5 +208,12 @@
     "quote": "\"Gold is nice. Secrets are better.\" – Zahara the Gilded",
     "details": "Stable Diffusion/WAI-ANI-NSFW-PONYXL model, made with Civit.ai",
     "order": 31
+  },
+  "910CT8V0C0C2EGV5E79SC8KHV0.jpeg": {
+    "title": "Briala",
+    "bio": "If fairies were all sweetness and stardust, Briala would’ve been exiled ages ago. Barefoot, tattooed, and absolutely seething, she perches on a wooden stool, rings glinting as she drums impatient fingers against her knee. The air around her crackles with leftover magic—probably from the last idiot who thought they could outwit a fairy shaman.\n\nShe’s a healer, sure. A guide, even. But she’s also got a temper like summer lightning, and if you waste her time, you might just leave with more curses than cures. The elders whisper that she’s too wild, too defiant. Briala doesn’t care. She’ll keep dancing barefoot through the woods, keep binding spirits to her will, and keep reminding everyone exactly why fairies were feared long before they were ever loved.",
+    "quote": "\"I could help you. But honestly? I kinda don’t want to.\" – Briala/WAI-NSFW-illustrious-SDXL",
+    "details": "Generated using StableDiffusion/",
+    "order": 32
   }
 }
