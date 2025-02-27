@@ -1,38 +1,40 @@
 {
     "Theme": [
-        "Cyberpunk", "Fantasy", "Retro Futurism", "Noir", "Steampunk", "Gothic", "Space Opera", "Supernatural", 
-        "Ancient Egypt", "Greek Mythology", "Roman Empire", "Medieval Europe", "Viking Saga", "Samurai Era", "Wild West", 
-        "Roaring Twenties", "Modern Day", "Dystopian Future", "Utopian Future", "Fairy Tale", "Arabian Nights", "Aztec Mythology", 
-        "Chinese Wuxia", "Hindu Epics", "Slavic Folklore", "African Legends", "Polynesian Myths", "Celtic Mysticism"
+        "cyberpunk", "fantasy", "retro futurism", "noir", "steampunk", "gothic", "space opera", "supernatural", 
+        "ancient Egypt", "Greek mythology", "Roman empire", "medieval Europe", "Viking saga", "Samurai era", "wild west", 
+        "roaring twenties", "modern day", "dystopian future", "utopian future", "fairy tale", "Arabian nights", "Aztec mythology", 
+        "Chinese wuxia", "Hindu epics", "Slavic folklore", "African legends", "Polynesian myths", "Celtic mysticism"
     ],
     "Species": [
-        "Human", "Elf", "Android", "Demon", "Alien", "Vampire", "Werewolf", "Mermaid", "Centaur", "Minotaur", "Djinn", 
-        "Fairy", "Goblin", "Orc", "Selkie", "Kraken", "Sphinx", "Golem", "Ghost", "Naga", "Kitsune", "Yokai"
+        "human", "elf", "android", "demon", "alien", "vampire", "werewolf", "mermaid", "centaur", "minotaur", "djinn", 
+        "fairy", "goblin", "orc", "selkie", "kraken", "sphinx", "golem", "ghost", "naga", "kitsune", "yokai"
     ],
     "BodyType": [
-        "Slim", "Athletic", "Curvy", "Muscular", "Petite", "Tall", "Stocky", "Lanky", "Burly", "Delicate", "Voluptuous"
+        "slim", "athletic", "curvy", "muscular", "petite", "tall", "stocky", "lanky", "burly", "delicate", "voluptuous"
     ],
     "BodyFeatures": [
-        "Tattoos", "Scars", "Freckles", "Piercings", "Glowing Eyes", "Cybernetic Limbs", "Wings", "Horns", "Third Eye", 
-        "Bioluminescent Skin", "Forked Tongue", "Gills", "Feline Ears", "Mechanical Tail", "Crystal Embedded Skin", "Extra Arms"
+        "tattoos", "scars", "freckles", "jewelry","piercings", "glowing eyes", "cybernetic limbs", "wings", "horns", "third eye", 
+        "bioluminescent skin", "forked tongue", "gills", "feline ears", "mechanical tail", "crystal embedded skin", "extra arms"
     ],
     "Occupation": [
-        "Detective", "Bounty Hunter", "Singer", "Scientist", "Thief", "Pirate", "Scholar", "Dancer", "Shaman", "Priestess", 
-        "Alchemist", "Assassin", "Knight", "Gladiator", "Explorer", "Merchant", "Stage Magician", "Espionage Agent", "Blacksmith", 
-        "Barmaid", "Nurse", "Teacher", "Fortune Teller", "Librarian", "Seamstress", "Actress", "Bartender", "Maid", "Governess"
+        "detective", "bounty hunter", "singer", "scientist", "thief", "pirate", "scholar", "dancer", "shaman", "priestess", 
+        "alchemist", "assassin", "knight", "gladiator", "explorer", "merchant", "stage magician", "espionage agent", "blacksmith", 
+        "barmaid", "nurse", "teacher", "fortune teller", "librarian", "seamstress", "actress", "bartender", "maid", "governess"
     ],
     "Disposition": [
-        "Cheerful", "Mysterious", "Sassy", "Stoic", "Brooding", "Charming", "Eccentric", "Cold", "Hot-headed", "Sarcastic", 
-        "Playful", "Wise", "Serene", "Rebellious", "Cunning", "Melancholic"
+        "cheerful", "mysterious", "sassy", "stoic", "brooding", "charming", "eccentric", "cold", "hot-headed", "sarcastic", 
+        "playful", "wise", "serene", "rebellious", "cunning", "melancholic"
     ],
     "Pose": [
-        "Leaning against a wall", "Sitting on a stool", "Mid-dance", "Holding a weapon", "Crossed arms", "Kneeling", "Dramatic stance", 
-        "Relaxed lounge", "One hand on hip", "Perched on a ledge", "Reclining luxuriously", "Running forward", "Casting a spell", 
-        "Pointing accusingly", "Floating in mid-air"
+        "leaning against a wall", "sitting on a stool", "mid-dance", "holding a weapon", "crossed arms", "kneeling", "dramatic stance", 
+        "relaxed lounge", "one hand on hip", "perched on a ledge", "reclining luxuriously", "running forward", "casting a spell", 
+        "pointing accusingly", "floating in mid-air", "arching her back seductively", "biting her lip teasingly", "playfully twirling a lock of hair", 
+        "lying on her side provocatively", "pressing up against a surface suggestively", "gazing over her shoulder flirtatiously", 
+        "holding a drink with a sultry smirk", "slowly slipping off a glove", "teasingly adjusting a garter"
     ],
     "Accessories": [
-        "Cigarette Holder", "Ray Gun", "Feather Boa", "Sunglasses", "Top Hat", "Mechanical Arm", "Magic Amulet", "Pocket Watch", 
-        "Spellbook", "Dragon Companion", "Enchanted Ring", "Mystical Staff", "Golden Bracelets", "Pirate Hat", "Battle Axe", 
-        "Sacrificial Dagger", "Glowing Orb", "Serpentine Necklace"
+        "cigarette holder", "ray gun", "feather boa", "sunglasses", "top hat", "mechanical arm", "magic amulet", "pocket watch", 
+        "spellbook", "dragon companion", "enchanted ring", "mystical staff", "golden bracelets", "pirate hat", "battle axe", 
+        "sacrificial dagger", "glowing orb", "serpentine necklace", "chains", "ornate rings"
     ]
 }
