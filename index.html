@@ -170,21 +170,21 @@ document.addEventListener("DOMContentLoaded", function() {
             padding: 5%;
             z-index: 25;
         }
-
+        
         .lightbox-content {
             display: flex;
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Keep them together */
-            gap: 3%; /* Reduce space between image and panel */
+            flex-direction: row;
+            align-items: center; /* Centers vertically */
+            justify-content: center; /* Centers horizontally */
+            gap: 3%;
+            height: 100vh; /* Ensures full-screen centering */
             max-width: 90vw;
         }
-        
+
         .lightbox img {
-            max-height: 85vh; /* Slightly reduce max height to avoid touching the bottom */
-            max-width: 50%; /* Adjust width slightly */
-            flex-grow: 1;
+            max-height: 80vh; /* Reduce a bit more to prevent bottom cutoff */
+            max-width: 50%;
             object-fit: contain;
-            transform: none; /* Remove translateX shifting */
         }
         
         .lightbox-panel {
