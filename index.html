@@ -173,35 +173,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
         .lightbox-content {
             display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            gap: 5%;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Keep them together */
+            gap: 3%; /* Reduce space between image and panel */
             max-width: 90vw;
         }
-
+        
         .lightbox img {
-            max-height: 90vh;
-            max-width: 55%;
+            max-height: 85vh; /* Slightly reduce max height to avoid touching the bottom */
+            max-width: 50%; /* Adjust width slightly */
             flex-grow: 1;
             object-fit: contain;
-            transform: translateX(-10%);
-            gap: 5%;
+            transform: none; /* Remove translateX shifting */
         }
-
+        
         .lightbox-panel {
             width: 35%;
-            max-width: 400px; /* Prevent it from taking too much space */
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 10px;
-            color: #ffe2d7;
-            opacity: 0.9;
-            transition: all 0.3s ease-in-out;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            align-self: flex-start;
+            max-width: 400px;
+            align-self: center; /* Ensure it stays vertically centered */
         }
 
         .lightbox-close {
