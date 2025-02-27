@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
         /* Lightbox styles */
         .lightbox {
             position:fixed;
+            transform: translateY(-60px);
             display: none;
             height: 100vh; /* Make sure it takes full screen height */
             top: 0;
@@ -197,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .lightbox-panel {
             width: 35%;
             max-width: 400px;
-            align-self: center; /* Ensure it stays vertically centered */
+            align-self: flex-start; 
         }
 
         .lightbox-close {
@@ -273,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .split(/\n\n+/)  // Split on double newlines for paragraphs
             .map(paragraph => `<p>${paragraph.trim()}</p>`)
             .join('');
-            const quoteText = metadata?.quote ? `<blockquote style="margin-top: 10px; font-style: italic; color: #ddd;">"${metadata.quote}"</blockquote>` : '';
+            const quoteText = metadata?.quote ? `<p style="margin-top: 10px; font-style: italic; color: #ddd;">"${metadata.quote}"</p>` : '';
     
         // Format the details with styling
         const detailsText = metadata?.details ? `<div style="margin-top: 10px; font-size: 0.9em; color: #bbb;">${metadata.details}</div>` : '';
