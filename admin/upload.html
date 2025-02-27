@@ -133,7 +133,7 @@
             }
         }
 
-async function replaceImage(filename) {
+async function replaceImage(oldFilename) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
@@ -141,57 +141,73 @@ async function replaceImage(filename) {
         const file = event.target.files[0];
         if (!file) return;
 
+        const newFilename = file.name;
         const reader = new FileReader();
         reader.onload = async function() {
             const token = localStorage.getItem('githubToken');
-            const imageUrl = `https://api.github.com/repos/${repo}/contents/${galleryPath}${filename}`;
+            const oldImageUrl = `https://api.github.com/repos/${repo}/contents/${galleryPath}${oldFilename}`;
+            const newImageUrl = `https://api.github.com/repos/${repo}/contents/${galleryPath}${newFilename}`;
 
             try {
-                // Get the current file's SHA
-                const response = await fetch(imageUrl, {
+                // Fetch the old image SHA
+                const oldImageResponse = await fetch(oldImageUrl, {
                     headers: { "Authorization": `token ${token}` }
                 });
 
-                if (!response.ok) {
+                if (!oldImageResponse.ok) {
                     alert("Error fetching existing image data.");
                     return;
                 }
 
-                const imageData = await response.json();
-                const sha = imageData.sha;
+                const oldImageData = await oldImageResponse.json();
+                const oldSha = oldImageData.sha;
 
                 // Prepare new file content
                 const content = utf8_to_b64(reader.result.split(',')[1]);
 
-                // Replace the image
-                const updateResponse = await fetch(imageUrl, {
+                // Upload new image
+                const newImageResponse = await fetch(newImageUrl, {
                     method: "PUT",
                     headers: {
                         "Authorization": `token ${token}`,
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        message: `Replace image ${filename}`,
+                        message: `Upload new image ${newFilename}`,
                         content: content,
-                        sha: sha, // Important for replacing instead of adding
                         branch: branch
                     })
                 });
 
-                if (updateResponse.ok) {
-                    alert("Image replaced successfully!");
-                    loadGallery();
-                } else {
-                    alert("Failed to replace image.");
+                if (!newImageResponse.ok) {
+                    alert("Failed to upload new image.");
+                    return;
                 }
-            } catch (error) {
-                console.warn("Error replacing image:", error);
-            }
-        };
-        reader.readAsDataURL(file);
-    };
-    input.click();
-}
+
+                // Delete old image
+                await fetch(oldImageUrl, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: `Delete old image ${oldFilename}`,
+                        sha: oldSha,
+                        branch: branch
+                    })
+                });
+
+                // Update metadata
+                if (metadata[oldFilename]) {
+                    metadata[newFilename] = { ...metadata[oldFilename] }; // Copy metadata
+                    delete metadata[oldFilename]; // Remove old entry
+                    await updateMetadataFile();
+                }
+
+                alert("Image replaced successfully!");
+                loadGallery();
+            } catch (error
 
     </script>
 </body>
