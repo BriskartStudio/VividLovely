@@ -257,16 +257,22 @@ async function replaceImage(oldFilename) {
                     headers: { "Authorization": `token ${token}` }
                 });
 
-                if (!oldImageResponse.ok) {
+                let oldSha = null;
+                if (oldImageResponse.ok) {
+                    const oldImageData = await oldImageResponse.json();
+                    oldSha = oldImageData.sha;
+                } else if (oldImageResponse.status !== 404) {
                     alert("Error fetching existing image data.");
                     return;
                 }
 
-                const oldImageData = await oldImageResponse.json();
-                const oldSha = oldImageData.sha;
-
-                // Prepare new file content
-                const content = utf8_to_b64(reader.result.split(',')[1]);
+                // Convert the image file to Base64 properly
+                const binary = new Uint8Array(reader.result);
+                let binaryString = "";
+                for (let i = 0; i < binary.length; i++) {
+                    binaryString += String.fromCharCode(binary[i]);
+                }
+                const content = btoa(binaryString); // Encode correctly
 
                 // Upload new image
                 const newImageResponse = await fetch(newImageUrl, {
@@ -287,19 +293,21 @@ async function replaceImage(oldFilename) {
                     return;
                 }
 
-                // Delete old image
-                await fetch(oldImageUrl, {
-                    method: "DELETE",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        message: `Delete old image ${oldFilename}`,
-                        sha: oldSha,
-                        branch: branch
-                    })
-                });
+                // Delete old image if it exists
+                if (oldSha) {
+                    await fetch(oldImageUrl, {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": `token ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            message: `Delete old image ${oldFilename}`,
+                            sha: oldSha,
+                            branch: branch
+                        })
+                    });
+                }
 
                 // Update metadata
                 if (metadata[oldFilename]) {
@@ -316,10 +324,11 @@ async function replaceImage(oldFilename) {
             }
         };
 
-        reader.readAsDataURL(file);
+        reader.readAsArrayBuffer(file); // Read as raw binary instead of Data URL
     };
     input.click();
 }
+
 
     </script>
 </body>
