@@ -18,9 +18,10 @@
   <button onclick="rollAll()">Roll All</button>
   <button onclick="compileCharacter()">Compile</button>
   <!-- New button for sending to ChatGPT -->
-  <button onclick="sendToChatGPT()">Generate Bio</button>
+  <h2>Bio Prompt</h2>
   <p id="compiledOutput"></p>
-
+  <h2>Raw Prompt Parameters</h2>
+  <p id="promptParams"></p>
   <script>
     let attributes = {};
 
@@ -136,6 +137,14 @@
         `working as a ${document.getElementById('Occupation').value}. She is ${document.getElementById('Disposition').value}, ` +
         `and currently ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
       document.getElementById("compiledOutput").innerText = compiledText;
+    }
+
+        function compilePromptParams() {
+      let compiledText = `${document.getElementById('Theme').value} aesthetic, sexy female ${document.getElementById('Species').value} ` +
+        ` ${document.getElementById('BodyType').value} body, and ${document.getElementById('BodyFeatures').value}, ` +
+        `${document.getElementById('Occupation').value}. ${document.getElementById('Disposition').value}, ` +
+        ` ${document.getElementById('Pose').value} pose, ${document.getElementById('Accessories').value}.`;
+      document.getElementById("PromptParams").innerText = compiledText;
     }
 
      function setupAttributes() {
