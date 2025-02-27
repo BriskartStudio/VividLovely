@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         /* Lightbox styles */
         .lightbox {
-            position: fixed;
+            height: 100vh; /* Make sure it takes full screen height */
             top: 0;
             left: 0;
             width: 100%;
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
             display: flex;
             align-items: center;
             justify-content: center;
-            display: none;
+            display: flex;
             padding: 5%;
             z-index: 25;
         }
@@ -174,17 +174,17 @@ document.addEventListener("DOMContentLoaded", function() {
         .lightbox-content {
             display: flex;
             flex-direction: row;
-            align-items: center; /* Centers vertically */
-            justify-content: center; /* Centers horizontally */
+            align-items: center; /* Ensure both image and text panel are aligned */
+            justify-content: center; /* Reduce unnecessary spacing */
             gap: 3%;
-            height: 100vh; /* Ensures full-screen centering */
             max-width: 90vw;
+            height: auto; /* Allow natural height */
         }
 
         .lightbox img {
-            max-height: 80vh; /* Reduce a bit more to prevent bottom cutoff */
-            max-width: 50%;
-            object-fit: contain;
+            max-height: 80vh; /* Keep it from being too large */
+            max-width: 50vw; /* Maintain proper proportions */
+            object-fit: contain; /* Ensures it resizes without distortion */
         }
         
         .lightbox-panel {
