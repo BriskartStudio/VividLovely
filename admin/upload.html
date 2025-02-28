@@ -240,10 +240,9 @@ async function updateMetadata() {
         }
     } catch (error) {
         console.warn("Error updating metadata:", error);
-    }
+    };
 }
-      
-    <script>
+        
         async function uploadNewEntry(isLive) {
             const token = localStorage.getItem('githubToken');
             const fileInput = document.getElementById('imageFile');
