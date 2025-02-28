@@ -38,6 +38,9 @@
         <button type="button" onclick="uploadNewEntry()">Upload New Entry</button>
         
         <button type="button" onclick="updateMetadata()">Update Metadata</button>
+
+        <button type="button" onclick="clearForm()">Clear Form</button>
+
     </form>
     
     <h2>Gallery</h2>
@@ -485,7 +488,15 @@ async function replaceImage(oldFilename) {
     };
     input.click();
 }
-
+           
+            function clearForm() {
+                document.getElementById('imageFile').value = "";
+                document.getElementById('imageName').value = "";
+                document.getElementById('imageBio').value = "";
+                document.getElementById('imageQuote').value = "";
+                document.getElementById('imageDetails').value = "";
+                editingFilename = null; // Reset editing mode
+            }
 
     </script>
 </body>
