@@ -344,6 +344,10 @@ async function fetchImages() {
                 // Find the corresponding metadata entry by matching filenames
                 const metaEntry = liveMetadata.find(entry => entry.filename.trim() === file.name.trim());
 
+                if (!metaEntry) {
+                    console.warn(`No metadata found for ${file.name}`);
+                }
+
                 return {
                     url: file.download_url,
                     name: file.name,
@@ -356,9 +360,9 @@ async function fetchImages() {
         // Store images in global imageList
         imageList = images;
         
-      console.log('Live Metadata:', liveMetadata);
-      console.log('Unsorted images:', images);
-      console.log('Sorted images:', images.sort((a, b) => b.order - a.order));
+        console.log('Live Metadata:', liveMetadata);
+        console.log('Gallery API Data:', data);
+        console.log('Mapped Images:', images);
 
         gallery.innerHTML = '';
         images.forEach((image, index) => {
