@@ -320,7 +320,9 @@ function navigateLightbox(direction) {
         async function fetchMetadata() {
             try {
                 const response = await fetch(`https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${metadataFile}`);
-                return await response.json();
+                const metadata = await response.json();
+        
+                return metadata.live || []; // Only return live posts
             } catch (error) {
                 console.error('Error fetching metadata:', error);
                 return {};
