@@ -1,4 +1,5 @@
 {
+  "live": [{
   "21B27C364DC1AAC0F3B2B421DD475C3AC5C6DB8879335D8A41C7B92621A13457.jpg": {
     "title": "More Celeste",
     "order": 24,
@@ -195,4 +196,16 @@
     "details": "StableDiffusion/PonyXL",
     "order": 35
   }
+}],
+  "scheduled": [
+    {
+      "filename": "",
+      "title": "",
+      "order": 36,
+      "bio": "",
+      "quote": "",
+      "details": "",
+      "scheduled_date": "2025-03-01"
+    }
+  ]
 }
