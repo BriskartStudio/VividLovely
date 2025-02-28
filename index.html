@@ -331,7 +331,8 @@ function navigateLightbox(direction) {
 
 async function fetchImages() {
     try {
-        const metadata = await fetchMetadata();
+        /*const metadata = await fetchMetadata();*/
+        const metadataResponse = await fetchMetadata(); // Fetch live metadata
         const liveMetadata = metadataResponse || []; // Ensure it's an array
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
         const data = await response.json();
