@@ -83,6 +83,12 @@
             loadToken();
             loadGallery();
         };
+        
+        function escapeString(str) {
+    return str ? str.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, " ") : "";
+}
+
+        
 
         function utf8_to_b64(str) {
             return btoa(unescape(encodeURIComponent(str)));
@@ -95,6 +101,16 @@
         async function loadGallery() {
             const token = localStorage.getItem('githubToken');
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
+            const row = `<tr>
+                <td><img src='${imageUrl}' alt='${escapeString(title)}'></td>
+                <td>${escapeString(title)}</td>
+                <td>${order}</td>
+                <td class="actions">
+                    <button onclick="editImage('${filename}', '${escapeString(title)}', '${escapeString(bio)}', '${escapeString(details)}', '${escapeString(quote)}', ${order})">Edit</button>
+                    <button onclick="replaceImage('${filename}')">Replace Image</button>
+                    <button onclick="deleteImage('${filename}')">Delete</button>
+                </td>
+            </tr>`;
             
             try {
                 const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
