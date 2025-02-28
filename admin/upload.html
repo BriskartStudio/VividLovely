@@ -101,16 +101,6 @@
         async function loadGallery() {
             const token = localStorage.getItem('githubToken');
             const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-            const row = `<tr>
-                <td><img src='${imageUrl}' alt='${escapeString(title)}'></td>
-                <td>${escapeString(title)}</td>
-                <td>${order}</td>
-                <td class="actions">
-                    <button onclick="editImage('${filename}', '${escapeString(title)}', '${escapeString(bio)}', '${escapeString(details)}', '${escapeString(quote)}', ${order})">Edit</button>
-                    <button onclick="replaceImage('${filename}')">Replace Image</button>
-                    <button onclick="deleteImage('${filename}')">Delete</button>
-                </td>
-            </tr>`;
             
             try {
                 const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
@@ -134,11 +124,11 @@
                             const order = item.order || 0;
 
                             const row = `<tr>
-                                <td><img src='${imageUrl}' alt='${title}'></td>
-                                <td>${title}</td>
+                                <td><img src='${imageUrl}' alt='${escapeString(title)}'></td>
+                                <td>${escapeString(title)}</td>
                                 <td>${order}</td>
                                 <td class="actions">
-                                    <button onclick="editImage('${filename}', '${title}', '${bio}', '${details}', '${quote}', ${order})">Edit</button>
+                                    <button onclick="editImage('${filename}', '${escapeString(title)}', '${escapeString(bio)}', '${escapeString(details)}', '${escapeString(quote)}', ${order})">Edit</button>
                                     <button onclick="replaceImage('${filename}')">Replace Image</button>
                                     <button onclick="deleteImage('${filename}')">Delete</button>
                                 </td>
