@@ -332,6 +332,7 @@ function navigateLightbox(direction) {
 async function fetchImages() {
     try {
         const metadata = await fetchMetadata();
+        const liveMetadata = metadataResponse || []; // Ensure it's an array
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
         const data = await response.json();
         const gallery = document.getElementById('gallery');
@@ -340,7 +341,7 @@ async function fetchImages() {
             .filter(file => file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|gif)$/i))
             .map(file => {
                 // Find the corresponding metadata entry by matching filenames
-                const metaEntry = metadata.find(entry => entry.filename === file.name);
+                const metaEntry = liveMetadata.find(entry => entry.filename.trim() === file.name.trim());
 
                 return {
                     url: file.download_url,
@@ -354,7 +355,7 @@ async function fetchImages() {
         // Store images in global imageList
         imageList = images;
         
-      console.log('Metadata:', metadata);
+      console.log('Live Metadata:', liveMetadata);
       console.log('Unsorted images:', images);
       console.log('Sorted images:', images.sort((a, b) => b.order - a.order));
 
