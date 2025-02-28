@@ -118,47 +118,63 @@
         }
 
         async function loadGallery() {
-            const token = localStorage.getItem('githubToken');
-            const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-            
-            try {
-                const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
-                if (response.ok) {
-                    const data = await response.json();
-                    metadata = JSON.parse(b64_to_utf8(data.content));
-                    metadataSha = data.sha;
-                    
-                    const table = document.getElementById('galleryTable');
-                    table.innerHTML = "";
-                    
-                    Object.entries(metadata)
-                        .sort((a, b) => b[1].order - a[1].order)
-                        .forEach(([filename, item]) => {
-                            const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${filename}`;
+    const token = localStorage.getItem('githubToken');
+    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
 
-                            const title = item.title || "";
-                            const bio = item.bio || "";
-                            const quote = item.quote || "";
-                            const details = item.details || "";
-                            const order = item.order || 0;
+    try {
+        const response = await fetch(metadataUrl, { headers: { 'Authorization': `token ${token}` } });
+        if (response.ok) {
+            const data = await response.json();
+            metadata = JSON.parse(b64_to_utf8(data.content));
+            metadataSha = data.sha;
 
-                            const row = `<tr>
-                                <td><img src='${imageUrl}' alt='${escapeString(title)}'></td>
-                                <td>${escapeString(title)}</td>
-                                <td>${order}</td>
-                                <td class="actions">
-                                    <button onclick="editImage('${filename}', '${escapeString(title)}', '${escapeString(bio)}', '${escapeString(details)}', '${escapeString(quote)}', ${order})">Edit</button>
-                                    <button onclick="replaceImage('${filename}')">Replace Image</button>
-                                    <button onclick="deleteImage('${filename}')">Delete</button>
-                                </td>
-                            </tr>`;
-                            table.innerHTML += row;
-                        });
-                }
-            } catch (error) {
-                console.warn("Failed to load gallery.", error);
-            }
+            const liveTable = document.getElementById('galleryTable');
+            const scheduledTable = document.getElementById('scheduledGalleryTable');
+            liveTable.innerHTML = "";
+            scheduledTable.innerHTML = "";
+
+            // Handle LIVE posts
+            metadata.live.sort((a, b) => b.order - a.order).forEach((item) => {
+                const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${item.filename}`;
+                const row = `<tr>
+                    <td><img src='${imageUrl}' alt='${escapeString(item.title)}'></td>
+                    <td>${escapeString(item.title)}</td>
+                    <td>${item.order}</td>
+                    <td class="actions">
+                        <button onclick="editImage('${item.filename}', '${escapeString(item.title)}', '${escapeString(item.bio)}', '${escapeString(item.details)}', '${escapeString(item.quote)}', ${item.order})">Edit</button>
+                        <button onclick="replaceImage('${item.filename}')">Replace Image</button>
+                        <button onclick="deleteImage('${item.filename}')">Delete</button>
+                    </td>
+                </tr>`;
+                liveTable.innerHTML += row;
+            });
+
+            // Handle SCHEDULED posts
+            metadata.scheduled.sort((a, b) => new Date(a.scheduled_date) - new Date(b.scheduled_date)).forEach((item) => {
+                const imageUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${galleryPath}${item.filename}`;
+                const row = `<tr>
+                    <td><img src='${imageUrl}' alt='${escapeString(item.title)}'></td>
+                    <td>${escapeString(item.title)}</td>
+                    <td>${item.order}</td>
+                    <td>${item.scheduled_date}</td>
+                    <td class="actions">
+                        <button onclick="editImage('${item.filename}', '${escapeString(item.title)}', '${escapeString(item.bio)}', '${escapeString(item.details)}', '${escapeString(item.quote)}', ${item.order})">Edit</button>
+                        <button onclick="replaceImage('${item.filename}')">Replace Image</button>
+                        <button onclick="deleteImage('${item.filename}')">Delete</button>
+                    </td>
+                </tr>`;
+                scheduledTable.innerHTML += row;
+            });
+
+            console.log("Gallery loaded successfully.");
+        } else {
+            console.warn("Failed to load metadata.");
         }
+    } catch (error) {
+        console.warn("Error loading gallery:", error);
+    }
+}
+
         
 async function updateMetadata() {
     if (!editingFilename) {
