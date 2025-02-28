@@ -338,16 +338,22 @@ async function fetchImages() {
 
         let images = data
             .filter(file => file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|gif)$/i))
-            .map(file => ({
-                url: file.download_url,
-                name: file.name,
-                order: metadata[file.name]?.order || 9999, // Default to a high number if order is missing
-                metadata: metadata[file.name] || {}
-            }))
+            .map(file => {
+                // Find the corresponding metadata entry by matching filenames
+                const metaEntry = metadata.find(entry => entry.filename === file.name);
+
+                return {
+                    url: file.download_url,
+                    name: file.name,
+                    order: metaEntry?.order || 9999, // Default to a high number if order is missing
+                    metadata: metaEntry || {} // If no metadata, use an empty object
+                };
+            })
             .sort((a, b) => b.order - a.order); // Sort based on the `Order` field
 
         // Store images in global imageList
         imageList = images;
+        
       console.log('Metadata:', metadata);
       console.log('Unsorted images:', images);
       console.log('Sorted images:', images.sort((a, b) => b.order - a.order));
