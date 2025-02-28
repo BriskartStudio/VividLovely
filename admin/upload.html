@@ -242,36 +242,6 @@ async function updateMetadata() {
         console.warn("Error updating metadata:", error);
     }
 }
-
-
-    const updatedMetadata = utf8_to_b64(JSON.stringify(metadata, null, 2));
-    const metadataUrl = `https://api.github.com/repos/${repo}/contents/${metadataPath}`;
-
-    try {
-        const response = await fetch(metadataUrl, {
-            method: "PUT",
-            headers: {
-                "Authorization": `token ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: "Update metadata",
-                content: updatedMetadata,
-                branch: branch,
-                sha: metadataSha
-            })
-        });
-
-        if (response.ok) {
-            alert("Metadata updated successfully!");
-            loadGallery();
-        } else {
-            alert("Failed to update metadata.");
-        }
-    } catch (error) {
-        console.warn("Error updating metadata:", error);
-    }
-}
       
     <script>
         async function uploadNewEntry(isLive) {
