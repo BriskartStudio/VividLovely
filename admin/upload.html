@@ -140,6 +140,7 @@
                     <td><img src='${imageUrl}' alt='${escapeString(item.title)}'></td>
                     <td>${escapeString(item.title)}</td>
                     <td>${item.order}</td>
+                    <td>${item.scheduled_date}</td>
                     <td class="actions">
                         <button onclick="editImage('${item.filename}', '${escapeString(item.title)}', '${escapeString(item.bio)}', '${escapeString(item.details)}', '${escapeString(item.quote)}', ${item.order})">Edit</button>
                         <button onclick="replaceImage('${item.filename}')">Replace Image</button>
