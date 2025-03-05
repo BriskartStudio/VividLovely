@@ -152,7 +152,7 @@
     populateDropdown("eye_color", []);
     populateDropdown("skin_color", []);
   }
-}
+
 
 function updateOptions() {
     const realm = document.getElementById("realm").value;
@@ -173,7 +173,7 @@ function updateOptions() {
   if (selectId === "species") {
       updatePhenotypeOptions();
   }
-}
+
 const realms = Object.keys(parameters.realms);
 const bodyTypes = parameters.body_type;
 const dispositions = parameters.disposition;
