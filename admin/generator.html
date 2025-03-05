@@ -106,19 +106,25 @@
             result.textContent = 'Character generated!';
         }
         
-        function reroll(selectId) {
-            const select = document.getElementById(selectId);
-            const options = Array.from(select.options).map(option => option.value);
-            const randomIndex = Math.floor(Math.random() * options.length);
-            select.value = options[randomIndex];
-
-            if (selectId === "realm") {
-                updateOptions();
-            }
-            if (selectId === "species") {
-                updatePhenotypeOptions();
-            }
+    function reroll(selectId) {
+        console.log("reroll function called with selectId:", selectId); // ADD THIS LINE
+        console.log("Type of selectId:", typeof selectId); // ADD THIS LINE
+        if (typeof selectId === 'undefined') {
+            console.error("selectId is UNDEFINED when reroll is called!"); // ADD THIS LINE
         }
+        const select = document.getElementById(selectId); // Keep this line as is for now
+        const options = Array.from(select.options).map(option => option.value);
+        const randomIndex = Math.floor(Math.random() * options.length);
+        select.value = options[randomIndex];
+    
+        if (selectId === "realm") {
+            updateOptions();
+        }
+        if (selectId === "species") {
+            updatePhenotypeOptions();
+        }
+    }
+        
  function updatePhenotypeOptions() {
             const species = document.getElementById("species").value;
             const realm = document.getElementById("realm").value;
