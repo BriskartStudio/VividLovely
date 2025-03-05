@@ -17,7 +17,7 @@
 
     <div class="option-container">
         <label for="realm">Realm:</label>
-        <select id="realm" onchange="updateOptions()"></select>
+        <select id="realm"></select>
         <button class="reroll-button" onclick="reroll('realm')">Reroll</button>
     </div>
 
@@ -29,7 +29,7 @@
 
     <div class="option-container">
         <label for="species">Species:</label>
-        <select id="species" onchange="updatePhenotypeOptions()"></select>
+        <select id="species"</select>
         <button class="reroll-button" onclick="reroll('species')">Reroll</button>
     </div>
 
@@ -177,7 +177,20 @@ populateDropdown("pose", poses);
 // Initialize location and species based on the default realm
 updateOptions();
 
+// **ADD EVENT LISTENERS HERE AFTER ALL FUNCTIONS and DOM are ready**
+        document.getElementById('realm').addEventListener('change', updateOptions);
+        document.getElementById('species').addEventListener('change', updatePhenotypeOptions);
 
+        // Re-attach onclick for reroll buttons
+        const rerollButtons = document.querySelectorAll('.reroll-button');
+        rerollButtons.forEach(button => {
+            const selectId = button.previousElementSibling.id; // Get the select ID from the previous element
+            button.addEventListener('click', function() { reroll(selectId); });
+        });
+
+        // Re-attach onclick for "Generate Character" button
+        const generateButton = document.querySelector('button:not(.reroll-button)'); // Select the button that is NOT a reroll button
+        generateButton.addEventListener('click', generateCharacter);
     </script>
 </body>
 </html>
