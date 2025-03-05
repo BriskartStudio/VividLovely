@@ -18,55 +18,55 @@
     <div class="option-container">
         <label for="realm">Realm:</label>
         <select id="realm"></select>
-        <button class="reroll-button" onclick="reroll('realm')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="location">Location:</label>
         <select id="location"></select>
-        <button class="reroll-button" onclick="reroll('location')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="species">Species:</label>
-        <select id="species"</select>
-        <button class="reroll-button" onclick="reroll('species')">Reroll</button>
+        <select id="species"></select>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="occupation">Occupation:</label>
         <select id="occupation"></select>
-        <button class="reroll-button" onclick="reroll('occupation')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="special_features">Special Features:</label>
         <select id="special_features"></select>
-        <button class="reroll-button" onclick="reroll('special_features')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="accessories">Accessories:</label>
         <select id="accessories"></select>
-        <button class="reroll-button" onclick="reroll('accessories')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="body_type">Body Type:</label>
         <select id="body_type"></select>
-        <button class="reroll-button" onclick="reroll('body_type')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="disposition">Disposition:</label>
         <select id="disposition"></select>
-        <button class="reroll-button" onclick="reroll('disposition')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="pose">Pose:</label>
         <select id="pose"></select>
-        <button class="reroll-button" onclick="reroll('pose')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <h2>Phenotype Details</h2>
@@ -74,28 +74,28 @@
     <div class="option-container">
         <label for="hair_style">Hair Style:</label>
         <select id="hair_style"></select>
-        <button class="reroll-button" onclick="reroll('hair_style')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="hair_color">Hair Color:</label>
         <select id="hair_color"></select>
-        <button class="reroll-button" onclick="reroll('hair_color')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="eye_color">Eye Color:</label>
         <select id="eye_color"></select>
-        <button class="reroll-button" onclick="reroll('eye_color')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
     <div class="option-container">
         <label for="skin_color">Skin Color:</label>
         <select id="skin_color"></select>
-        <button class="reroll-button" onclick="reroll('skin_color')">Reroll</button>
+        <button class="reroll-button">Reroll</button>
     </div>
 
-    <button onclick="generateCharacter()">Generate Character</button>
+    <button>Generate Character</button>
 
     <p id="result"></p>
 
@@ -106,16 +106,38 @@
             result.textContent = 'Character generated!';
         }
         
-function reroll(selectId) {
-  const select = document.getElementById(selectId);
-  const options = Array.from(select.options).map(option => option.value);
-  const randomIndex = Math.floor(Math.random() * options.length);
-  select.value = options[randomIndex];
+        function reroll(selectId) {
+            const select = document.getElementById(selectId);
+            const options = Array.from(select.options).map(option => option.value);
+            const randomIndex = Math.floor(Math.random() * options.length);
+            select.value = options[randomIndex];
 
-function updatePhenotypeOptions() {
-  const species = document.getElementById("species").value;
-  const realm = document.getElementById("realm").value;
-  const realmSpecies = parameters.realms[realm].species;
+            if (selectId === "realm") {
+                updateOptions();
+            }
+            if (selectId === "species") {
+                updatePhenotypeOptions();
+            }
+        }
+ function updatePhenotypeOptions() {
+            const species = document.getElementById("species").value;
+            const realm = document.getElementById("realm").value;
+            const realmSpecies = parameters.realms[realm].species;
+
+            if (parameters.phenotypes[species]) {
+                const phenotypeData = parameters.phenotypes[species];
+                populateDropdown("hair_style", phenotypeData.hair_styles);
+                populateDropdown("hair_color", phenotypeData.hair_colors);
+                populateDropdown("eye_color", phenotypeData.eye_colors);
+                populateDropdown("skin_color", phenotypeData.skin_colors);
+            } else {
+                // If species doesn't have phenotype data, clear the phenotype dropdowns.
+                populateDropdown("hair_style", []);
+                populateDropdown("hair_color", []);
+                populateDropdown("eye_color", []);
+                populateDropdown("skin_color", []);
+            }
+        }
 
   if (parameters.phenotypes[species]) {
     const phenotypeData = parameters.phenotypes[species];
@@ -133,16 +155,16 @@ function updatePhenotypeOptions() {
 }
 
 function updateOptions() {
-  const realm = document.getElementById("realm").value;
-  const realmData = parameters.realms[realm];
+    const realm = document.getElementById("realm").value;
+    const realmData = parameters.realms[realm];
 
-  populateDropdown("location", realmData.locations);
-  populateDropdown("species", realmData.species);
-  populateDropdown("occupation", realmData.occupations);
-  populateDropdown("special_features", realmData.special_features);
-  populateDropdown("accessories", realmData.accessories);
+    populateDropdown("location", realmData.locations);
+    populateDropdown("species", realmData.species);
+    populateDropdown("occupation", realmData.occupations);
+    populateDropdown("special_features", realmData.special_features);
+    populateDropdown("accessories", realmData.accessories);
 
-  updatePhenotypeOptions(); // Update phenotype options based on the new species
+    updatePhenotypeOptions(); // Update phenotype options based on the new species
 }
 
   if (selectId === "realm") {
@@ -152,7 +174,7 @@ function updateOptions() {
       updatePhenotypeOptions();
   }
 }
-        const realms = Object.keys(parameters.realms);
+const realms = Object.keys(parameters.realms);
 const bodyTypes = parameters.body_type;
 const dispositions = parameters.disposition;
 const poses = parameters.pose;
@@ -167,7 +189,6 @@ function populateDropdown(selectId, options) {
     select.appendChild(optionElement);
   });
 }
-
 
 populateDropdown("realm", realms);
 populateDropdown("body_type", bodyTypes);
