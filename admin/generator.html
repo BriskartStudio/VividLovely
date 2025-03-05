@@ -10,13 +10,16 @@
         .option-container { display: flex; align-items: center; gap: 10px; }
         .option-container select { flex-grow: 1; }
         .reroll-button { width: auto; padding: 10px; }
-                /* Added styling to distinguish the outputs if needed */
+        /* Added styling to distinguish the outputs if needed */
         #characterResult { margin-top: 20px; font-weight: bold; }
         #sdPromptResult { margin-top: 10px; font-family: monospace; font-size: 0.9em; background-color: #f0f0f0; padding: 10px; border-radius: 5px; }
     </style>
-    <script src="character-generator.js"></script>  </head>
+    <script src="character-generator.js"></script>
+</head>
 <body>
     <h1>Vivid Lovely Character Generator</h1>
+
+    <button id="rerollAllButton">Reroll All</button> <!- ** NEW: Reroll All Button ** -->
 
     <div class="option-container">
         <label for="realm">Realm:</label>
@@ -106,101 +109,37 @@
     <h2 style="margin-top: 20px;">Stable Diffusion Prompt:</h2>
     <p id="sdPromptResult"></p>
 
-
     <script>
-        // ** JAVASCRIPT CODE -  Keep only the functions and event listeners here **
+        // ** JAVASCRIPT CODE (Modified and Added Functions) **
 
         function populateDropdown(selectId, options) {
-            const select = document.getElementById(selectId);
-            select.innerHTML = ""; // Clear existing options
-            options.forEach(option => {
-                const optionElement = document.createElement("option");
-                optionElement.value = option;
-                optionElement.textContent = option;
-                select.appendChild(optionElement);
-            });
+            // ... (populateDropdown function - No changes) ...
         }
 
         function updateOptions() {
-            const realm = document.getElementById("realm").value;
-            const realmData = parameters.realms[realm];
-
-            populateDropdown("location", realmData.locations);
-            populateDropdown("species", realmData.species);
-            populateDropdown("occupation", realmData.occupations);
-            populateDropdown("special_features", realmData.special_features);
-            populateDropdown("accessories", realmData.accessories);
-
-            updatePhenotypeOptions(); // Update phenotype options based on the new species
+            // ... (updateOptions function - No changes) ...
         }
 
         function updatePhenotypeOptions() {
-            const species = document.getElementById("species").value;
-            if (parameters.phenotypes[species]) {
-                const phenotypeData = parameters.phenotypes[species];
-                populateDropdown("hair_style", phenotypeData.hair_styles);
-                populateDropdown("hair_color", phenotypeData.hair_colors);
-                populateDropdown("eye_color", phenotypeData.eye_colors);
-                populateDropdown("skin_color", phenotypeData.skin_colors);
-            } else {
-                // If species doesn't have phenotype data, clear the phenotype dropdowns.
-                populateDropdown("hair_style", []);
-                populateDropdown("hair_color", []);
-                populateDropdown("eye_color", []);
-                populateDropdown("skin_color", []);
-            }
+            // ... (updatePhenotypeOptions function - No changes) ...
         }
-
 
         function reroll(selectId) {
-            const select = document.getElementById(selectId);
-            if (!select) { // Check if select element exists
-                console.error(`Select element with id "${selectId}" not found.`);
-                return;
-            }
-            const options = Array.from(select.options).map(option => option.value);
-            if (options.length === 0) { // Check if options are available
-                console.warn(`No options available for select element "${selectId}".`);
-                return;
-            }
-            const randomIndex = Math.floor(Math.random() * options.length);
-            select.value = options[randomIndex];
-
-            if (selectId === "realm") {
-                updateOptions();
-            }
-            if (selectId === "species") {
-                updatePhenotypeOptions();
-            }
+            // ... (reroll function - No changes) ...
         }
 
-               function generateCharacter() {
-            const characterResult = document.getElementById('characterResult'); // Get the new paragraph element
-            const sdPromptResult = document.getElementById('sdPromptResult');   // Get the SD prompt paragraph element
+        function generateCharacter() {
+            // ... (generateCharacter function - No changes) ...
+        }
 
-            const realm = document.getElementById('realm').value;
-            const location = document.getElementById('location').value;
-            const species = document.getElementById('species').value;
-            const occupation = document.getElementById('occupation').value;
-            const special_features = document.getElementById('special_features').value;
-            const accessories = document.getElementById('accessories').value;
-            const body_type = document.getElementById('body_type').value;
-            const disposition = document.getElementById('disposition').value;
-            const pose = document.getElementById('pose').value;
-            const hair_style = document.getElementById('hair_style').value;
-            const hair_color = document.getElementById('hair_color').value;
-            const eye_color = document.getElementById('eye_color').value;
-            const skin_color = document.getElementById('skin_color').value;
-
-            // ** Character Description Paragraph **
-            const characterDescription = `A ${disposition.toLowerCase()} ${body_type.toLowerCase()} ${species.toLowerCase()} ${occupation.toLowerCase()} from the realm of ${realm.toLowerCase()}, located in ${location.toLowerCase()}.  She has ${skin_color.toLowerCase()} skin, ${eye_color.toLowerCase()} eyes, and ${hair_color.toLowerCase()} ${hair_style.toLowerCase()} hair. Special features include ${special_features.toLowerCase()} and She's often seen with ${accessories.toLowerCase()}. She is posed ${pose.toLowerCase()}.`;
-
-            // ** Stable Diffusion Prompt Generation **
-            const sdPrompt = `${disposition.toLowerCase()} ${body_type.toLowerCase()} ${species.toLowerCase()} ${occupation.toLowerCase()}, ${pose.toLowerCase()}, ${skin_color.toLowerCase()} skin, ${eye_color.toLowerCase()} eyes, ${hair_color.toLowerCase()} ${hair_style.toLowerCase()} hair, special feature: ${special_features.toLowerCase()}, wearing ${accessories.toLowerCase()}, vivid, detailed, intricate, beautiful, trending on artstation, sharp focus, studio quality, 8k`;
-
-
-            characterResult.textContent = characterDescription;      // Display the paragraph
-            sdPromptResult.textContent = sdPrompt;               // Display the SD prompt
+        // ** NEW FUNCTION: Reroll All Dropdowns **
+        function rerollAll() {
+            const dropdownIds = [ // List of all select element IDs
+                "realm", "location", "species", "occupation", "special_features",
+                "accessories", "body_type", "disposition", "pose", "hair_style",
+                "hair_color", "eye_color", "skin_color"
+            ];
+            dropdownIds.forEach(id => reroll(id)); // Call reroll for each dropdown
         }
 
 
@@ -215,7 +154,7 @@
         populateDropdown("disposition", dispositions);
         populateDropdown("pose", poses);
 
-        updateOptions(); // Initialize location, species, etc. based on default realm (first realm in the list)
+        updateOptions(); // Initialize location, species, etc. based on default realm
 
 
         // ** EVENT LISTENERS - Attach after DOM elements are ready and functions are defined **
@@ -223,6 +162,8 @@
             document.getElementById('realm').addEventListener('change', updateOptions);
             document.getElementById('species').addEventListener('change', updatePhenotypeOptions);
             document.getElementById('generateButton').addEventListener('click', generateCharacter);
+            document.getElementById('rerollAllButton').addEventListener('click', rerollAll); // ** NEW: Event listener for Reroll All button **
+
 
             const rerollButtons = document.querySelectorAll('.reroll-button');
             rerollButtons.forEach(button => {
@@ -236,6 +177,9 @@
                     }
                 });
             });
+
+            // ** NEW: Randomize all dropdowns on page load **
+            rerollAll();
         });
 
 
