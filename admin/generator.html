@@ -112,6 +112,39 @@ function reroll(selectId) {
   const randomIndex = Math.floor(Math.random() * options.length);
   select.value = options[randomIndex];
 
+function updatePhenotypeOptions() {
+  const species = document.getElementById("species").value;
+  const realm = document.getElementById("realm").value;
+  const realmSpecies = parameters.realms[realm].species;
+
+  if (parameters.phenotypes[species]) {
+    const phenotypeData = parameters.phenotypes[species];
+    populateDropdown("hair_style", phenotypeData.hair_styles);
+    populateDropdown("hair_color", phenotypeData.hair_colors);
+    populateDropdown("eye_color", phenotypeData.eye_colors);
+    populateDropdown("skin_color", phenotypeData.skin_colors);
+  } else {
+    // If species doesn't have phenotype data, clear the phenotype dropdowns.
+    populateDropdown("hair_style", []);
+    populateDropdown("hair_color", []);
+    populateDropdown("eye_color", []);
+    populateDropdown("skin_color", []);
+  }
+}
+
+function updateOptions() {
+  const realm = document.getElementById("realm").value;
+  const realmData = parameters.realms[realm];
+
+  populateDropdown("location", realmData.locations);
+  populateDropdown("species", realmData.species);
+  populateDropdown("occupation", realmData.occupations);
+  populateDropdown("special_features", realmData.special_features);
+  populateDropdown("accessories", realmData.accessories);
+
+  updatePhenotypeOptions(); // Update phenotype options based on the new species
+}
+
   if (selectId === "realm") {
     updateOptions();
   }
@@ -134,18 +167,7 @@ function populateDropdown(selectId, options) {
     select.appendChild(optionElement);
   });
 }
-function updateOptions() {
-  const realm = document.getElementById("realm").value;
-  const realmData = parameters.realms[realm];
 
-  populateDropdown("location", realmData.locations);
-  populateDropdown("species", realmData.species);
-  populateDropdown("occupation", realmData.occupations);
-  populateDropdown("special_features", realmData.special_features);
-  populateDropdown("accessories", realmData.accessories);
-
-  updatePhenotypeOptions(); // Update phenotype options based on the new species
-}
 
 populateDropdown("realm", realms);
 populateDropdown("body_type", bodyTypes);
