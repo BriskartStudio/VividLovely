@@ -1,3 +1,4 @@
+--- START OF FILE generator (1).html ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
         .option-container select { flex-grow: 1; }
         .reroll-button { width: auto; padding: 10px; }
     </style>
-</head>
+    <script src="character-generator.js"></script>  </head>
 <body>
     <h1>Vivid Lovely Character Generator</h1>
 
@@ -95,41 +96,39 @@
         <button class="reroll-button">Reroll</button>
     </div>
 
-    <button>Generate Character</button>
+    <button id="generateButton">Generate Character</button>
 
     <p id="result"></p>
 
-    <script src="character-generator.js"></script>
     <script>
-        function generateCharacter() {
-            const result = document.getElementById('result');
-            result.textContent = 'Character generated!';
-        }
-        
-    function reroll(selectId) {
-        console.log("reroll function called with selectId:", selectId); // ADD THIS LINE
-        console.log("Type of selectId:", typeof selectId); // ADD THIS LINE
-        if (typeof selectId === 'undefined') {
-            console.error("selectId is UNDEFINED when reroll is called!"); // ADD THIS LINE
-        }
-        const select = document.getElementById(selectId); // Keep this line as is for now
-        const options = Array.from(select.options).map(option => option.value);
-        const randomIndex = Math.floor(Math.random() * options.length);
-        select.value = options[randomIndex];
-    
-        if (selectId === "realm") {
-            updateOptions();
-        }
-        if (selectId === "species") {
-            updatePhenotypeOptions();
-        }
-    }
-        
- function updatePhenotypeOptions() {
-            const species = document.getElementById("species").value;
-            const realm = document.getElementById("realm").value;
-            const realmSpecies = parameters.realms[realm].species;
+        // ** JAVASCRIPT CODE -  Keep only the functions and event listeners here **
 
+        function populateDropdown(selectId, options) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = ""; // Clear existing options
+            options.forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                select.appendChild(optionElement);
+            });
+        }
+
+        function updateOptions() {
+            const realm = document.getElementById("realm").value;
+            const realmData = parameters.realms[realm];
+
+            populateDropdown("location", realmData.locations);
+            populateDropdown("species", realmData.species);
+            populateDropdown("occupation", realmData.occupations);
+            populateDropdown("special_features", realmData.special_features);
+            populateDropdown("accessories", realmData.accessories);
+
+            updatePhenotypeOptions(); // Update phenotype options based on the new species
+        }
+
+        function updatePhenotypeOptions() {
+            const species = document.getElementById("species").value;
             if (parameters.phenotypes[species]) {
                 const phenotypeData = parameters.phenotypes[species];
                 populateDropdown("hair_style", phenotypeData.hair_styles);
@@ -145,89 +144,86 @@
             }
         }
 
-  if (parameters.phenotypes[species]) {
-    const phenotypeData = parameters.phenotypes[species];
-    populateDropdown("hair_style", phenotypeData.hair_styles);
-    populateDropdown("hair_color", phenotypeData.hair_colors);
-    populateDropdown("eye_color", phenotypeData.eye_colors);
-    populateDropdown("skin_color", phenotypeData.skin_colors);
-  } else {
-    // If species doesn't have phenotype data, clear the phenotype dropdowns.
-    populateDropdown("hair_style", []);
-    populateDropdown("hair_color", []);
-    populateDropdown("eye_color", []);
-    populateDropdown("skin_color", []);
-  }
+
+        function reroll(selectId) {
+            const select = document.getElementById(selectId);
+            if (!select) { // Check if select element exists
+                console.error(`Select element with id "${selectId}" not found.`);
+                return;
+            }
+            const options = Array.from(select.options).map(option => option.value);
+            if (options.length === 0) { // Check if options are available
+                console.warn(`No options available for select element "${selectId}".`);
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * options.length);
+            select.value = options[randomIndex];
+
+            if (selectId === "realm") {
+                updateOptions();
+            }
+            if (selectId === "species") {
+                updatePhenotypeOptions();
+            }
+        }
+
+        function generateCharacter() {
+            const result = document.getElementById('result');
+            const realm = document.getElementById('realm').value;
+            const location = document.getElementById('location').value;
+            const species = document.getElementById('species').value;
+            const occupation = document.getElementById('occupation').value;
+            const special_features = document.getElementById('special_features').value;
+            const accessories = document.getElementById('accessories').value;
+            const body_type = document.getElementById('body_type').value;
+            const disposition = document.getElementById('disposition').value;
+            const pose = document.getElementById('pose').value;
+            const hair_style = document.getElementById('hair_style').value;
+            const hair_color = document.getElementById('hair_color').value;
+            const eye_color = document.getElementById('eye_color').value;
+            const skin_color = document.getElementById('skin_color').value;
+
+            const characterDescription = `A ${disposition.toLowerCase()} ${body_type.toLowerCase()} ${species.toLowerCase()} ${occupation.toLowerCase()} from the ${realm.toLowerCase()} realm, located in ${location.toLowerCase()}.  They have ${skin_color.toLowerCase()} skin, ${eye_color.toLowerCase()} eyes, and ${hair_color.toLowerCase()} ${hair_style.toLowerCase()} hair. Special features include ${special_features.toLowerCase()} and they are often seen with ${accessories.toLowerCase()}. They are posed ${pose.toLowerCase()}.`;
+
+            result.textContent = characterDescription;
+        }
 
 
-function updateOptions() {
-    const realm = document.getElementById("realm").value;
-    const realmData = parameters.realms[realm];
+        // Initial population of dropdowns
+        const realms = Object.keys(parameters.realms);
+        const bodyTypes = parameters.body_type;
+        const dispositions = parameters.disposition;
+        const poses = parameters.pose;
 
-    populateDropdown("location", realmData.locations);
-    populateDropdown("species", realmData.species);
-    populateDropdown("occupation", realmData.occupations);
-    populateDropdown("special_features", realmData.special_features);
-    populateDropdown("accessories", realmData.accessories);
+        populateDropdown("realm", realms);
+        populateDropdown("body_type", bodyTypes);
+        populateDropdown("disposition", dispositions);
+        populateDropdown("pose", poses);
 
-    updatePhenotypeOptions(); // Update phenotype options based on the new species
-}
+        updateOptions(); // Initialize location, species, etc. based on default realm (first realm in the list)
 
-  if (selectId === "realm") {
-    updateOptions();
-  }
-  if (selectId === "species") {
-      updatePhenotypeOptions();
-  }
 
-const realms = Object.keys(parameters.realms);
-const bodyTypes = parameters.body_type;
-const dispositions = parameters.disposition;
-const poses = parameters.pose;
+        // ** EVENT LISTENERS - Attach after DOM elements are ready and functions are defined **
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('realm').addEventListener('change', updateOptions);
+            document.getElementById('species').addEventListener('change', updatePhenotypeOptions);
+            document.getElementById('generateButton').addEventListener('click', generateCharacter);
 
-function populateDropdown(selectId, options) {
-  const select = document.getElementById(selectId);
-  select.innerHTML = ""; // Clear existing options
-  options.forEach(option => {
-    const optionElement = document.createElement("option");
-    optionElement.value = option;
-    optionElement.textContent = option;
-    select.appendChild(optionElement);
-  });
-}
-
-populateDropdown("realm", realms);
-populateDropdown("body_type", bodyTypes);
-populateDropdown("disposition", dispositions);
-populateDropdown("pose", poses);
-
-// Initialize location and species based on the default realm
-updateOptions();
-
-// **ADD EVENT LISTENERS HERE AFTER ALL FUNCTIONS and DOM are ready**
-        document.getElementById('realm').addEventListener('change', updateOptions);
-        document.getElementById('species').addEventListener('change', updatePhenotypeOptions);
-
-// Re-attach onclick for reroll buttons
-        const rerollButtons = document.querySelectorAll('.reroll-button');
-        rerollButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const previousSibling = button.previousElementSibling;
-                if (previousSibling) { // Check if previousSibling exists (is not null)
-                    const selectId = previousSibling.id;
-                    console.log("selectId before reroll:", selectId); // For debugging
-                    console.log("typeof selectId:", typeof selectId); // For debugging
-                    reroll(selectId);
-                } else {
-                    console.error("Error: Previous sibling is null for a reroll button!", button);
-                    // Handle the error case appropriately, maybe do nothing or alert the user.
-                }
+            const rerollButtons = document.querySelectorAll('.reroll-button');
+            rerollButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const previousSibling = button.previousElementSibling;
+                    if (previousSibling) {
+                        const selectId = previousSibling.id;
+                        reroll(selectId);
+                    } else {
+                        console.error("Error: Previous sibling is null for a reroll button!", button);
+                    }
+                });
             });
         });
 
-        // Re-attach onclick for "Generate Character" button
-        const generateButton = document.querySelector('button:not(.reroll-button)'); // Select the button that is NOT a reroll button
-        generateButton.addEventListener('click', generateCharacter);
+
     </script>
 </body>
 </html>
