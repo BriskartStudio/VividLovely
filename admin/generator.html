@@ -11,6 +11,9 @@
         .option-container { display: flex; align-items: center; gap: 10px; }
         .option-container select { flex-grow: 1; }
         .reroll-button { width: auto; padding: 10px; }
+                /* Added styling to distinguish the outputs if needed */
+        #characterResult { margin-top: 20px; font-weight: bold; }
+        #sdPromptResult { margin-top: 10px; font-family: monospace; font-size: 0.9em; background-color: #f0f0f0; padding: 10px; border-radius: 5px; }
     </style>
     <script src="character-generator.js"></script>  </head>
 <body>
@@ -98,7 +101,12 @@
 
     <button id="generateButton">Generate Character</button>
 
-    <p id="result"></p>
+    <h2 style="margin-top: 20px;">Character Description:</h2>
+    <p id="characterResult"></p>
+
+    <h2 style="margin-top: 20px;">Stable Diffusion Prompt:</h2>
+    <p id="sdPromptResult"></p>
+
 
     <script>
         // ** JAVASCRIPT CODE -  Keep only the functions and event listeners here **
@@ -167,8 +175,10 @@
             }
         }
 
-        function generateCharacter() {
-            const result = document.getElementById('result');
+               function generateCharacter() {
+            const characterResult = document.getElementById('characterResult'); // Get the new paragraph element
+            const sdPromptResult = document.getElementById('sdPromptResult');   // Get the SD prompt paragraph element
+
             const realm = document.getElementById('realm').value;
             const location = document.getElementById('location').value;
             const species = document.getElementById('species').value;
@@ -183,9 +193,15 @@
             const eye_color = document.getElementById('eye_color').value;
             const skin_color = document.getElementById('skin_color').value;
 
-            const characterDescription = `A ${disposition.toLowerCase()} ${body_type.toLowerCase()} ${species.toLowerCase()} ${occupation.toLowerCase()} from the ${realm.toLowerCase()} realm, located in ${location.toLowerCase()}.  They have ${skin_color.toLowerCase()} skin, ${eye_color.toLowerCase()} eyes, and ${hair_color.toLowerCase()} ${hair_style.toLowerCase()} hair. Special features include ${special_features.toLowerCase()} and they are often seen with ${accessories.toLowerCase()}. They are posed ${pose.toLowerCase()}.`;
+            // ** Character Description Paragraph **
+            const characterDescription = `A ${disposition.toLowerCase()} ${body_type.toLowerCase()} ${species.toLowerCase()} ${occupation.toLowerCase()} from the realm of ${realm.toLowerCase()}, located in ${location.toLowerCase()}.  She has ${skin_color.toLowerCase()} skin, ${eye_color.toLowerCase()} eyes, and ${hair_color.toLowerCase()} ${hair_style.toLowerCase()} hair. Special features include ${special_features.toLowerCase()} and She's often seen with ${accessories.toLowerCase()}. She is posed ${pose.toLowerCase()}.`;
 
-            result.textContent = characterDescription;
+            // ** Stable Diffusion Prompt Generation **
+            const sdPrompt = `${disposition.toLowerCase()} ${body_type.toLowerCase()} ${species.toLowerCase()} ${occupation.toLowerCase()}, ${pose.toLowerCase()}, ${skin_color.toLowerCase()} skin, ${eye_color.toLowerCase()} eyes, ${hair_color.toLowerCase()} ${hair_style.toLowerCase()} hair, special feature: ${special_features.toLowerCase()}, wearing ${accessories.toLowerCase()}, vivid, detailed, intricate, beautiful, trending on artstation, sharp focus, studio quality, 8k`;
+
+
+            characterResult.textContent = characterDescription;      // Display the paragraph
+            sdPromptResult.textContent = sdPrompt;               // Display the SD prompt
         }
 
 
