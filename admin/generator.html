@@ -1,171 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Character Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; }
-    .attribute-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 20px; }
-    .attribute { display: flex; flex-direction: column; align-items: center; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivid Lovely Character Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        select, button { width: 100%; margin-bottom: 10px; padding: 10px; font-size: 16px; }
+        .option-container { display: flex; align-items: center; gap: 10px; }
+        .option-container select { flex-grow: 1; }
+        .reroll-button { width: auto; padding: 10px; }
+    </style>
 </head>
 <body>
-  <h1>Character Generator</h1>
-  <div class="attribute-container" id="attributes">
-    <!-- Attributes will be populated here -->
-  </div>
-  <button onclick="rollAll()">Roll All</button>
-  <button onclick="compileCharacter();compilePromptParams()">Compile</button>
-  <!-- New button for sending to ChatGPT -->
-  <h2>Bio Prompt</h2>
-  <p id="compiledOutput"></p>
-  <h2>Raw Prompt Parameters</h2>
-  <p id="promptParams"></p>
-  <script>
-    let attributes = {};
+    <h1>Vivid Lovely Character Generator</h1>
 
-    async function loadAttributes() {
-      try {
-        const response = await fetch('parameters.json');
-        attributes = await response.json();
-        setupAttributes();
-      } catch (error) {
-        console.error("Error loading parameters.json", error);
-      }
-    }
+    <div class="option-container">
+        <label for="realm">Realm:</label>
+        <select id="realm" onchange="updateOptions()"></select>
+        <button class="reroll-button" onclick="reroll('realm')">Reroll</button>
+    </div>
 
-    // Uniform random selection
-    function getRandomOption(options) {
-      return options[Math.floor(Math.random() * options.length)];
-    }
+    <div class="option-container">
+        <label for="location">Location:</label>
+        <select id="location"></select>
+        <button class="reroll-button" onclick="reroll('location')">Reroll</button>
+    </div>
 
-    // Weighted random selection function
-    function weightedRandomChoice(options, weights) {
-      let totalWeight = weights.reduce((sum, w) => sum + w, 0);
-      let random = Math.random() * totalWeight;
-      for (let i = 0; i < options.length; i++) {
-        if (random < weights[i]) {
-          return options[i];
+    <div class="option-container">
+        <label for="species">Species:</label>
+        <select id="species" onchange="updatePhenotypeOptions()"></select>
+        <button class="reroll-button" onclick="reroll('species')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="occupation">Occupation:</label>
+        <select id="occupation"></select>
+        <button class="reroll-button" onclick="reroll('occupation')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="special_features">Special Features:</label>
+        <select id="special_features"></select>
+        <button class="reroll-button" onclick="reroll('special_features')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="accessories">Accessories:</label>
+        <select id="accessories"></select>
+        <button class="reroll-button" onclick="reroll('accessories')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="body_type">Body Type:</label>
+        <select id="body_type"></select>
+        <button class="reroll-button" onclick="reroll('body_type')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="disposition">Disposition:</label>
+        <select id="disposition"></select>
+        <button class="reroll-button" onclick="reroll('disposition')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="pose">Pose:</label>
+        <select id="pose"></select>
+        <button class="reroll-button" onclick="reroll('pose')">Reroll</button>
+    </div>
+
+    <h2>Phenotype Details</h2>
+
+    <div class="option-container">
+        <label for="hair_style">Hair Style:</label>
+        <select id="hair_style"></select>
+        <button class="reroll-button" onclick="reroll('hair_style')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="hair_color">Hair Color:</label>
+        <select id="hair_color"></select>
+        <button class="reroll-button" onclick="reroll('hair_color')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="eye_color">Eye Color:</label>
+        <select id="eye_color"></select>
+        <button class="reroll-button" onclick="reroll('eye_color')">Reroll</button>
+    </div>
+
+    <div class="option-container">
+        <label for="skin_color">Skin Color:</label>
+        <select id="skin_color"></select>
+        <button class="reroll-button" onclick="reroll('skin_color')">Reroll</button>
+    </div>
+
+    <button onclick="generateCharacter()">Generate Character</button>
+
+    <p id="result"></p>
+
+    <script src="character-generator.js"></script>
+    <script>
+        function generateCharacter() {
+            const result = document.getElementById('result');
+            result.textContent = 'Character generated!';
         }
-        random -= weights[i];
-      }
-      return options[options.length - 1];
-    }
-
-    // Roll Species with weighting
-    function rollSpecies() {
-      const currentTheme = document.getElementById("Theme").value;
-      let speciesOptions = attributes["Species"];
-      let weights = [];
-      const nonHumanCount = speciesOptions.length - 1; // all except Human
-
-      speciesOptions.forEach(species => {
-        if (species === "Human") {
-          weights.push(75);
-        } else {
-          let baseWeight = 25 / nonHumanCount; // evenly distribute remaining 25%
-          let factor = 1;
-          // Dependency: Werewolf is favored in certain themes
-          let favoredThemesForWerewolf = ["Steampunk", "Gothic", "Medieval Europe", "Viking Saga", "Wild West", "Roman Empire"];
-          if (species === "Werewolf" && favoredThemesForWerewolf.includes(currentTheme)) {
-            factor = 2;
-          }
-          // Dependency: Alien is less favored in certain themes
-          let disfavoredThemesForAlien = ["Steampunk", "Medieval Europe", "Wild West", "Viking Saga", "Roman Empire"];
-          if (species === "Alien" && disfavoredThemesForAlien.includes(currentTheme)) {
-            factor = 0.5;
-          }
-          weights.push(baseWeight * factor);
+        function reroll(option) {
+            console.log('Rerolling', option);
+            // Add reroll logic here
         }
-      });
-      let chosen = weightedRandomChoice(speciesOptions, weights);
-      document.getElementById("Species").value = chosen;
-    }
-
-    // Roll Occupation with weighting
-    function rollOccupation() {
-      const currentTheme = document.getElementById("Theme").value;
-      let occupationOptions = attributes["Occupation"];
-      let weights = [];
-      occupationOptions.forEach(occupation => {
-        let baseWeight = 1;
-        // For Detective and Espionage Agent in Noir, Cyberpunk, Steampunk
-        let favoredForDetective = ["Noir", "Cyberpunk", "Steampunk"];
-        if ((occupation === "Detective" || occupation === "Espionage Agent") && favoredForDetective.includes(currentTheme)) {
-          baseWeight = 3;
-        }
-        // For Pirate, Merchant, Explorer in Space Opera, Wild West, Arabian Nights, Ancient Egypt
-        let favoredForPirate = ["Space Opera", "Wild West", "Arabian Nights", "Ancient Egypt"];
-        if ((occupation === "Pirate" || occupation === "Merchant" || occupation === "Explorer") && favoredForPirate.includes(currentTheme)) {
-          baseWeight = 3;
-        }
-        // For Alchemist, Shaman, Priestess, Fortune Teller in Fantasy, Gothic, Ancient Egypt, Medieval Europe
-        let favoredForMystic = ["Fantasy", "Gothic", "Ancient Egypt", "Medieval Europe"];
-        if ((occupation === "Alchemist" || occupation === "Shaman" || occupation === "Priestess" || occupation === "Fortune Teller") && favoredForMystic.includes(currentTheme)) {
-          baseWeight = 3;
-        }
-        // For Knight, Gladiator, Assassin in Medieval Europe, Roman Empire, Samurai Era, Viking Saga
-        let favoredForKnight = ["Medieval Europe", "Roman Empire", "Samurai Era", "Viking Saga"];
-        if ((occupation === "Knight" || occupation === "Gladiator" || occupation === "Assassin") && favoredForKnight.includes(currentTheme)) {
-          baseWeight = 3;
-        }
-        weights.push(baseWeight);
-      });
-      let chosen = weightedRandomChoice(occupationOptions, weights);
-      document.getElementById("Occupation").value = chosen;
-    }
-
-    // For other attributes, we use uniform selection for now.
-    function rollAttribute(attr) {
-      if (attr === "Species") {
-        rollSpecies();
-      } else if (attr === "Occupation") {
-        rollOccupation();
-      } else {
-        document.getElementById(attr).value = getRandomOption(attributes[attr]);
-      }
-    }
-
-    function rollAll() {
-      Object.keys(attributes).forEach(attr => rollAttribute(attr));
-    }
-
-    function compileCharacter() {
-      let compiledText = `In a ${document.getElementById('Theme').value} setting, she is a sexy ${document.getElementById('Species').value} ` +
-        `with a ${document.getElementById('BodyType').value} body and ${document.getElementById('BodyFeatures').value}, ` +
-        `working as a ${document.getElementById('Occupation').value}. She is ${document.getElementById('Disposition').value}, ` +
-        `and currently ${document.getElementById('Pose').value} with ${document.getElementById('Accessories').value}.`;
-      document.getElementById("compiledOutput").innerText = compiledText;
-    }
-
-        function compilePromptParams() {
-      let compiledText = `${document.getElementById('Theme').value} aesthetic, sexy female ${document.getElementById('Species').value} ` +
-        ` ${document.getElementById('BodyType').value} body, and ${document.getElementById('BodyFeatures').value}, ` +
-        `${document.getElementById('Occupation').value}. ${document.getElementById('Disposition').value}, ` +
-        ` ${document.getElementById('Pose').value} pose, ${document.getElementById('Accessories').value}.`;
-      document.getElementById("promptParams").innerText = compiledText;
-    }
-
-     function setupAttributes() {
-      const container = document.getElementById("attributes");
-      container.innerHTML = "";
-      Object.keys(attributes).forEach(attr => {
-        let div = document.createElement("div");
-        div.classList.add("attribute");
-        div.innerHTML = `
-          <label for="${attr}">${attr}</label>
-          <select id="${attr}">
-            ${attributes[attr].map(option => `<option value="${option}">${option}</option>`).join("")}
-          </select>
-          <button type="button" onclick="rollAttribute('${attr}')">Reroll</button>
-        `;
-        container.appendChild(div);
-      });
-      rollAll(); // Initial roll
-    }
-
-    document.addEventListener("DOMContentLoaded", loadAttributes);
-  </script>
+    </script>
 </body>
 </html>
