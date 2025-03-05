@@ -134,15 +134,6 @@ function populateDropdown(selectId, options) {
     select.appendChild(optionElement);
   });
 }
-
-populateDropdown("realm", realms);
-populateDropdown("body_type", bodyTypes);
-populateDropdown("disposition", dispositions);
-populateDropdown("pose", poses);
-
-// Initialize location and species based on the default realm
-updateOptions();
-
 function updateOptions() {
   const realm = document.getElementById("realm").value;
   const realmData = parameters.realms[realm];
@@ -155,6 +146,16 @@ function updateOptions() {
 
   updatePhenotypeOptions(); // Update phenotype options based on the new species
 }
+
+populateDropdown("realm", realms);
+populateDropdown("body_type", bodyTypes);
+populateDropdown("disposition", dispositions);
+populateDropdown("pose", poses);
+
+// Initialize location and species based on the default realm
+updateOptions();
+
+
     </script>
 </body>
 </html>
