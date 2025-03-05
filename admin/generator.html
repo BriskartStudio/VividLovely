@@ -202,11 +202,21 @@ updateOptions();
         document.getElementById('realm').addEventListener('change', updateOptions);
         document.getElementById('species').addEventListener('change', updatePhenotypeOptions);
 
-        // Re-attach onclick for reroll buttons
+// Re-attach onclick for reroll buttons
         const rerollButtons = document.querySelectorAll('.reroll-button');
         rerollButtons.forEach(button => {
-            const selectId = button.previousElementSibling.id; // Get the select ID from the previous element
-            button.addEventListener('click', function() { reroll(selectId); });
+            button.addEventListener('click', function() {
+                const previousSibling = button.previousElementSibling;
+                if (previousSibling) { // Check if previousSibling exists (is not null)
+                    const selectId = previousSibling.id;
+                    console.log("selectId before reroll:", selectId); // For debugging
+                    console.log("typeof selectId:", typeof selectId); // For debugging
+                    reroll(selectId);
+                } else {
+                    console.error("Error: Previous sibling is null for a reroll button!", button);
+                    // Handle the error case appropriately, maybe do nothing or alert the user.
+                }
+            });
         });
 
         // Re-attach onclick for "Generate Character" button
