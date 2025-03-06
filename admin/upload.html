@@ -15,11 +15,38 @@
             margin: auto; 
             padding: 20px; }
         
-        label, input, textarea, button { display: block; width: 100%; margin-bottom: 10px; }
+        label, input, textarea, { display: block; width: 100%; margin-bottom: 10px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 0.5px solid #5F6061; padding: 8px; text-align: left; }
         img { width: 50px; height: auto; }
         .actions button { margin-right: 5px; }
+           /* Button Styles - Outline, Rounded, Invert on Hover */
+    button {
+        background-color: transparent; /* Make background transparent */
+        color: #ffe2d7;          /* Set default text color (matching your page) */
+        border: 2px solid #ffe2d7;   /* Add a 2px solid outline */
+        border-radius: 25px;        /* Add rounded edges */
+        padding: 10px 20px;         /* Adjust padding as needed */
+        cursor: pointer;
+        font-size: 1rem;           /* Match font size to your design */
+        font-family: 'Work Sans', sans-serif; /* Ensure font consistency */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+        margin-bottom: 10px;        /* Keep margin for spacing */
+        display: block;             /* Keep display block for full width */
+        width: 100%;                /* Keep width 100% for full width */
+    }
+
+    button:hover {
+        background-color: #ffe2d7;   /* On hover, fill with background color */
+        color: #1a1a1a;          /* On hover, change text to background color (dark) */
+        border-color: #ffe2d7;     /* Keep border color consistent on hover */
+    }
+
+    .actions button {
+        margin-right: 5px;         /* Keep spacing for buttons in actions column */
+        display: inline-block;      /* For action buttons, display inline to be side-by-side */
+        width: auto;               /* Adjust width to auto for inline buttons */
+    }
     </style>
 </head>
 <body>
