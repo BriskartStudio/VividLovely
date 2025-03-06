@@ -331,38 +331,38 @@ function navigateLightbox(direction) {
 
 async function fetchImages() {
     try {
-        /*const metadata = await fetchMetadata();*/
-        const metadataResponse = await fetchMetadata(); // Fetch live metadata
-        const liveMetadata = metadataResponse || []; // Ensure it's an array
+        const liveMetadata = await fetchMetadata(); // Fetch ONLY live metadata
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`);
         const data = await response.json();
         const gallery = document.getElementById('gallery');
 
+        // Create a set of filenames from live metadata for efficient lookup
+        const liveFilenames = new Set(liveMetadata.map(entry => entry.filename.trim()));
+
         let images = data
-            .filter(file => file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|gif)$/i))
+            .filter(file => file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|gif)$/i) && liveFilenames.has(file.name.trim())) // **FILTER HERE: Check if filename is in live metadata**
             .map(file => {
-                // Find the corresponding metadata entry by matching filenames
+                // Find the corresponding metadata entry by matching filenames (within liveMetadata now)
                 const metaEntry = liveMetadata.find(entry => entry.filename.trim() === file.name.trim());
 
                 if (!metaEntry) {
-                    console.warn(`No metadata found for ${file.name}`);
+                    console.warn(`No metadata found for ${file.name} (this should not happen for live posts after filtering).`);
                 }
 
                 return {
                     url: file.download_url,
                     name: file.name,
-                    order: metaEntry?.order || 9999, // Default to a high number if order is missing
-                    metadata: metaEntry || {} // If no metadata, use an empty object
+                    order: metaEntry?.order || 9999,
+                    metadata: metaEntry || {}
                 };
             })
-            .sort((a, b) => b.order - a.order); // Sort based on the `Order` field
+            .sort((a, b) => b.order - a.order);
 
-        // Store images in global imageList
-        imageList = images;
-        
+        imageList = images; // Store images in global imageList
+
         console.log('Live Metadata:', liveMetadata);
         console.log('Gallery API Data:', data);
-        console.log('Mapped Images:', images);
+        console.log('Mapped Images (Live Only):', images); // Updated log message
 
         gallery.innerHTML = '';
         images.forEach((image, index) => {
