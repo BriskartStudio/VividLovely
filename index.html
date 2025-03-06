@@ -342,7 +342,7 @@ function navigateLightbox(direction) {
             }
         }
 
-      const tiltStrength = 1; // Adjust for tilt intensity
+      const tiltStrength = 1.5; // Adjust for tilt intensity
 const shineStrength = 0.2; // Adjust for shine intensity
 
 function handleLightboxMouseMove(event) {
@@ -356,7 +356,7 @@ function handleLightboxMouseMove(event) {
     const tiltX = (mouseY / (rect.height / 2)) * tiltStrength;
     const tiltY = (mouseX / (rect.width / 2)) * tiltStrength;
 
-    lightboxImg.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
+    lightboxImg.style.transform = `perspective(500px) rotateX(${tiltY}deg) rotateY(${tiltX}deg) scale(1.05)`;
     lightboxImg.style.boxShadow = `0 ${Math.abs(tiltY/3)}px ${Math.abs(tiltY/3) + 5}px rgba(255, 226, 215, ${shineStrength})`; // Example shine effect
 }
 
