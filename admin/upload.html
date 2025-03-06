@@ -4,16 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivid Lovely - Add Image</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
-        label, input, textarea, button { display: block; width: 100%; margin-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        img { width: 50px; height: auto; }
-        .actions button { margin-right: 5px; }
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
+<style>  <!-- Replaced Style Block -->
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffe2d7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            margin: 0;
+            color: #ffe2d7;
+            font-family: 'Merienda', cursive;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #888;
+            margin-top: 0.5rem;
+            font-family: 'Work Sans', sans-serif;
+        }
     </style>
 </head>
+</head>
 <body>
+ <header>  <!-- Added Header -->
+<h1>Vivid Lovely - Image Uploader</h1>  <!-- Changed h2 to h1 and updated text -->
+<h2>Upload and manage your gallery posts</h2>   <!-- Added h2 subtitle -->
+    </header>
     <h2>Add Image to Gallery</h2>
     <form id="uploadForm">
         <label for="token">GitHub Token:</label>
