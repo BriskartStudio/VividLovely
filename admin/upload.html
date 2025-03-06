@@ -497,14 +497,33 @@ async function replaceImage(oldFilename) {
                     });
                 }
 
-                // Update metadata
-                if (metadata[oldFilename]) {
-                    metadata[newFilename] = { ...metadata[oldFilename] }; // Copy metadata
-                    delete metadata[oldFilename]; // Remove old entry
-                    await updateMetadataFile();
+                // **Corrected Metadata Update Logic:**
+                let foundInMetadata = false;
+                // Search in 'live' array
+                for (let i = 0; i < metadata.live.length; i++) {
+                    if (metadata.live[i].filename === oldFilename) {
+                        metadata.live[i].filename = newFilename; // Update filename
+                        foundInMetadata = true;
+                        break; // Exit loop once found and updated
+                    }
+                }
+                if (!foundInMetadata) {
+                    // If not found in 'live', search in 'scheduled' array
+                    for (let i = 0; i < metadata.scheduled.length; i++) {
+                        if (metadata.scheduled[i].filename === oldFilename) {
+                            metadata.scheduled[i].filename = newFilename; // Update filename
+                            foundInMetadata = true;
+                            break; // Exit loop once found and updated
+                        }
+                    }
                 }
 
-                alert("Image replaced successfully!");
+                if (!foundInMetadata) {
+                    console.warn("Old filename not found in metadata to update."); // Log if not found
+                }
+
+                await updateMetadataFile(); // Save updated metadata
+                alert("Image replaced and metadata updated successfully!");
                 loadGallery();
             } catch (error) {
                 console.error("Error replacing image:", error);
