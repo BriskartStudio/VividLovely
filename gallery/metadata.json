@@ -1,230 +1,238 @@
 {
   "live": [
     {
-    "filename":"21B27C364DC1AAC0F3B2B421DD475C3AC5C6DB8879335D8A41C7B92621A13457.jpg",
-    "title": "More Celeste",
-    "order": 24,
-    "bio": "We should have known better. The preacher’s daughter, all sugar and sunshine, had already toyed with our self-control once. But Celeste isn’t the type to stop at just once.\n\nThis time, there’s no lace. No pretense. Just bare skin and those delicate hands barely covering what we can’t let ourselves stare at. She beams, positively wicked, as if daring us to look—daring us to sin. And dear heavens, the temptation is real.",
-    "quote": "Oops. Did these get out? How terrible. – Celeste",
-    "details": "Generated in Civit.ai, a variant of the Celeste set"
-  },
+      "filename": "W4QV9MB98MDKBG21TAH5WBSZV0.jpeg",
+      "title": "Rosie",
+      "bio": "Rosie Malloy, better known as \"Red\" to her regulars, runs The Lucky Pint, a dive bar tucked into a forgotten corner of Northam. Stocky, freckled, and full of mischief, she serves drinks with a wink, a wild tale, and the occasional barstool dance if the jukebox plays her song. Eccentric is an understatement—she collects odd trinkets, swears her pocket watch can predict last call, and has a habit of making bets that seem to defy all odds.\n\nDespite her wild reputation, those who know her best say Red’s antics are a cover for something deeper. She listens when people talk, remembers every secret whispered over a whiskey neat, and—if rumors are true—has connections to some of Northam’s less-than-legal dealings. The question is, is she in over her head, or playing a game only she knows the rules to?",
+      "quote": "\"Sweetheart, I don't pour drinks—I serve fortunes in a glass. Yours? Looks a little... messy.\"",
+      "details": "StableDiffusion/PonyXL",
+      "order": 35
+    },
     {
-  "filename":"2B25F867C63BAE62F870DB97F452C62D5A509CE586C13CECFABE203118838542.jpg",
-    "title": "Celeste at the Point of No Return",
-    "order": 25,
-    "bio": "Well, damn. We need a moment here. The preacher’s daughter offers a glimpse of heaven, and judging by the finger, she does not care for our opinion on the matter.\n\nMaybe she got tired of pretending. Maybe she’s every bit the wicked little angel Edgewood whispers about. She’s a sermon waiting to happen, a scandal in the making, and we doubt she gives a shit.",
-    "quote": "I spent my whole life being good. I think I deserve a refund. – Celeste",
-    "details": "A third variant of Celeste, courtesy Civit.ai remixes."
-  },
+      "filename": "W4DWTFTEW1SAEH7ZPG2E3KW7W0.jpeg",
+      "title": "Ms. Evelyn Graves",
+      "bio": "By day, Ms. Evelyn Graves presides over Northam’s grand public library, a vision among the towering bookshelves. By night? Well, let’s just say she has more than overdue novels tucked away in her archives. Evelyn doesn’t just collect books—she collects secrets. Affairs, betrayals, backroom deals—every whispered confession in Cascadia has a way of finding itself neatly cataloged in her private collection.\n\nShe’s the woman you go to when you need something… or when you need something buried. And if you’re smart, you’ll make sure you’re written into her good graces—because crossing her? That’s a story with a very unhappy ending.",
+      "quote": "\"Darling, I don’t deal in fiction. The truth is far more scandalous.\"",
+      "details": "Stable Diffusion/Smooth Mix - Illustrious | Pony",
+      "order": 34
+    },
     {
-  "filename":"3F5C80D46DAE8C2B480764CA0E8F3EAB5C210A07E75312D0DB5E09D77FDC018D.jpg",
-    "title": "Eve",
-    "order": 22,
-    "bio": "Bio for Eve",
-    "quote": "quote",
-    "details": "Details for Eve"
-  },
+      "filename": "642AB8D2F9EE8AD82F80F2DEC493842305ED8AB94998AC9FC914B15595A96889.jpeg",
+      "title": "Nami, the Drifting Phantom",
+      "bio": "Born for the depths, built for survival—Nami moves through the neon-drenched ruins like a ghost, her translucent skin shimmering under the city’s artificial lights. Her sleek, finned tail coils and flexes, made for slicing through water, but just as deadly on land. Cybernetic eyes glow softly, scanning, analyzing… judging.\n\nShe tilts her head at you, expression unreadable. “You wrap yourselves in fabric?” she muses, flicking a webbed hand dismissively. “How inefficient.” A smirk plays at her lips. “You landwalkers are so strange.” Then, with a flick of her tail, she’s gone—vanishing into the rain-slick darkness like she was never there.",
+      "quote": "Your world is dying. Mine already has. Adapt, or sink.\" – Nami, the Drifting Phantom",
+      "details": "StableDiffusion/PonyXL",
+      "order": 33
+    },
     {
-  "filename":"5DA33219D8767929C7E8AC130D6C296A0D07202E2F536A0B1C0A7F926098D991.jpg",
-    "title": "Celeste",
-    "order": 23,
-    "bio": "Edgewood adores Celeste Templeton. The preacher’s daughter, the darling of church bake sales, the picture of small-town grace. She volunteers, she sings, she smiles just the right way to make you forget your own name. But there’s something else in that smile, isn’t there?\n\nWhat's this though? This kind of move would send the church elders into a fit of righteous fury. And yet—she just laughs. A soft, teasing thing that left us wondering: does she even realize the chaos she leaves in her wake? Or does she revel in it?",
-    "quote": "Forgive me, Father. No, really—you're gonna have to. – Celeste",
-    "details": "A remix of some great Civit.ai images"
-  },
-  {
-  "filename":"5GPRSB21TSEZREGA40SH460CZ0.jpeg",
-    "title": "Aurora",
-    "order": 21,
-    "bio": "Bio for Aurora",
-    "quote": "quote",
-    "details": "Details for Aurora"
-  },
+      "filename": "910CT8V0C0C2EGV5E79SC8KHV0.jpeg",
+      "title": "Briala",
+      "bio": "If fairies were all sweetness and stardust, Briala would’ve been exiled ages ago. Barefoot, tattooed, and absolutely seething, she perches on a wooden stool, rings glinting as she drums impatient fingers against her knee. The air around her crackles with leftover magic—probably from the last idiot who thought they could outwit a fairy shaman.\n\nShe’s a healer, sure. A guide, even. But she’s also got a temper like summer lightning, and if you waste her time, you might just leave with more curses than cures. The elders whisper that she’s too wild, too defiant. Briala doesn’t care. She’ll keep dancing barefoot through the woods, keep binding spirits to her will, and keep reminding everyone exactly why fairies were feared long before they were ever loved.",
+      "quote": "\"I could help you. But honestly? I kinda don’t want to.\" – Briala/WAI-NSFW-illustrious-SDXL",
+      "details": "Generated using StableDiffusion/",
+      "order": 32
+    },
     {
-  "filename":"710FYCSXSJY8350VJZK6ZXEGK0.jpeg",
-    "title": "Roxie",
-    "order": 20,
-    "bio": "Bio for Roxie",
-    "quote": "quote",
-    "details": "Details for Roxie"
-  },
+      "filename": "BYVWE2V3C9PKMT0MCH9BE618N0.jpeg",
+      "title": "Zahara the Gilded",
+      "bio": "Zahara doesn’t sell goods—she sells desire. Draped across a pile of silk cushions, golden jewelry jingling with every lazy stretch, she watches would-be customers with a knowing smirk. The serpentine necklace resting against her collarbone almost seems to move in the torchlight, much like the schemes running through her mind.\n\nShe’s a merchant, sure—but coin alone won’t buy what she’s offering. Trade her something rare, something forbidden, and maybe—maybe—she’ll part with a treasure in return. The Pharaoh’s laws? A mere suggestion. The city guards? Too slow to catch her. She’s got nine lives and no patience for fools.\n\nYou want something precious? You want something dangerous? You’d best be ready to pay her price.",
+      "quote": "\"Gold is nice. Secrets are better.\" – Zahara the Gilded",
+      "details": "Stable Diffusion/WAI-ANI-NSFW-PONYXL model, made with Civit.ai",
+      "order": 31
+    },
     {
-  "filename":"A16F898F8C26C18AE0091F5BF05070A49A6D2957ED8C93A61C96437CAC3CB3CB.jpeg",
-    "title": "Sienna",
-    "order": 19,
-    "bio": "Bio for Sienna",
-    "quote": "quote",
-    "details": "Details for Sienna"
-  },
+      "filename": "MPETHWEAFQC7NEF1SWE0D9YAQ0.jpeg",
+      "title": "Inspector Veylani Dusk",
+      "bio": "Some detectives follow footprints. Veylani Dusk follows the gossip of the Arco Vity's lounges. Leaning back in a battered armchair, she idly rolls a glowing amulet between long fingers. The light refracts through sweat and silver, scattering fractured colors across the smoke-filled room.  She could be out chasing leads, but why bother? The guilty always come to him eventually—either for help or to try and silence her. She lives for the game, the chase, the moment someone realizes she’s already ten steps ahead.  Cynical? Of course. She’d call it realistic. But hey, if you’ve got a mystery, a pile of coin, and the patience to tolerate his sharp tongue, Veylani just might be the only one who can crack the case.",
+      "quote": "\"You’re lying. Badly. But please, keep talking—I do love a performance.\" – Inspector Veylan Dusk",
+      "details": "Generated using PonyXL/Stable Diffusion on Civit.ai",
+      "order": 30
+    },
     {
-  "filename":"ABD16C83E1CBDD9DD790CA32719FF86B6DAACE898ABDBE5B673D41DCAE76DE47.jpeg",
-    "title": "Freya",
-    "order": 18,
-    "bio": "Bio for Freya",
-    "quote": "quote",
-    "details": "Details for Freya"
-  },
+      "filename": "N9Y5XN89K2X2KXZ8CY4Y83DBB0.jpeg",
+      "title": "Dr. Selene Voss",
+      "bio": "Most scientists publish papers. Selene Voss? She prefers dramatic cosmic revelations. Kneeling before a glowing orb of unstable energy, she tilts her head, freckles catching the eerie light. “Huh,” she mutters. “That shouldn’t be happening.”\n\nThis is the fourth time she’s nearly rewritten physics this week. Officially, she’s a genius. Unofficially, she’s the reason half the research station has ‘Do Not Touch’ signs. Playfully sarcastic, effortlessly brilliant, and just a little too comfortable with reality-bending experiments—Selene may not have all the answers, but she’ll absolutely find them. Even if it means blowing something up first.",
+      "quote": "\"I don’t try to break the laws of physics. It just keeps happening.\" – Dr. Selene Voss",
+      "details": "Generated using PonyXL/Stable Diffusion on Civit.ai",
+      "order": 29
+    },
     {
-  "filename":"B1VBAQC6KPQ60TWSHJ0BVNCDB0.jpeg",
-    "title": "Delilah",
-    "order": 17,
-    "bio": "Bio for Delilah",
-    "quote": "quote",
-    "details": "Details for Delilah"
-  },
+      "filename": "2B25F867C63BAE62F870DB97F452C62D5A509CE586C13CECFABE203118838542.jpg",
+      "title": "Celeste at the Point of No Return",
+      "order": 25,
+      "bio": "Well, damn. We need a moment here. The preacher’s daughter offers a glimpse of heaven, and judging by the finger, she does not care for our opinion on the matter.\n\nMaybe she got tired of pretending. Maybe she’s every bit the wicked little angel Edgewood whispers about. She’s a sermon waiting to happen, a scandal in the making, and we doubt she gives a shit.",
+      "quote": "I spent my whole life being good. I think I deserve a refund. – Celeste",
+      "details": "A third variant of Celeste, courtesy Civit.ai remixes."
+    },
     {
-  "filename":"B908CB71BD4C16AC0F2B43A34B31BDAE030EFCD7CCEDF1C5E59A8E60D6FA438E.jpg",
-    "title": "Savannah",
-    "order": 16,
-    "bio": "Bio for Savannah",
-    "quote": "quote",
-    "details": "Details for Savannah"
-  },
+      "filename": "21B27C364DC1AAC0F3B2B421DD475C3AC5C6DB8879335D8A41C7B92621A13457.jpg",
+      "title": "More Celeste",
+      "order": 24,
+      "bio": "We should have known better. The preacher’s daughter, all sugar and sunshine, had already toyed with our self-control once. But Celeste isn’t the type to stop at just once.\n\nThis time, there’s no lace. No pretense. Just bare skin and those delicate hands barely covering what we can’t let ourselves stare at. She beams, positively wicked, as if daring us to look—daring us to sin. And dear heavens, the temptation is real.",
+      "quote": "Oops. Did these get out? How terrible. – Celeste",
+      "details": "Generated in Civit.ai, a variant of the Celeste set"
+    },
     {
-  "filename":"D2601D6A5CF42888FC9684BF31956296C9323D8036BEC2986017701AED263890.jpg",
-    "title": "Seraphina",
-    "order": 14,
-    "bio": "Bio for Seraphina",
-    "quote": "quote",
-    "details": "Details for Seraphina"
-  },
+      "filename": "5DA33219D8767929C7E8AC130D6C296A0D07202E2F536A0B1C0A7F926098D991.jpg",
+      "title": "Celeste",
+      "order": 23,
+      "bio": "Edgewood adores Celeste Templeton. The preacher’s daughter, the darling of church bake sales, the picture of small-town grace. She volunteers, she sings, she smiles just the right way to make you forget your own name. But there’s something else in that smile, isn’t there?\n\nWhat's this though? This kind of move would send the church elders into a fit of righteous fury. And yet—she just laughs. A soft, teasing thing that left us wondering: does she even realize the chaos she leaves in her wake? Or does she revel in it?",
+      "quote": "Forgive me, Father. No, really—you're gonna have to. – Celeste",
+      "details": "A remix of some great Civit.ai images"
+    },
     {
-  "filename":"D382ABE4ADFED51B495B8E8E0816F83C938FAC56207D813FC50C7D9419458B78.jpg",
-    "title": "Freya the Untamed Witch",
-    "order": 13,
-    "bio": "The forest bends to her will—roots twist, shadows dance, the wind itself carries her laughter. Freya doesn’t just live wild; she is wild. Mud-streaked skin, raven hair tangled with leaves, she wields her staff like an extension of herself, crackling with the kind of magic no book could ever teach.\n\nShe leans on it now, watching you with a wicked grin. “Lost, are you?” she muses, tilting her head. “Or just looking for trouble?” Either way, she doesn’t mind. Trouble is her favorite game.",
-    "quote": "\"Civilization makes you soft. I’d rather be dangerous.\" – Freya, the Untamed Witch",
-    "details": "Stable Diffusion/PonyXL"
-  },
+      "filename": "3F5C80D46DAE8C2B480764CA0E8F3EAB5C210A07E75312D0DB5E09D77FDC018D.jpg",
+      "title": "Eve",
+      "order": 22,
+      "bio": "Bio for Eve",
+      "quote": "quote",
+      "details": "Details for Eve"
+    },
     {
-  "filename":"DCXF9R0T75EPW381D27DGBK1E0.jpeg",
-    "title": "Lily",
-    "order": 12,
-    "bio": "Bio for Lily",
-    "quote": "quote",
-    "details": "Details for Lily"
-  },
+      "filename": "5GPRSB21TSEZREGA40SH460CZ0.jpeg",
+      "title": "Aurora",
+      "order": 21,
+      "bio": "Bio for Aurora",
+      "quote": "quote",
+      "details": "Details for Aurora"
+    },
     {
-  "filename":"DF39682D1286EFC06A0019BD29D627708DE9930F2D9A32521A053E0C1C757263.jpeg",
-    "title": "Amara",
-    "order": 11,
-    "bio": "Bio for Amara",
-    "quote": "quote",
-    "details": "Details for Amara"
-  },
+      "filename": "710FYCSXSJY8350VJZK6ZXEGK0.jpeg",
+      "title": "Roxie",
+      "order": 20,
+      "bio": "Bio for Roxie",
+      "quote": "quote",
+      "details": "Details for Roxie"
+    },
     {
-  "filename":"F4DDDEB1916D97848B97D84D7CC9CF14FC21AA508622A13D7015F758663F8914.jpg",
-    "title": "Wrecker",
-    "order": 9,
-    "bio": "Armor? Optional. Fists? Mandatory. Rhea stands in the war-torn streets, power gauntlets humming, boots planted like she dares someone to test her. Most of her plating? Gone. Doesn’t matter. She can tear through tanks with her bare hands—and if you’re stupid enough to stare, she just might start with you.\n\nShe rolls her shoulders, metal grinding against flesh. “Go on,” she smirks, flexing, “get your look. But if you’re not bringing me my chest plate or a bigger fight, I will get bored.” And trust me—you don’t want that.",
-    "quote": "\"I don’t need full armor to fuck you up. But you? You’re gonna need full coverage for the funeral.\" – Commander Rhea \"Wrecker\" Voss",
-    "details": "StableDiffusion/PonyXL"
-  },
+      "filename": "A16F898F8C26C18AE0091F5BF05070A49A6D2957ED8C93A61C96437CAC3CB3CB.jpeg",
+      "title": "Sienna",
+      "order": 19,
+      "bio": "Bio for Sienna",
+      "quote": "quote",
+      "details": "Details for Sienna"
+    },
     {
-  "filename":"F9B15649232F2C76CC15195B26FE66F9F1DB55DD1C9C8E7AC923F5397F3EBFEF.jpeg",
-    "title": "Nova",
-    "order": 8,
-    "bio": "Bio for Nova",
-    "quote": "quote",
-    "details": "Details for Nova"
-  },
+      "filename": "ABD16C83E1CBDD9DD790CA32719FF86B6DAACE898ABDBE5B673D41DCAE76DE47.jpeg",
+      "title": "Freya",
+      "order": 18,
+      "bio": "Bio for Freya",
+      "quote": "quote",
+      "details": "Details for Freya"
+    },
     {
-  "filename":"KQX7FCCEWEPEJ970KHK8RAHD30.jpeg",
-    "title": "Valeria",
-    "order": 7,
-    "bio": "Bio for Valeria",
-    "quote": "quote",
-    "details": "Details for Valeria"
-  },
+      "filename": "B1VBAQC6KPQ60TWSHJ0BVNCDB0.jpeg",
+      "title": "Delilah",
+      "order": 17,
+      "bio": "Bio for Delilah",
+      "quote": "quote",
+      "details": "Details for Delilah"
+    },
     {
-  "filename":"M011WH9EM0CX079KYAD05PZ620.jpeg",
-    "title": "Marina",
-    "order": 6,
-    "bio": "Bio for Marina",
-    "quote": "quote",
-    "details": "Details for Marina"
-  },
+      "filename": "B908CB71BD4C16AC0F2B43A34B31BDAE030EFCD7CCEDF1C5E59A8E60D6FA438E.jpg",
+      "title": "Savannah",
+      "order": 16,
+      "bio": "Bio for Savannah",
+      "quote": "quote",
+      "details": "Details for Savannah"
+    },
     {
-  "filename":"N52AP3681GFC214VTW8J42AZD0.jpeg",
-    "title": "Anastasia Wren",
-    "order": 5,
-    "bio": "We arrive at Wren Tower’s balcony just in time to witness Anastasia’s reemergence—a goddess rising from dark waters, moonlight kissing every curve. Red hair clings to bare shoulders, a smirk playing at her lips as she plucks a champagne flute from the waiting tray. “Care to join me?” she purrs, not bothering to cover herself. It’s not a question. It’s a dare.\n\nRumors swirl around the Wren heiress—power plays, boardroom conquests, lovers discarded like last season’s fashion—but she never confirms, never denies. She only watches, amused, as we struggle to maintain composure.",
-    "quote": "\"Everyone wants something from me. Power, money, influence. And some of them are even polite enough to ask first.\"",
-    "details": "Shamelessly ripped from Civit AI"
-  },
+      "filename": "D2601D6A5CF42888FC9684BF31956296C9323D8036BEC2986017701AED263890.jpg",
+      "title": "Seraphina",
+      "order": 14,
+      "bio": "Bio for Seraphina",
+      "quote": "quote",
+      "details": "Details for Seraphina"
+    },
     {
-  "filename":"Q6WF1XVK2JZ4D0W49A4EH7GCW0.jpeg",
-    "title": "Monroe",
-    "order": 4,
-    "bio": "Bio for Monroe",
-    "quote": "quote",
-    "details": "Details for Monroe"
-  },
+      "filename": "D382ABE4ADFED51B495B8E8E0816F83C938FAC56207D813FC50C7D9419458B78.jpg",
+      "title": "Freya the Untamed Witch",
+      "order": 13,
+      "bio": "The forest bends to her will—roots twist, shadows dance, the wind itself carries her laughter. Freya doesn’t just live wild; she is wild. Mud-streaked skin, raven hair tangled with leaves, she wields her staff like an extension of herself, crackling with the kind of magic no book could ever teach.\n\nShe leans on it now, watching you with a wicked grin. “Lost, are you?” she muses, tilting her head. “Or just looking for trouble?” Either way, she doesn’t mind. Trouble is her favorite game.",
+      "quote": "\"Civilization makes you soft. I’d rather be dangerous.\" – Freya, the Untamed Witch",
+      "details": "Stable Diffusion/PonyXL"
+    },
     {
-  "filename":"WMNAE4NP5H2QER0DPQ9KGV4NN0.jpeg",
-    "title": "Tabitha",
-    "order": 2,
-    "bio": "She does not wear power—she is power. Heir to the Dominus Empire, daughter of the Emperor himself, Tabitha Rae walks the palace halls draped in nothing but arrogance and jewels. Clothes? Beneath her. Decorum? A game for lesser creatures.\n\n\"You’re still here?\" she sighs, inspecting us like an insect under her heel. \"Fine. Look your fill. Then run along before I have you enslaved.\"\n\nA smirk. A flick of her wrist. Dismissed. And yet, we remain. Helpless. Bewitched.",
-    "quote": "Bow if you like. I won’t stop you. – Tabitha Rae",
-    "details": "Generated with Stable Diffusion in Civit.ai"
-  },
+      "filename": "DCXF9R0T75EPW381D27DGBK1E0.jpeg",
+      "title": "Lily",
+      "order": 12,
+      "bio": "Bio for Lily",
+      "quote": "quote",
+      "details": "Details for Lily"
+    },
     {
-  "filename":"N9Y5XN89K2X2KXZ8CY4Y83DBB0.jpeg",
-    "title": "Dr. Selene Voss",
-    "bio": "Most scientists publish papers. Selene Voss? She prefers dramatic cosmic revelations. Kneeling before a glowing orb of unstable energy, she tilts her head, freckles catching the eerie light. “Huh,” she mutters. “That shouldn’t be happening.”\n\nThis is the fourth time she’s nearly rewritten physics this week. Officially, she’s a genius. Unofficially, she’s the reason half the research station has ‘Do Not Touch’ signs. Playfully sarcastic, effortlessly brilliant, and just a little too comfortable with reality-bending experiments—Selene may not have all the answers, but she’ll absolutely find them. Even if it means blowing something up first.",
-    "quote": "\"I don’t try to break the laws of physics. It just keeps happening.\" – Dr. Selene Voss",
-    "details": "Generated using PonyXL/Stable Diffusion on Civit.ai",
-    "order": 29
-  },
+      "filename": "DF39682D1286EFC06A0019BD29D627708DE9930F2D9A32521A053E0C1C757263.jpeg",
+      "title": "Amara",
+      "order": 11,
+      "bio": "Bio for Amara",
+      "quote": "quote",
+      "details": "Details for Amara"
+    },
     {
-  "filename":"MPETHWEAFQC7NEF1SWE0D9YAQ0.jpeg",
-    "title": "Inspector Veylani Dusk",
-    "bio": "Some detectives follow footprints. Veylani Dusk follows the gossip of the Arco Vity's lounges. Leaning back in a battered armchair, she idly rolls a glowing amulet between long fingers. The light refracts through sweat and silver, scattering fractured colors across the smoke-filled room.  She could be out chasing leads, but why bother? The guilty always come to him eventually—either for help or to try and silence her. She lives for the game, the chase, the moment someone realizes she’s already ten steps ahead.  Cynical? Of course. She’d call it realistic. But hey, if you’ve got a mystery, a pile of coin, and the patience to tolerate his sharp tongue, Veylani just might be the only one who can crack the case.",
-    "quote": "\"You’re lying. Badly. But please, keep talking—I do love a performance.\" – Inspector Veylan Dusk",
-    "details": "Generated using PonyXL/Stable Diffusion on Civit.ai",
-    "order": 30
-  },
+      "filename": "F4DDDEB1916D97848B97D84D7CC9CF14FC21AA508622A13D7015F758663F8914.jpg",
+      "title": "Wrecker",
+      "order": 9,
+      "bio": "Armor? Optional. Fists? Mandatory. Rhea stands in the war-torn streets, power gauntlets humming, boots planted like she dares someone to test her. Most of her plating? Gone. Doesn’t matter. She can tear through tanks with her bare hands—and if you’re stupid enough to stare, she just might start with you.\n\nShe rolls her shoulders, metal grinding against flesh. “Go on,” she smirks, flexing, “get your look. But if you’re not bringing me my chest plate or a bigger fight, I will get bored.” And trust me—you don’t want that.",
+      "quote": "\"I don’t need full armor to fuck you up. But you? You’re gonna need full coverage for the funeral.\" – Commander Rhea \"Wrecker\" Voss",
+      "details": "StableDiffusion/PonyXL"
+    },
     {
-  "filename":"BYVWE2V3C9PKMT0MCH9BE618N0.jpeg",
-    "title": "Zahara the Gilded",
-    "bio": "Zahara doesn’t sell goods—she sells desire. Draped across a pile of silk cushions, golden jewelry jingling with every lazy stretch, she watches would-be customers with a knowing smirk. The serpentine necklace resting against her collarbone almost seems to move in the torchlight, much like the schemes running through her mind.\n\nShe’s a merchant, sure—but coin alone won’t buy what she’s offering. Trade her something rare, something forbidden, and maybe—maybe—she’ll part with a treasure in return. The Pharaoh’s laws? A mere suggestion. The city guards? Too slow to catch her. She’s got nine lives and no patience for fools.\n\nYou want something precious? You want something dangerous? You’d best be ready to pay her price.",
-    "quote": "\"Gold is nice. Secrets are better.\" – Zahara the Gilded",
-    "details": "Stable Diffusion/WAI-ANI-NSFW-PONYXL model, made with Civit.ai",
-    "order": 31
-  },
+      "filename": "F9B15649232F2C76CC15195B26FE66F9F1DB55DD1C9C8E7AC923F5397F3EBFEF.jpeg",
+      "title": "Nova",
+      "order": 8,
+      "bio": "Bio for Nova",
+      "quote": "quote",
+      "details": "Details for Nova"
+    },
     {
-  "filename":"910CT8V0C0C2EGV5E79SC8KHV0.jpeg",
-    "title": "Briala",
-    "bio": "If fairies were all sweetness and stardust, Briala would’ve been exiled ages ago. Barefoot, tattooed, and absolutely seething, she perches on a wooden stool, rings glinting as she drums impatient fingers against her knee. The air around her crackles with leftover magic—probably from the last idiot who thought they could outwit a fairy shaman.\n\nShe’s a healer, sure. A guide, even. But she’s also got a temper like summer lightning, and if you waste her time, you might just leave with more curses than cures. The elders whisper that she’s too wild, too defiant. Briala doesn’t care. She’ll keep dancing barefoot through the woods, keep binding spirits to her will, and keep reminding everyone exactly why fairies were feared long before they were ever loved.",
-    "quote": "\"I could help you. But honestly? I kinda don’t want to.\" – Briala/WAI-NSFW-illustrious-SDXL",
-    "details": "Generated using StableDiffusion/",
-    "order": 32
-  },
+      "filename": "KQX7FCCEWEPEJ970KHK8RAHD30.jpeg",
+      "title": "Valeria",
+      "order": 7,
+      "bio": "Bio for Valeria",
+      "quote": "quote",
+      "details": "Details for Valeria"
+    },
     {
-  "filename":"642AB8D2F9EE8AD82F80F2DEC493842305ED8AB94998AC9FC914B15595A96889.jpeg",
-    "title": "Nami, the Drifting Phantom",
-    "bio": "Born for the depths, built for survival—Nami moves through the neon-drenched ruins like a ghost, her translucent skin shimmering under the city’s artificial lights. Her sleek, finned tail coils and flexes, made for slicing through water, but just as deadly on land. Cybernetic eyes glow softly, scanning, analyzing… judging.\n\nShe tilts her head at you, expression unreadable. “You wrap yourselves in fabric?” she muses, flicking a webbed hand dismissively. “How inefficient.” A smirk plays at her lips. “You landwalkers are so strange.” Then, with a flick of her tail, she’s gone—vanishing into the rain-slick darkness like she was never there.",
-    "quote": "Your world is dying. Mine already has. Adapt, or sink.\" – Nami, the Drifting Phantom",
-    "details": "StableDiffusion/PonyXL",
-    "order": 33
-  },
+      "filename": "M011WH9EM0CX079KYAD05PZ620.jpeg",
+      "title": "Marina",
+      "order": 6,
+      "bio": "Bio for Marina",
+      "quote": "quote",
+      "details": "Details for Marina"
+    },
     {
-  "filename":"W4DWTFTEW1SAEH7ZPG2E3KW7W0.jpeg",
-    "title": "Ms. Evelyn Graves",
-    "bio": "By day, Ms. Evelyn Graves presides over Northam’s grand public library, a vision among the towering bookshelves. By night? Well, let’s just say she has more than overdue novels tucked away in her archives. Evelyn doesn’t just collect books—she collects secrets. Affairs, betrayals, backroom deals—every whispered confession in Cascadia has a way of finding itself neatly cataloged in her private collection.\n\nShe’s the woman you go to when you need something… or when you need something buried. And if you’re smart, you’ll make sure you’re written into her good graces—because crossing her? That’s a story with a very unhappy ending.",
-    "quote": "\"Darling, I don’t deal in fiction. The truth is far more scandalous.\"",
-    "details": "Stable Diffusion/Smooth Mix - Illustrious | Pony",
-    "order": 34
-  },
+      "filename": "N52AP3681GFC214VTW8J42AZD0.jpeg",
+      "title": "Anastasia Wren",
+      "order": 5,
+      "bio": "We arrive at Wren Tower’s balcony just in time to witness Anastasia’s reemergence—a goddess rising from dark waters, moonlight kissing every curve. Red hair clings to bare shoulders, a smirk playing at her lips as she plucks a champagne flute from the waiting tray. “Care to join me?” she purrs, not bothering to cover herself. It’s not a question. It’s a dare.\n\nRumors swirl around the Wren heiress—power plays, boardroom conquests, lovers discarded like last season’s fashion—but she never confirms, never denies. She only watches, amused, as we struggle to maintain composure.",
+      "quote": "\"Everyone wants something from me. Power, money, influence. And some of them are even polite enough to ask first.\"",
+      "details": "Shamelessly ripped from Civit AI"
+    },
     {
-  "filename":"W4QV9MB98MDKBG21TAH5WBSZV0.jpeg",
-    "title": "Rosie",
-    "bio": "Rosie Malloy, better known as \"Red\" to her regulars, runs The Lucky Pint, a dive bar tucked into a forgotten corner of Northam. Stocky, freckled, and full of mischief, she serves drinks with a wink, a wild tale, and the occasional barstool dance if the jukebox plays her song. Eccentric is an understatement—she collects odd trinkets, swears her pocket watch can predict last call, and has a habit of making bets that seem to defy all odds.\n\nDespite her wild reputation, those who know her best say Red’s antics are a cover for something deeper. She listens when people talk, remembers every secret whispered over a whiskey neat, and—if rumors are true—has connections to some of Northam’s less-than-legal dealings. The question is, is she in over her head, or playing a game only she knows the rules to?",
-    "quote": "\"Sweetheart, I don't pour drinks—I serve fortunes in a glass. Yours? Looks a little... messy.\"",
-    "details": "StableDiffusion/PonyXL",
-    "order": 35
-  }
-],
+      "filename": "Q6WF1XVK2JZ4D0W49A4EH7GCW0.jpeg",
+      "title": "Monroe",
+      "order": 4,
+      "bio": "Bio for Monroe",
+      "quote": "quote",
+      "details": "Details for Monroe"
+    },
+    {
+      "filename": "WMNAE4NP5H2QER0DPQ9KGV4NN0.jpeg",
+      "title": "Tabitha",
+      "order": 2,
+      "bio": "She does not wear power—she is power. Heir to the Dominus Empire, daughter of the Emperor himself, Tabitha Rae walks the palace halls draped in nothing but arrogance and jewels. Clothes? Beneath her. Decorum? A game for lesser creatures.\n\n\"You’re still here?\" she sighs, inspecting us like an insect under her heel. \"Fine. Look your fill. Then run along before I have you enslaved.\"\n\nA smirk. A flick of her wrist. Dismissed. And yet, we remain. Helpless. Bewitched.",
+      "quote": "Bow if you like. I won’t stop you. – Tabitha Rae",
+      "details": "Generated with Stable Diffusion in Civit.ai"
+    },
+    {
+      "filename": "Q691G9CCXVEY2YKSFKZK4274X0.jpeg",
+      "title": "Ruby Red",
+      "bio": "We found Ruby Dalton knee-deep in a muddy creek, her sun-bronzed skin slick with sweat, tattoos peeking out from under her half-buttoned shirt. She leaned against a rock, spreading a crumpled old map over her thigh, lips twisted in a mischievous grin.\n\nShe told us she'd just escaped a band of outlaws—by jumping off a cliff into the river below. Her laugh was wild, unrestrained, like everything else about her. Ruby’s the kind of woman who steals hearts as easily as she swipes relics from dusty tombs. And she’ll leave you just as breathless, too.",
+      "quote": "\"Sweetheart, if you’re gonna keep up, you’d better learn how to get a little dirty.\"",
+      "details": "Generated using Flux on Civitai",
+      "order": 29
+    }
+  ],
   "scheduled": [
     {
       "filename": "",
