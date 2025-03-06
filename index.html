@@ -265,9 +265,10 @@ document.addEventListener("DOMContentLoaded", function() {
         let imageList = [];
 
     function openLightbox(imageUrl, metadata, index) {
-        currentImageIndex = index;
-        document.getElementById('lightbox-img').src = imageUrl;
-    
+       currentImageIndex = index;
+       const lightboxImg = document.getElementById('lightbox-img'); // Get lightbox image element
+       lightboxImg.src = imageUrl;
+        
         // Format the bio with paragraph breaks
         const bioText = metadata?.bio || 'No bio available.';
         const formattedBio = bioText
@@ -286,13 +287,23 @@ document.addEventListener("DOMContentLoaded", function() {
             ${quoteText}
             ${detailsText}
         `;
-    
+              // Add event listeners to the lightbox image element
+        lightboxImg.addEventListener('mousemove', handleLightboxMouseMove);
+        lightboxImg.addEventListener('mouseleave', handleLightboxMouseLeave);
+
         document.getElementById('lightbox').style.display = 'flex';
     }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
+
+function closeLightbox() {
+    const lightboxImg = document.getElementById('lightbox-img'); // Get lightbox image element
+    // Remove event listeners from the lightbox image
+    lightboxImg.removeEventListener('mousemove', handleLightboxMouseMove);
+    lightboxImg.removeEventListener('mouseleave', handleLightboxMouseLeave);
+
+    document.getElementById('lightbox').style.display = 'none';
+}
+      
 function navigateLightbox(direction) {
     currentImageIndex += direction;
 
@@ -328,6 +339,30 @@ function navigateLightbox(direction) {
                 return {};
             }
         }
+
+      const tiltStrength = 15; // Adjust for tilt intensity
+const shineStrength = 0.5; // Adjust for shine intensity
+
+function handleLightboxMouseMove(event) {
+    const lightboxImg = event.currentTarget; // Event target is now lightbox image
+    const rect = lightboxImg.getBoundingClientRect(); // Get bounding rect of lightbox image
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const mouseX = event.clientX - centerX;
+    const mouseY = event.clientY - centerY;
+
+    const tiltX = (mouseY / (rect.height / 2)) * tiltStrength;
+    const tiltY = (mouseX / (rect.width / 2)) * tiltStrength;
+
+    lightboxImg.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
+    lightboxImg.style.boxShadow = `0 ${Math.abs(tiltY/3)}px ${Math.abs(tiltY/3) + 5}px rgba(255, 226, 215, ${shineStrength})`; // Example shine effect
+}
+
+function handleLightboxMouseLeave(event) {
+    const lightboxImg = event.currentTarget; // Event target is now lightbox image
+    lightboxImg.style.transform = `perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)`; // Reset tilt
+    lightboxImg.style.boxShadow = 'none'; // Remove shine on mouse leave
+}
 
 async function fetchImages() {
     try {
