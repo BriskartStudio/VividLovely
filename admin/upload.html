@@ -15,7 +15,25 @@
             margin: auto; 
             padding: 20px; }
         
-        label, input, textarea, { background-color: #5F6061;display: block; width: 100%; margin-bottom: 10px; }
+        /* Ensure labels, inputs, textareas are full width and block elements */
+    label, input, textarea {
+        display: block;        /* Make them block-level elements */
+        width: 100%;           /* Ensure they take up full width of container */
+        margin-bottom: 10px;    /* Keep margin for vertical spacing */
+    }
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        input[type="date"],
+        textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #282828; /* Slightly lighter grey */
+            color: #ffe2d7;
+            font-family: 'Work Sans', sans-serif;
+        }
+        
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 0.5px solid #5F6061; padding: 8px; text-align: left; }
         img { width: 50px; height: auto; }
