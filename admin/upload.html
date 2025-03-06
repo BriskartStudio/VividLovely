@@ -369,7 +369,7 @@ async function deleteImage(filename) {
     } catch (error) {
         console.error("Error deleting image:", error);
         alert("An error occurred while deleting the image.");
-    }
+    };
 }
 
       
@@ -421,7 +421,7 @@ async function updateMetadataFile() {
             document.getElementById('imageQuote').value = quote || "";  // Prevent undefined
             document.getElementById('imageDetails').value = details || "";
             editingFilename = filename;
-        }
+        };
 
 
 async function replaceImage(oldFilename) {
