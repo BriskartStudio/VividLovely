@@ -193,6 +193,8 @@ document.addEventListener("DOMContentLoaded", function() {
             flex-grow: 1;
             border-radius: 20px; /* Adjust for a softer or sharper curve */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Optional: adds depth */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* move back to position*/
+}
         }
         
         .lightbox-panel {
@@ -340,7 +342,7 @@ function navigateLightbox(direction) {
             }
         }
 
-      const tiltStrength = 2; // Adjust for tilt intensity
+      const tiltStrength = 1; // Adjust for tilt intensity
 const shineStrength = 0.2; // Adjust for shine intensity
 
 function handleLightboxMouseMove(event) {
