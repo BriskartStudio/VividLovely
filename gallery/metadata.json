@@ -251,6 +251,15 @@
       "details": "StableDiffusion/Pony Diffusion V6 XL via Civitai",
       "order": 31,
       "scheduled_date": "2025-03-08"
+    },
+    {
+      "filename": "XHGYCM3H5A1HNJF0WGN2AP7KP0.jpg",
+      "title": "Charlie",
+      "bio": "Charlie’ Quinn's got the kind of fire that makes you think twice before getting too close. A redhead with a sharp tongue and a quicker fist, she’s all attitude and no apologies. \n\nShe’s got more experience with MMA than most people have with dinner, and she’s not afraid to put that to good use when someone crosses her path. Northam’s dark corners are her home, where the city's seedy nightlife is more familiar than the daylight. You could try to mess with her... but you’ll only learn the hard way why people around here know better than to get on her bad side.",
+      "quote": "\"You wanna start something? Better make sure you can finish it. ‘Cause I always do.\"",
+      "details": "StableDiffusion/PonyXL, with thanks to Incase because this LoRA is trained on his art. Go check him out.",
+      "order": 31,
+      "scheduled_date": "2025-03-09"
     }
   ]
 }
