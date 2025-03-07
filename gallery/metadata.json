@@ -70,7 +70,7 @@
       "bio": "Vexa-9 doesn’t do subtle. She doesn’t do gentle, either. She’s all cybernetic curves and wicked grins, stretched out on a cluttered workbench like she owns the place—because she does. One hand idly twirls a lock of shimmering hair, the other taps against a glowing spellbook, flipping between formulas that could rewrite your nervous system or just make you beg for more.\n\n“Alchemy’s about transformation,” she purrs, stretching like a cat. “And, baby, I can change you.” Her cybernetic fingers trail over the pages, leaving a faint glow, then tap against her lips like she’s debating something. “Enhancements. Potions. Pheromones. Synthetic nerve boosters. You want to feel everything? I can brew that.”",
       "quote": "\"Someone has to clean up after Tentaculus escapes. Guess it's me again\"",
       "details": "Civitai generation using SD/PonyXL",
-      "order": 30,
+      "order": 39,
       "scheduled_date": "2025-03-07"
     },
     {
@@ -249,7 +249,7 @@
       "bio": "If the trees could talk, they’d whisper Zuri's name. A shadow in the woods, a hunter of both beast and man, she’s as elusive as the moonlight that dances on the leaves. With violet eyes that pierce through the darkest nights, her braided hair flows like a whisper through the trees.\n\nZuri's as much a part of the forest as the roots beneath her feet. Ranger by trade, assassin by necessity. She's got no time for small talk—her arrows do the talking, and they never miss.\n\nEver the enigma, she only trusts the wind and the trees, but something about that smirk makes it feel like you might be on her radar... and you’re probably on the menu, too.",
       "quote": "\"The forest speaks in silence. If you listen closely enough, you’ll hear its warning... or its invitation.\"",
       "details": "StableDiffusion/Pony Diffusion V6 XL via Civitai",
-      "order": 31,
+      "order": 40,
       "scheduled_date": "2025-03-08"
     },
     {
@@ -258,7 +258,7 @@
       "bio": "Charlie’ Quinn's got the kind of fire that makes you think twice before getting too close. A redhead with a sharp tongue and a quicker fist, she’s all attitude and no apologies. \n\nShe’s got more experience with MMA than most people have with dinner, and she’s not afraid to put that to good use when someone crosses her path. Northam’s dark corners are her home, where the city's seedy nightlife is more familiar than the daylight. You could try to mess with her... but you’ll only learn the hard way why people around here know better than to get on her bad side.",
       "quote": "\"You wanna start something? Better make sure you can finish it. ‘Cause I always do.\"",
       "details": "StableDiffusion/PonyXL, with thanks to Incase because this LoRA is trained on his art. Go check him out.",
-      "order": 31,
+      "order": 41,
       "scheduled_date": "2025-03-09"
     }
   ]
