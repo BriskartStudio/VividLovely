@@ -316,55 +316,72 @@ async function updateMetadata() {
     };
 }
         
-        async function uploadNewEntry(isLive) {
-            const token = localStorage.getItem('githubToken');
-            const fileInput = document.getElementById('imageFile');
-            const file = fileInput.files[0];
-            if (!file) { alert("Please select an image."); return; }
+async function uploadNewEntry(isLive) {
+    const token = localStorage.getItem('githubToken');
+    const fileInput = document.getElementById('imageFile');
+    const file = fileInput.files[0];
+    if (!file) { alert("Please select an image."); return; }
 
-            const title = document.getElementById('imageName').value.trim();
-            const bio = document.getElementById('imageBio').value.trim();
-            const quote = document.getElementById('imageQuote').value.trim();
-            const details = document.getElementById('imageDetails').value.trim();
-            const scheduledDate = document.getElementById('scheduledDate').value;
+    const title = document.getElementById('imageName').value.trim();
+    const bio = document.getElementById('imageBio').value.trim();
+    const quote = document.getElementById('imageQuote').value.trim();
+    const details = document.getElementById('imageDetails').value.trim();
+    const scheduledDate = document.getElementById('scheduledDate').value;
 
-            if (!title || !bio) { alert("Please fill in the title and bio."); return; }
-            if (!isLive && !scheduledDate) { alert("Please select a schedule date."); return; }
+    if (!title || !bio) { alert("Please fill in the title and bio."); return; }
+    if (!isLive && !scheduledDate) { alert("Please select a schedule date."); return; }
 
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async function () {
-                const base64Data = reader.result.split(',')[1];
-                const filename = file.name.replace(/\s+/g, "_");
-                const filePath = `gallery/${filename}`;
-                const uploadUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async function () {
+        const base64Data = reader.result.split(',')[1];
+        const filename = file.name.replace(/\s+/g, "_");
+        const filePath = `gallery/${filename}`;
+        const uploadUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 
-                try {
-                    const uploadResponse = await fetch(uploadUrl, {
-                        method: "PUT",
-                        headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
-                        body: JSON.stringify({ message: `Uploaded ${filename}`, content: base64Data, branch: branch })
-                    });
+        try {
+            const uploadResponse = await fetch(uploadUrl, {
+                method: "PUT",
+                headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: `Uploaded ${filename}`, content: base64Data, branch: branch })
+            });
 
-                    if (!uploadResponse.ok) { alert("Image upload failed."); return; }
+            if (!uploadResponse.ok) { alert("Image upload failed."); return; }
 
-                    const newEntry = {
-                        filename,
-                        title,
-                        bio,
-                        quote,
-                        details,
-                        order: Object.keys(metadata.live).length + 1,
-                    };
-                    if (isLive) { metadata.live.push(newEntry); }
-                    else { metadata.scheduled.push({ ...newEntry, scheduled_date: scheduledDate }); }
+            let nextOrder = 1; // Default order if no posts exist yet
 
-                    await updateMetadataFile();
-                    alert(isLive ? "Posted Live!" : "Scheduled Successfully!");
-                    loadGallery();
-                } catch (error) { console.error("Upload Error:", error); }
+            // Find the maximum order in both live and scheduled posts
+            let maxLiveOrder = 0;
+            if (metadata.live.length > 0) {
+                maxLiveOrder = metadata.live.reduce((max, post) => (post.order > max ? post.order : max), 0);
+            }
+
+            let maxScheduledOrder = 0;
+            if (metadata.scheduled.length > 0) {
+                maxScheduledOrder = metadata.scheduled.reduce((max, post) => (post.order > max ? post.order : max), 0);
+            }
+
+            const overallMaxOrder = Math.max(maxLiveOrder, maxScheduledOrder); // Get the overall maximum
+            nextOrder = overallMaxOrder + 1; // Increment the overall maximum
+
+
+            const newEntry = {
+                filename,
+                title,
+                bio,
+                quote,
+                details,
+                order: nextOrder, // Use the calculated nextOrder
             };
-        }
+            if (isLive) { metadata.live.push(newEntry); }
+            else { metadata.scheduled.push({ ...newEntry, scheduled_date: scheduledDate }); }
+
+            await updateMetadataFile();
+            alert(isLive ? "Posted Live!" : "Scheduled Successfully!");
+            loadGallery();
+        } catch (error) { console.error("Upload Error:", error); }
+    };
+}
     
 async function deleteImage(filename) {
     const token = localStorage.getItem('githubToken');
