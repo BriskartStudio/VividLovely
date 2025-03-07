@@ -242,5 +242,15 @@
       "details": "Generated with Stable Diffusion in Civit.ai"
     }
   ],
-  "scheduled": []
+  "scheduled": [
+    {
+      "filename": "RADFATE9RH7MTATG79W2FD8NZ0.jpg",
+      "title": "Zuri",
+      "bio": "If the trees could talk, they’d whisper Zuri's name. A shadow in the woods, a hunter of both beast and man, she’s as elusive as the moonlight that dances on the leaves. With violet eyes that pierce through the darkest nights, her braided hair flows like a whisper through the trees.\n\nZuri's as much a part of the forest as the roots beneath her feet. Ranger by trade, assassin by necessity. She's got no time for small talk—her arrows do the talking, and they never miss.\n\nEver the enigma, she only trusts the wind and the trees, but something about that smirk makes it feel like you might be on her radar... and you’re probably on the menu, too.",
+      "quote": "\"The forest speaks in silence. If you listen closely enough, you’ll hear its warning... or its invitation.\"",
+      "details": "StableDiffusion/Pony Diffusion V6 XL via Civitai",
+      "order": 31,
+      "scheduled_date": "2025-03-08"
+    }
+  ]
 }
