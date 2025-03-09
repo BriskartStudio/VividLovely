@@ -249,9 +249,7 @@
             "details": "StableDiffusion/Pony Diffusion V6 XL via Civitai",
             "order": 40,
             "scheduled_date": "2025-03-08"
-        }
-    ],
-    "scheduled": [
+        },
         {
             "filename": "XHGYCM3H5A1HNJF0WGN2AP7KP0.jpg",
             "title": "Charlie",
@@ -260,7 +258,9 @@
             "details": "StableDiffusion/PonyXL, with thanks to Incase because this LoRA is trained on his art. Go check him out.",
             "order": 41,
             "scheduled_date": "2025-03-09"
-        },
+        }
+    ],
+    "scheduled": [
         {
             "filename": "R6MGM20N0K79DHE9XAY5FY6YN0.jpg",
             "title": "Shiro",
