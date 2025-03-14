@@ -182,11 +182,11 @@
     },
     {
       "filename": "63042004.jpeg",
-      "title": "Savannah",
+      "title": "Kaion",
       "order": 16,
-      "bio": "Bio for Savannah",
-      "quote": "quote",
-      "details": "Details for Savannah"
+      "bio": "Training to be a Dominus Empire Spectre is tough, but it has its advantages. Kaion Trask gets to wear the Spectre skinsuit—a seamless, form-fitting second skin of bleeding-edge tech that enhances strength, speed, and, more importantly, leaves absolutely nothing to the imagination. Every contour of her athletic frame is sculpted in obsidian polymer, her every movement a study in lethal grace.\n\nShe stands at attention, gaze sharp, unreadable. The Empire demands perfection. Kaion delivers.",
+      "quote": "\"You think the suit’s impressive? Watch what I can do without it.\"",
+      "details": "StableDiffusion/PonyXL, CSR style LoRA"
     },
     {
       "filename": "Q79XCMG853QFRN2K1GHBN4CW50.jpeg",
